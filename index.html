@@ -3,62 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recepcionista AI — Tu negocio abierto 24/7 | A2K Digital Studio</title>
-<meta name="description" content="Bot de WhatsApp + Voz con Inteligencia Artificial para tu negocio. Atiende clientes 24/7, agenda citas y responde preguntas automáticamente.">
+<title>Receptionist AI — Your business open 24/7 | A2K Digital Studio</title>
+<meta name="description" content="AI WhatsApp + Voice Bot for your business. Answers clients 24/7, books appointments, responds automatically.">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#06060f;
-  --bg2:#0d0d1a;
-  --bg3:#131325;
-  --card:#0f0f1e;
-  --border:rgba(124,58,237,0.2);
-  --border2:rgba(124,58,237,0.4);
-  --accent:#7c3aed;
-  --accent2:#9d5bf4;
-  --neon:#06d6a0;
-  --neon2:#00f5c3;
-  --warn:#f59e0b;
-  --danger:#ef4444;
-  --text:#e8e8f4;
-  --text2:#8888aa;
-  --text3:#44445a;
-  --display:'Syne',sans-serif;
-  --body:'DM Sans',sans-serif;
-  --mono:'JetBrains Mono',monospace;
-  --radius:16px;
-  --shadow:0 20px 60px rgba(124,58,237,0.15);
+  --bg:#06060f;--bg2:#0d0d1a;--bg3:#131325;--card:#0f0f1e;
+  --border:rgba(124,58,237,0.2);--border2:rgba(124,58,237,0.4);
+  --accent:#7c3aed;--accent2:#9d5bf4;--neon:#06d6a0;--neonb:#3b82f6;
+  --warn:#f59e0b;--danger:#ef4444;--success:#10b981;
+  --text:#e8e8f4;--text2:#8888aa;--text3:#44445a;
+  --display:'Syne',sans-serif;--body:'DM Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+  --radius:16px;--shadow:0 20px 60px rgba(124,58,237,0.15);
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg2)}
-::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
-
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,6,15,0.85);border-bottom:1px solid var(--border)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,6,15,0.85);border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
 .nav-logo{font-family:var(--display);font-size:20px;font-weight:900;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
 .nav-logo span{background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-badge{background:var(--accent);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;font-family:var(--mono);letter-spacing:.5px}
-.nav-cta{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;padding:10px 22px;font-family:var(--display);font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s}
-.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
-.nav-links{display:flex;align-items:center;gap:28px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-links{display:flex;align-items:center;gap:24px}
 .nav-links a{color:var(--text2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
+/* LANG TOGGLE */
+.lang-btn{display:flex;align-items:center;gap:0;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;overflow:hidden;flex-shrink:0}
+.lang-opt{padding:7px 12px;font-size:12px;font-weight:800;font-family:var(--mono);cursor:pointer;transition:all .2s;color:var(--text3);border:none;background:transparent;letter-spacing:.5px}
+.lang-opt.active{background:var(--accent);color:#fff}
+.nav-cta{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:10px;padding:10px 20px;font-family:var(--display);font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s;white-space:nowrap}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
 
-/* ── HERO ── */
+/* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(124,58,237,0.15) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(6,214,160,0.08) 0%,transparent 70%);pointer-events:none}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);border-radius:30px;padding:6px 16px;font-size:13px;color:var(--accent2);font-weight:600;margin-bottom:28px;letter-spacing:.3px}
-.hero-tag-dot{width:8px;height:8px;border-radius:50%;background:var(--neon);animation:pulse 2s infinite}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:var(--neon);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 .hero h1{font-family:var(--display);font-size:clamp(40px,7vw,80px);font-weight:900;line-height:1.05;margin-bottom:20px;letter-spacing:-1px}
-.hero h1 .g1{background:linear-gradient(135deg,#fff,rgba(255,255,255,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero h1 .g2{background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.g1{background:linear-gradient(135deg,#fff,rgba(255,255,255,.8));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.g2{background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero-sub{font-size:clamp(16px,2.5vw,20px);color:var(--text2);max-width:600px;margin:0 auto 40px;line-height:1.7}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:60px}
 .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:12px;padding:16px 32px;font-family:var(--display);font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s;box-shadow:0 8px 30px rgba(124,58,237,0.35)}
@@ -66,31 +53,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:f
 .btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--border2);border-radius:12px;padding:15px 32px;font-family:var(--display);font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent2);background:rgba(124,58,237,0.08)}
 .hero-stats{display:flex;gap:40px;flex-wrap:wrap;justify-content:center}
-.hero-stat{text-align:center}
 .hero-stat-n{font-family:var(--display);font-size:36px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero-stat-l{font-size:13px;color:var(--text2);font-weight:500}
 
-/* ── PAIN SECTION ── */
-.pain{padding:80px 24px;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
-.pain-inner{max-width:900px;margin:0 auto;text-align:center}
-.section-tag{display:inline-block;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:30px;padding:5px 14px;font-size:12px;color:#ef4444;font-weight:700;letter-spacing:.5px;margin-bottom:16px;text-transform:uppercase}
-.section-tag.green{background:rgba(6,214,160,0.1);border-color:rgba(6,214,160,0.3);color:var(--neon)}
-.section-tag.purple{background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.3);color:var(--accent2)}
-.section-tag.warn{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:var(--warn)}
+/* SECTIONS */
+.section-tag{display:inline-block;border-radius:30px;padding:5px 14px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:16px;text-transform:uppercase}
+.section-tag.red{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444}
+.section-tag.green{background:rgba(6,214,160,0.1);border:1px solid rgba(6,214,160,0.3);color:var(--neon)}
+.section-tag.purple{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);color:var(--accent2)}
+.section-tag.warn{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:var(--warn)}
 .section-title{font-family:var(--display);font-size:clamp(28px,4vw,46px);font-weight:900;margin-bottom:16px;line-height:1.1}
 .section-sub{color:var(--text2);font-size:17px;max-width:600px;margin:0 auto 50px;line-height:1.7}
+
+/* PAIN */
+.pain{padding:80px 24px;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);text-align:center}
+.pain-inner{max-width:900px;margin:0 auto}
 .pain-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:40px}
 .pain-card{background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:var(--radius);padding:24px;text-align:left;transition:transform .2s}
 .pain-card:hover{transform:translateY(-3px)}
 .pain-icon{font-size:32px;margin-bottom:12px}
-.pain-card h3{font-family:var(--display);font-size:17px;font-weight:800;margin-bottom:8px;color:#fff}
+.pain-card h3{font-family:var(--display);font-size:17px;font-weight:800;margin-bottom:8px}
 .pain-card p{font-size:14px;color:var(--text2);line-height:1.6}
 .pain-cost{display:inline-block;background:rgba(239,68,68,0.15);color:#ef4444;font-family:var(--mono);font-size:12px;font-weight:700;padding:3px 10px;border-radius:6px;margin-top:10px}
 
-/* ── HOW IT WORKS ── */
-.how{padding:80px 24px;background:var(--bg2)}
-.how-inner{max-width:1000px;margin:0 auto;text-align:center}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:50px;position:relative}
+/* HOW */
+.how{padding:80px 24px;background:var(--bg2);text-align:center}
+.how-inner{max-width:1000px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:50px}
 .step{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:30px 24px;text-align:left;position:relative;transition:border-color .2s,transform .2s}
 .step:hover{border-color:var(--accent);transform:translateY(-4px)}
 .step-num{font-family:var(--display);font-size:48px;font-weight:900;color:rgba(124,58,237,0.15);position:absolute;top:16px;right:20px;line-height:1}
@@ -99,9 +88,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:f
 .step p{font-size:14px;color:var(--text2);line-height:1.7}
 .step-time{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:12px;color:var(--neon);font-weight:700;font-family:var(--mono)}
 
-/* ── FEATURES ── */
-.features{padding:80px 24px;background:var(--bg)}
-.features-inner{max-width:1100px;margin:0 auto;text-align:center}
+/* FEATURES */
+.features{padding:80px 24px;background:var(--bg);text-align:center}
+.features-inner{max-width:1100px;margin:0 auto}
 .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:50px}
 .feat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;text-align:left;transition:all .2s;position:relative;overflow:hidden}
 .feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--neon))}
@@ -113,11 +102,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:f
 .feat-list li{font-size:13px;color:var(--text2);display:flex;align-items:flex-start;gap:8px}
 .feat-list li::before{content:'✓';color:var(--neon);font-weight:700;flex-shrink:0;margin-top:1px}
 
-/* ── DEMO ── */
-.demo{padding:80px 24px;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(6,214,160,0.04));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.demo-inner{max-width:800px;margin:0 auto;text-align:center}
+/* DEMO */
+.demo{padding:80px 24px;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(6,214,160,0.04));border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
+.demo-inner{max-width:800px;margin:0 auto}
 .demo-phone{background:var(--card);border:2px solid var(--accent);border-radius:24px;padding:40px;margin:40px auto;max-width:440px;position:relative}
-.demo-phone::before{content:'EN VIVO';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;font-size:11px;font-weight:900;padding:3px 14px;border-radius:20px;font-family:var(--mono);letter-spacing:1px}
+.demo-phone::before{content:'LIVE';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;font-size:11px;font-weight:900;padding:3px 14px;border-radius:20px;font-family:var(--mono);letter-spacing:1px}
 .demo-number{font-family:var(--mono);font-size:28px;font-weight:900;color:var(--neon);letter-spacing:2px;margin-bottom:8px}
 .demo-label{font-size:14px;color:var(--text2);margin-bottom:24px}
 .demo-channels{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
@@ -125,16 +114,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:f
 .demo-btn.wa{background:#25D366;color:#fff;box-shadow:0 6px 20px rgba(37,211,102,0.3)}
 .demo-btn.wa:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(37,211,102,0.4)}
 .demo-btn.call{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 6px 20px rgba(124,58,237,0.3)}
-.demo-btn.call:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(124,58,237,0.4)}
+.demo-btn.call:hover{transform:translateY(-2px)}
 .demo-note{font-size:13px;color:var(--text3);margin-top:20px;font-style:italic}
 
-/* ── PRICING ── */
-.pricing{padding:80px 24px;background:var(--bg2)}
-.pricing-inner{max-width:1100px;margin:0 auto;text-align:center}
+/* PRICING */
+.pricing{padding:80px 24px;background:var(--bg2);text-align:center}
+.pricing-inner{max-width:1100px;margin:0 auto}
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:50px;align-items:start}
 .pricing-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:left;transition:all .3s;position:relative}
 .pricing-card.popular{border-color:var(--accent);transform:scale(1.03);background:linear-gradient(135deg,rgba(124,58,237,0.08),var(--card))}
-.pricing-popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;font-size:11px;font-weight:900;padding:4px 18px;border-radius:20px;font-family:var(--mono);letter-spacing:.5px;white-space:nowrap}
+.popular-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--neon));color:#fff;font-size:11px;font-weight:900;padding:4px 18px;border-radius:20px;font-family:var(--mono);letter-spacing:.5px;white-space:nowrap}
 .pricing-card:hover{border-color:var(--accent2);transform:translateY(-4px)}
 .pricing-card.popular:hover{transform:scale(1.03) translateY(-4px)}
 .pricing-name{font-family:var(--display);font-size:14px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
@@ -143,7 +132,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:f
 .pricing-period{font-size:13px;color:var(--text3);margin-bottom:24px}
 .pricing-divider{height:1px;background:var(--border);margin:20px 0}
 .pricing-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
-.pricing-features li{font-size:14px;color:var(--text2);display:flex;align-items:center;gap:10px}
+.pricing-features li{font-size:14px;display:flex;align-items:center;gap:10px}
 .pricing-features li.on{color:var(--text)}
 .pricing-features li.on::before{content:'✓';color:var(--neon);font-weight:900;font-size:15px;flex-shrink:0}
 .pricing-features li.off{color:var(--text3);text-decoration:line-through}
@@ -154,18 +143,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:f
 .pricing-cta.outline{background:transparent;color:var(--text);border:1.5px solid var(--border2)}
 .pricing-cta.outline:hover{border-color:var(--accent);color:var(--accent2);background:rgba(124,58,237,0.08)}
 
-/* ── INDUSTRIES ── */
-.industries{padding:80px 24px;background:var(--bg)}
-.industries-inner{max-width:1000px;margin:0 auto;text-align:center}
+/* INDUSTRIES */
+.industries{padding:80px 24px;background:var(--bg);text-align:center}
+.industries-inner{max-width:1000px;margin:0 auto}
 .ind-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:40px}
-.ind-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px 16px;text-align:center;transition:all .2s;cursor:default}
+.ind-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px 16px;text-align:center;transition:all .2s}
 .ind-card:hover{border-color:var(--accent);background:rgba(124,58,237,0.08);transform:translateY(-3px)}
 .ind-emoji{font-size:36px;margin-bottom:10px}
 .ind-name{font-family:var(--display);font-size:13px;font-weight:700;color:var(--text2)}
 
-/* ── FAQ ── */
-.faq{padding:80px 24px;background:var(--bg2)}
-.faq-inner{max-width:750px;margin:0 auto;text-align:center}
+/* FAQ */
+.faq{padding:80px 24px;background:var(--bg2);text-align:center}
+.faq-inner{max-width:750px;margin:0 auto}
 .faq-list{margin-top:40px;display:flex;flex-direction:column;gap:12px;text-align:left}
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
 .faq-q{padding:18px 22px;font-family:var(--display);font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;user-select:none;transition:background .2s}
@@ -174,141 +163,105 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 24px;display:f
 .faq-arrow{font-size:18px;transition:transform .3s;flex-shrink:0;color:var(--text3)}
 .faq-q.open .faq-arrow{transform:rotate(180deg);color:var(--accent2)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s}
-.faq-a.open{max-height:200px;padding:0 22px 18px}
+.faq-a.open{max-height:220px;padding:0 22px 18px}
 .faq-a p{font-size:14px;color:var(--text2);line-height:1.7}
 
-/* ── CTA FINAL ── */
-.cta-final{padding:80px 24px;background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(6,214,160,0.06));border-top:1px solid var(--border)}
-.cta-final-inner{max-width:700px;margin:0 auto;text-align:center}
+/* CTA FINAL */
+.cta-final{padding:80px 24px;background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(6,214,160,0.06));border-top:1px solid var(--border);text-align:center}
+.cta-final-inner{max-width:700px;margin:0 auto}
 .cta-final h2{font-family:var(--display);font-size:clamp(30px,5vw,52px);font-weight:900;margin-bottom:16px;line-height:1.1}
 .cta-final p{color:var(--text2);font-size:17px;margin-bottom:40px;line-height:1.7}
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer{padding:32px 24px;background:var(--bg);border-top:1px solid var(--border);text-align:center}
 .footer-logo{font-family:var(--display);font-size:18px;font-weight:900;color:var(--text2);margin-bottom:10px}
 .footer-logo span{background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 footer p{font-size:13px;color:var(--text3)}
 
-/* ── FLOAT WHATSAPP ── */
+/* FLOAT WA */
 .float-wa{position:fixed;bottom:28px;right:28px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:30px;box-shadow:0 6px 24px rgba(37,211,102,0.4);z-index:999;transition:all .2s;animation:bounce-wa 3s ease-in-out infinite}
-.float-wa:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,0.55)}
+.float-wa:hover{transform:scale(1.1)}
 @keyframes bounce-wa{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .nav-links{display:none}
-  .hero-stats{gap:24px}
-  .pricing-card.popular{transform:scale(1)}
-  .pricing-card.popular:hover{transform:translateY(-4px)}
-}
+@media(max-width:768px){.nav-links{display:none}.pricing-card.popular{transform:scale(1)}.pricing-card.popular:hover{transform:translateY(-4px)}}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">🤖 <span>Recepcionista AI</span></a>
+  <a class="nav-logo" href="#">🤖 <span>Receptionist AI</span></a>
   <div class="nav-links">
-    <a href="#como-funciona">Cómo funciona</a>
-    <a href="#precios">Precios</a>
-    <a href="#demo">Demo</a>
-    <a href="#faq">FAQ</a>
+    <a href="#how" data-i18n="nav_how">How it works</a>
+    <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+    <a href="#demo" data-i18n="nav_demo">Live Demo</a>
+    <a href="#faq" data-i18n="nav_faq">FAQ</a>
   </div>
-  <a class="nav-cta" href="https://wa.me/584126148666?text=Hola,%20quiero%20información%20sobre%20Recepcionista%20AI" target="_blank">Contratar ahora →</a>
+  <div class="nav-right">
+    <div class="lang-btn">
+      <button class="lang-opt" id="btn-en" onclick="setLang('en')">🇺🇸 EN</button>
+      <button class="lang-opt active" id="btn-es" onclick="setLang('es')">🇪🇸 ES</button>
+    </div>
+    <a class="nav-cta" id="nav-cta-link" href="https://wa.me/584126148666?text=Hola,%20quiero%20información%20sobre%20Recepcionista%20AI" target="_blank" data-i18n="nav_cta">Contratar ahora →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-tag">
-    <span class="hero-tag-dot"></span>
-    Inteligencia Artificial para negocios · A2K Digital Studio
-  </div>
-  <h1>
-    <span class="g1">Tu negocio abierto</span><br>
-    <span class="g2">24 horas, 7 días</span>
-  </h1>
-  <p class="hero-sub">Un empleado de IA que atiende llamadas, responde WhatsApp, agenda citas y toma pedidos — mientras tú duermes, vacacionas o descansas.</p>
+  <div class="hero-tag"><span class="hero-dot"></span><span data-i18n="hero_tag">IA para negocios · A2K Digital Studio</span></div>
+  <h1><span class="g1" data-i18n="hero_h1a">Tu negocio abierto</span><br><span class="g2" data-i18n="hero_h1b">24 horas, 7 días</span></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Un empleado de IA que atiende llamadas, responde WhatsApp, agenda citas y toma pedidos — mientras tú duermes, vacacionas o descansas.</p>
   <div class="hero-btns">
-    <a class="btn-primary" href="#demo">📞 Ver demo en vivo</a>
-    <a class="btn-ghost" href="#precios">Ver precios</a>
+    <a class="btn-primary" href="#demo" data-i18n="hero_btn1">📞 Ver demo en vivo</a>
+    <a class="btn-ghost" href="#pricing" data-i18n="hero_btn2">Ver precios</a>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-n">24/7</div>
-      <div class="hero-stat-l">Disponibilidad</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">&lt;2s</div>
-      <div class="hero-stat-l">Tiempo de respuesta</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">$0</div>
-      <div class="hero-stat-l">Horas extra</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">∞</div>
-      <div class="hero-stat-l">Clientes simultáneos</div>
-    </div>
+    <div class="hero-stat"><div class="hero-stat-n">24/7</div><div class="hero-stat-l" data-i18n="stat1">Disponibilidad</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">&lt;2s</div><div class="hero-stat-l" data-i18n="stat2">Tiempo de respuesta</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">$0</div><div class="hero-stat-l" data-i18n="stat3">Horas extra</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">∞</div><div class="hero-stat-l" data-i18n="stat4">Clientes simultáneos</div></div>
   </div>
 </section>
 
 <!-- PAIN -->
 <section class="pain">
   <div class="pain-inner">
-    <span class="section-tag">El problema real</span>
-    <h2 class="section-title">¿Cuántos clientes pierdes<br>sin darte cuenta?</h2>
-    <p class="section-sub">Cada vez que no contestas el teléfono o tardas en responder un mensaje, ese cliente llama al negocio de enfrente.</p>
+    <span class="section-tag red" data-i18n="pain_tag">El problema real</span>
+    <h2 class="section-title" data-i18n="pain_title">¿Cuántos clientes pierdes<br>sin darte cuenta?</h2>
+    <p class="section-sub" data-i18n="pain_sub">Cada vez que no contestas el teléfono o tardas en responder un mensaje, ese cliente llama al negocio de enfrente.</p>
     <div class="pain-cards">
       <div class="pain-card">
         <div class="pain-icon">😴</div>
-        <h3>Llaman fuera de horario</h3>
-        <p>El 40% de las llamadas a negocios ocurren antes de las 9am o después de las 6pm. Sin respuesta = cliente perdido.</p>
-        <span class="pain-cost">Pérdida estimada: $200–$800/mes</span>
+        <h3 data-i18n="pain1_title">Llaman fuera de horario</h3>
+        <p data-i18n="pain1_desc">El 40% de las llamadas a negocios ocurren antes de las 9am o después de las 6pm. Sin respuesta = cliente perdido.</p>
+        <span class="pain-cost" data-i18n="pain1_cost">Pérdida estimada: $200–$800/mes</span>
       </div>
       <div class="pain-card">
         <div class="pain-icon">📱</div>
-        <h3>WhatsApp sin responder</h3>
-        <p>Los clientes esperan respuesta en menos de 5 minutos. Si tardas más de una hora, el 60% no vuelve a escribir.</p>
-        <span class="pain-cost">Conversiones perdidas: 60%</span>
+        <h3 data-i18n="pain2_title">WhatsApp sin responder</h3>
+        <p data-i18n="pain2_desc">Los clientes esperan respuesta en menos de 5 minutos. Si tardas más de una hora, el 60% no vuelve a escribir.</p>
+        <span class="pain-cost" data-i18n="pain2_cost">Conversiones perdidas: 60%</span>
       </div>
       <div class="pain-card">
         <div class="pain-icon">👩‍💼</div>
-        <h3>Recepcionista = $400+/mes</h3>
-        <p>Una recepcionista humana cuesta entre $400 y $800 al mes. Solo trabaja 8 horas, se enferma y toma vacaciones.</p>
-        <span class="pain-cost">Costo anual: $4,800–$9,600</span>
+        <h3 data-i18n="pain3_title">Recepcionista = $400+/mes</h3>
+        <p data-i18n="pain3_desc">Una recepcionista humana cuesta entre $400 y $800 al mes. Solo trabaja 8 horas, se enferma y toma vacaciones.</p>
+        <span class="pain-cost" data-i18n="pain3_cost">Costo anual: $4,800–$9,600</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how" id="como-funciona">
+<section class="how" id="how">
   <div class="how-inner">
-    <span class="section-tag green">Proceso simple</span>
-    <h2 class="section-title">Listo en 48 horas</h2>
-    <p class="section-sub">No necesitas saber de tecnología. Nosotros configuramos todo — tú solo empiezas a recibir clientes atendidos.</p>
+    <span class="section-tag green" data-i18n="how_tag">Proceso simple</span>
+    <h2 class="section-title" data-i18n="how_title">Listo en 48 horas</h2>
+    <p class="section-sub" data-i18n="how_sub">No necesitas saber de tecnología. Nosotros configuramos todo — tú solo empiezas a recibir clientes atendidos.</p>
     <div class="steps">
-      <div class="step">
-        <span class="step-num">01</span>
-        <div class="step-icon">📋</div>
-        <h3>Nos cuentas tu negocio</h3>
-        <p>Llenas un formulario de 10 minutos con tus servicios, precios, horarios y preguntas frecuentes de tus clientes.</p>
-        <span class="step-time">⏱ 10 minutos de tu tiempo</span>
-      </div>
-      <div class="step">
-        <span class="step-num">02</span>
-        <div class="step-icon">⚙️</div>
-        <h3>Configuramos tu IA</h3>
-        <p>Entrenamos al asistente con toda la información de tu negocio y lo conectamos a tu WhatsApp y número telefónico.</p>
-        <span class="step-time">⏱ 48 horas (nosotros lo hacemos todo)</span>
-      </div>
-      <div class="step">
-        <span class="step-num">03</span>
-        <div class="step-icon">🚀</div>
-        <h3>Tu IA empieza a trabajar</h3>
-        <p>Tu Recepcionista AI está activa 24/7. Contesta llamadas, responde mensajes y agenda citas automáticamente.</p>
-        <span class="step-time">✅ Sin mantenimiento de tu parte</span>
-      </div>
+      <div class="step"><span class="step-num">01</span><div class="step-icon">📋</div><h3 data-i18n="step1_title">Nos cuentas tu negocio</h3><p data-i18n="step1_desc">Llenas un formulario de 10 minutos con tus servicios, precios, horarios y preguntas frecuentes de tus clientes.</p><span class="step-time" data-i18n="step1_time">⏱ 10 minutos de tu tiempo</span></div>
+      <div class="step"><span class="step-num">02</span><div class="step-icon">⚙️</div><h3 data-i18n="step2_title">Configuramos tu IA</h3><p data-i18n="step2_desc">Entrenamos al asistente con la información de tu negocio y lo conectamos a tu WhatsApp y número telefónico.</p><span class="step-time" data-i18n="step2_time">⏱ 48 horas (nosotros lo hacemos todo)</span></div>
+      <div class="step"><span class="step-num">03</span><div class="step-icon">🚀</div><h3 data-i18n="step3_title">Tu IA empieza a trabajar</h3><p data-i18n="step3_desc">Tu Recepcionista AI está activa 24/7. Contesta llamadas, responde mensajes y agenda citas automáticamente.</p><span class="step-time" data-i18n="step3_time">✅ Sin mantenimiento de tu parte</span></div>
     </div>
   </div>
 </section>
@@ -316,70 +269,16 @@ footer p{font-size:13px;color:var(--text3)}
 <!-- FEATURES -->
 <section class="features">
   <div class="features-inner">
-    <span class="section-tag purple">Capacidades</span>
-    <h2 class="section-title">Tu empleado más completo</h2>
-    <p class="section-sub">Hace todo lo que hace una recepcionista — pero más rápido, sin errores y sin días libres.</p>
+    <span class="section-tag purple" data-i18n="feat_tag">Capacidades</span>
+    <h2 class="section-title" data-i18n="feat_title">Tu empleado más completo</h2>
+    <p class="section-sub" data-i18n="feat_sub">Hace todo lo que hace una recepcionista — pero más rápido, sin errores y sin días libres.</p>
     <div class="feat-grid">
-      <div class="feat-card">
-        <div class="feat-icon">📞</div>
-        <h3>Atiende llamadas con IA</h3>
-        <p>Contesta el teléfono con la voz y personalidad de tu marca. Habla de forma natural y resuelve dudas al instante.</p>
-        <ul class="feat-list">
-          <li>Voz natural, no robótica</li>
-          <li>Entiende español latinoamericano</li>
-          <li>Transfiere si el cliente lo pide</li>
-        </ul>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">💬</div>
-        <h3>Responde WhatsApp 24/7</h3>
-        <p>Atiende todos los mensajes de WhatsApp en segundos. Sin importar si son las 3am o un domingo festivo.</p>
-        <ul class="feat-list">
-          <li>Respuesta en menos de 3 segundos</li>
-          <li>Múltiples conversaciones simultáneas</li>
-          <li>Envía fotos de productos y menú</li>
-        </ul>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">📅</div>
-        <h3>Agenda citas automáticamente</h3>
-        <p>El cliente escribe "quiero una cita" y el bot la agenda, confirma y recuerda — sin que tú hagas nada.</p>
-        <ul class="feat-list">
-          <li>Confirmación automática</li>
-          <li>Recordatorio 24h antes</li>
-          <li>Reagenda si el cliente cancela</li>
-        </ul>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">🛒</div>
-        <h3>Toma pedidos y cotizaciones</h3>
-        <p>El cliente hace su pedido por WhatsApp o llamada. El bot lo registra y te notifica a ti con el resumen completo.</p>
-        <ul class="feat-list">
-          <li>Catálogo de productos con precios</li>
-          <li>Calcula totales automáticamente</li>
-          <li>Te envía resumen del pedido</li>
-        </ul>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">❓</div>
-        <h3>Resuelve preguntas frecuentes</h3>
-        <p>¿Cuáles son los horarios? ¿Dónde están? ¿Cuánto cuesta? Tu IA responde al instante, siempre correcto.</p>
-        <ul class="feat-list">
-          <li>Precios y servicios actualizados</li>
-          <li>Ubicación y cómo llegar</li>
-          <li>Métodos de pago aceptados</li>
-        </ul>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">🔔</div>
-        <h3>Te notifica lo importante</h3>
-        <p>Si un cliente necesita hablar contigo personalmente, tu IA te avisa de inmediato por WhatsApp con el resumen.</p>
-        <ul class="feat-list">
-          <li>Alertas de casos urgentes</li>
-          <li>Resumen diario de conversaciones</li>
-          <li>Nunca te pierdes un cliente VIP</li>
-        </ul>
-      </div>
+      <div class="feat-card"><div class="feat-icon">📞</div><h3 data-i18n="f1_title">Atiende llamadas con IA</h3><p data-i18n="f1_desc">Contesta el teléfono con voz natural. Habla y resuelve dudas al instante, sin sonar robótico.</p><ul class="feat-list"><li data-i18n="f1_1">Voz natural, no robótica</li><li data-i18n="f1_2">Entiende español e inglés</li><li data-i18n="f1_3">Transfiere si el cliente lo pide</li></ul></div>
+      <div class="feat-card"><div class="feat-icon">💬</div><h3 data-i18n="f2_title">Responde WhatsApp 24/7</h3><p data-i18n="f2_desc">Atiende todos los mensajes en segundos. Sin importar si son las 3am o un domingo festivo.</p><ul class="feat-list"><li data-i18n="f2_1">Respuesta en menos de 3 segundos</li><li data-i18n="f2_2">Múltiples conversaciones simultáneas</li><li data-i18n="f2_3">Envía fotos de productos y menú</li></ul></div>
+      <div class="feat-card"><div class="feat-icon">📅</div><h3 data-i18n="f3_title">Agenda citas automáticamente</h3><p data-i18n="f3_desc">El cliente escribe "quiero una cita" y el bot la agenda, confirma y recuerda — sin que tú hagas nada.</p><ul class="feat-list"><li data-i18n="f3_1">Confirmación automática</li><li data-i18n="f3_2">Recordatorio 24h antes</li><li data-i18n="f3_3">Reagenda si el cliente cancela</li></ul></div>
+      <div class="feat-card"><div class="feat-icon">🛒</div><h3 data-i18n="f4_title">Toma pedidos y cotizaciones</h3><p data-i18n="f4_desc">El cliente hace su pedido por WhatsApp o llamada. El bot lo registra y te notifica con el resumen completo.</p><ul class="feat-list"><li data-i18n="f4_1">Catálogo de productos con precios</li><li data-i18n="f4_2">Calcula totales automáticamente</li><li data-i18n="f4_3">Te envía resumen del pedido</li></ul></div>
+      <div class="feat-card"><div class="feat-icon">❓</div><h3 data-i18n="f5_title">Resuelve preguntas frecuentes</h3><p data-i18n="f5_desc">¿Cuáles son los horarios? ¿Dónde están? ¿Cuánto cuesta? Tu IA responde al instante, siempre correcto.</p><ul class="feat-list"><li data-i18n="f5_1">Precios y servicios actualizados</li><li data-i18n="f5_2">Ubicación y cómo llegar</li><li data-i18n="f5_3">Métodos de pago aceptados</li></ul></div>
+      <div class="feat-card"><div class="feat-icon">🔔</div><h3 data-i18n="f6_title">Te notifica lo importante</h3><p data-i18n="f6_desc">Si un cliente necesita hablar contigo personalmente, tu IA te avisa de inmediato con el contexto completo.</p><ul class="feat-list"><li data-i18n="f6_1">Alertas de casos urgentes</li><li data-i18n="f6_2">Resumen diario de conversaciones</li><li data-i18n="f6_3">Nunca te pierdes un cliente VIP</li></ul></div>
     </div>
   </div>
 </section>
@@ -387,86 +286,80 @@ footer p{font-size:13px;color:var(--text3)}
 <!-- DEMO -->
 <section class="demo" id="demo">
   <div class="demo-inner">
-    <span class="section-tag green">Demo en vivo</span>
-    <h2 class="section-title">Habla con la IA ahora mismo</h2>
-    <p class="section-sub">No es un video. No es una presentación. Llama o escribe ahora y experimenta en vivo cómo funcionará en tu negocio.</p>
+    <span class="section-tag green" data-i18n="demo_tag">Demo en vivo</span>
+    <h2 class="section-title" data-i18n="demo_title">Habla con la IA ahora mismo</h2>
+    <p class="section-sub" data-i18n="demo_sub">No es un video. Llama o escribe ahora y experimenta en vivo cómo funcionará en tu negocio.</p>
     <div class="demo-phone">
       <div class="demo-number">+1 (786) 605-6242</div>
-      <div class="demo-label">Número de demo activo · Responde en segundos</div>
+      <div class="demo-label" data-i18n="demo_label">Número activo · Responde en segundos</div>
       <div class="demo-channels">
-        <a class="demo-btn call" href="tel:+17866056242">📞 Llamar ahora</a>
-        <a class="demo-btn wa" href="https://wa.me/17866056242?text=Hola,%20quiero%20probar%20el%20demo%20de%20Recepcionista%20AI" target="_blank">💬 Probar por WhatsApp</a>
+        <a class="demo-btn call" href="tel:+17866056242" data-i18n="demo_call">📞 Llamar ahora</a>
+        <a class="demo-btn wa" id="demo-wa-btn" href="https://wa.me/17866056242?text=Hola,%20quiero%20probar%20el%20demo" target="_blank" data-i18n="demo_wa">💬 Probar por WhatsApp</a>
       </div>
     </div>
-    <p class="demo-note">* Este número es un demo de muestra. Tu negocio tendrá su propio número personalizado.</p>
+    <p class="demo-note" data-i18n="demo_note">* Este número es un demo de muestra. Tu negocio tendrá su propio número personalizado.</p>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="pricing" id="precios">
+<section class="pricing" id="pricing">
   <div class="pricing-inner">
-    <span class="section-tag purple">Planes y precios</span>
-    <h2 class="section-title">Menos que un empleado,<br>más que una recepcionista</h2>
-    <p class="section-sub">Sin contratos largos. Sin sorpresas. Cancela cuando quieras.</p>
+    <span class="section-tag purple" data-i18n="price_tag">Planes y precios</span>
+    <h2 class="section-title" data-i18n="price_title">Menos que un empleado,<br>más que una recepcionista</h2>
+    <p class="section-sub" data-i18n="price_sub">Sin contratos largos. Sin sorpresas. Cancela cuando quieras.</p>
     <div class="pricing-grid">
-
       <div class="pricing-card">
-        <div class="pricing-name">⚡ Básico</div>
-        <div class="pricing-price">$99<span>/mes</span></div>
-        <div class="pricing-period">Ideal para negocios pequeños que empiezan</div>
+        <div class="pricing-name" data-i18n="p1_name">⚡ Básico</div>
+        <div class="pricing-price">$99<span>/mo</span></div>
+        <div class="pricing-period" data-i18n="p1_period">Ideal para negocios pequeños que empiezan</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
-          <li class="on">Bot WhatsApp 24/7</li>
-          <li class="on">Catálogo de servicios/productos</li>
-          <li class="on">Respuesta de preguntas frecuentes</li>
-          <li class="on">Notificaciones al dueño</li>
-          <li class="on">Soporte por WhatsApp</li>
-          <li class="off">Bot de voz (llamadas)</li>
-          <li class="off">Número telefónico propio</li>
-          <li class="off">Agenda de citas automática</li>
-          <li class="off">Reportes mensuales</li>
+          <li class="on" data-i18n="pf1_1">Bot WhatsApp 24/7</li>
+          <li class="on" data-i18n="pf1_2">Catálogo de servicios/productos</li>
+          <li class="on" data-i18n="pf1_3">Respuesta de preguntas frecuentes</li>
+          <li class="on" data-i18n="pf1_4">Notificaciones al dueño</li>
+          <li class="on" data-i18n="pf1_5">Soporte por WhatsApp</li>
+          <li class="off" data-i18n="pf1_6">Bot de voz (llamadas)</li>
+          <li class="off" data-i18n="pf1_7">Número telefónico propio</li>
+          <li class="off" data-i18n="pf1_8">Agenda de citas automática</li>
         </ul>
-        <a class="pricing-cta outline" href="https://wa.me/584126148666?text=Quiero%20el%20plan%20Básico%20de%20Recepcionista%20AI%20-%20$99/mes" target="_blank">Contratar Básico</a>
+        <a class="pricing-cta outline" id="cta-basic" href="https://wa.me/584126148666?text=Quiero%20el%20plan%20Básico%20de%20Recepcionista%20AI" target="_blank" data-i18n="p_cta1">Contratar Básico</a>
       </div>
-
       <div class="pricing-card popular">
-        <div class="pricing-popular-badge">🔥 MÁS POPULAR</div>
-        <div class="pricing-name">🚀 Pro</div>
-        <div class="pricing-price">$179<span>/mes</span></div>
-        <div class="pricing-period">Para negocios que quieren crecer de verdad</div>
+        <div class="popular-badge" data-i18n="popular_badge">🔥 MÁS POPULAR</div>
+        <div class="pricing-name" data-i18n="p2_name">🚀 Pro</div>
+        <div class="pricing-price">$179<span>/mo</span></div>
+        <div class="pricing-period" data-i18n="p2_period">Para negocios que quieren crecer de verdad</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
-          <li class="on">Todo lo del plan Básico</li>
-          <li class="on">Bot de voz IA (atiende llamadas)</li>
-          <li class="on">Número telefónico propio USA</li>
-          <li class="on">Agenda de citas automática</li>
-          <li class="on">Recordatorios de citas</li>
-          <li class="on">Toma de pedidos completa</li>
-          <li class="on">Soporte prioritario</li>
-          <li class="off">Reportes mensuales</li>
-          <li class="off">Landing page del negocio</li>
+          <li class="on" data-i18n="pf2_1">Todo lo del plan Básico</li>
+          <li class="on" data-i18n="pf2_2">Bot de voz IA (atiende llamadas)</li>
+          <li class="on" data-i18n="pf2_3">Número telefónico propio USA</li>
+          <li class="on" data-i18n="pf2_4">Agenda de citas automática</li>
+          <li class="on" data-i18n="pf2_5">Recordatorios de citas</li>
+          <li class="on" data-i18n="pf2_6">Toma de pedidos completa</li>
+          <li class="on" data-i18n="pf2_7">Soporte prioritario</li>
+          <li class="off" data-i18n="pf2_8">Reportes mensuales</li>
         </ul>
-        <a class="pricing-cta solid" href="https://wa.me/584126148666?text=Quiero%20el%20plan%20Pro%20de%20Recepcionista%20AI%20-%20$179/mes" target="_blank">Contratar Pro →</a>
+        <a class="pricing-cta solid" id="cta-pro" href="https://wa.me/584126148666?text=Quiero%20el%20plan%20Pro%20de%20Recepcionista%20AI" target="_blank" data-i18n="p_cta2">Contratar Pro →</a>
       </div>
-
       <div class="pricing-card">
-        <div class="pricing-name">👑 Premium</div>
-        <div class="pricing-price">$299<span>/mes</span></div>
-        <div class="pricing-period">Para negocios serios que dominan su mercado</div>
+        <div class="pricing-name" data-i18n="p3_name">👑 Premium</div>
+        <div class="pricing-price">$299<span>/mo</span></div>
+        <div class="pricing-period" data-i18n="p3_period">Para negocios serios que dominan su mercado</div>
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
-          <li class="on">Todo lo del plan Pro</li>
-          <li class="on">Reportes mensuales detallados</li>
-          <li class="on">Mini landing page del negocio</li>
-          <li class="on">CRM básico de clientes</li>
-          <li class="on">Integración con redes sociales</li>
-          <li class="on">Personalización avanzada de IA</li>
-          <li class="on">Soporte VIP 24/7</li>
-          <li class="on">Actualizaciones sin costo extra</li>
+          <li class="on" data-i18n="pf3_1">Todo lo del plan Pro</li>
+          <li class="on" data-i18n="pf3_2">Reportes mensuales detallados</li>
+          <li class="on" data-i18n="pf3_3">Mini landing page del negocio</li>
+          <li class="on" data-i18n="pf3_4">CRM básico de clientes</li>
+          <li class="on" data-i18n="pf3_5">Personalización avanzada de IA</li>
+          <li class="on" data-i18n="pf3_6">Soporte VIP 24/7</li>
+          <li class="on" data-i18n="pf3_7">Actualizaciones sin costo extra</li>
+          <li class="on" data-i18n="pf3_8">Landing page del negocio incluida</li>
         </ul>
-        <a class="pricing-cta outline" href="https://wa.me/584126148666?text=Quiero%20el%20plan%20Premium%20de%20Recepcionista%20AI%20-%20$299/mes" target="_blank">Contratar Premium</a>
+        <a class="pricing-cta outline" id="cta-premium" href="https://wa.me/584126148666?text=Quiero%20el%20plan%20Premium%20de%20Recepcionista%20AI" target="_blank" data-i18n="p_cta3">Contratar Premium</a>
       </div>
-
     </div>
   </div>
 </section>
@@ -474,22 +367,22 @@ footer p{font-size:13px;color:var(--text3)}
 <!-- INDUSTRIES -->
 <section class="industries">
   <div class="industries-inner">
-    <span class="section-tag warn">Industrias</span>
-    <h2 class="section-title">Funciona para cualquier negocio</h2>
-    <p class="section-sub">Si tienes clientes que llaman o escriben, Recepcionista AI trabaja para ti.</p>
+    <span class="section-tag warn" data-i18n="ind_tag">Industrias</span>
+    <h2 class="section-title" data-i18n="ind_title">Funciona para cualquier negocio</h2>
+    <p class="section-sub" data-i18n="ind_sub">Si tienes clientes que llaman o escriben, Recepcionista AI trabaja para ti.</p>
     <div class="ind-grid">
-      <div class="ind-card"><div class="ind-emoji">🏥</div><div class="ind-name">Clínicas y Consultorios</div></div>
-      <div class="ind-card"><div class="ind-emoji">💅</div><div class="ind-name">Salones de Uñas</div></div>
-      <div class="ind-card"><div class="ind-emoji">✂️</div><div class="ind-name">Peluquerías y Barberías</div></div>
-      <div class="ind-card"><div class="ind-emoji">🍕</div><div class="ind-name">Restaurantes</div></div>
-      <div class="ind-card"><div class="ind-emoji">🏠</div><div class="ind-name">Bienes Raíces</div></div>
-      <div class="ind-card"><div class="ind-emoji">🔧</div><div class="ind-name">Ferreterías y Talleres</div></div>
-      <div class="ind-card"><div class="ind-emoji">💊</div><div class="ind-name">Farmacias</div></div>
-      <div class="ind-card"><div class="ind-emoji">⚖️</div><div class="ind-name">Despachos Jurídicos</div></div>
-      <div class="ind-card"><div class="ind-emoji">🎓</div><div class="ind-name">Academias y Cursos</div></div>
-      <div class="ind-card"><div class="ind-emoji">🏋️</div><div class="ind-name">Gimnasios y Spas</div></div>
-      <div class="ind-card"><div class="ind-emoji">🚗</div><div class="ind-name">Concesionarios</div></div>
-      <div class="ind-card"><div class="ind-emoji">🛒</div><div class="ind-name">Tiendas y Bodegas</div></div>
+      <div class="ind-card"><div class="ind-emoji">🏥</div><div class="ind-name" data-i18n="ind1">Clínicas y Consultorios</div></div>
+      <div class="ind-card"><div class="ind-emoji">💅</div><div class="ind-name" data-i18n="ind2">Salones de Uñas</div></div>
+      <div class="ind-card"><div class="ind-emoji">✂️</div><div class="ind-name" data-i18n="ind3">Peluquerías y Barberías</div></div>
+      <div class="ind-card"><div class="ind-emoji">🍕</div><div class="ind-name" data-i18n="ind4">Restaurantes</div></div>
+      <div class="ind-card"><div class="ind-emoji">🏠</div><div class="ind-name" data-i18n="ind5">Bienes Raíces</div></div>
+      <div class="ind-card"><div class="ind-emoji">🔧</div><div class="ind-name" data-i18n="ind6">Ferreterías y Talleres</div></div>
+      <div class="ind-card"><div class="ind-emoji">💊</div><div class="ind-name" data-i18n="ind7">Farmacias</div></div>
+      <div class="ind-card"><div class="ind-emoji">⚖️</div><div class="ind-name" data-i18n="ind8">Despachos Jurídicos</div></div>
+      <div class="ind-card"><div class="ind-emoji">🎓</div><div class="ind-name" data-i18n="ind9">Academias y Cursos</div></div>
+      <div class="ind-card"><div class="ind-emoji">🏋️</div><div class="ind-name" data-i18n="ind10">Gimnasios y Spas</div></div>
+      <div class="ind-card"><div class="ind-emoji">🚗</div><div class="ind-name" data-i18n="ind11">Concesionarios</div></div>
+      <div class="ind-card"><div class="ind-emoji">🛒</div><div class="ind-name" data-i18n="ind12">Tiendas y Bodegas</div></div>
     </div>
   </div>
 </section>
@@ -497,33 +390,15 @@ footer p{font-size:13px;color:var(--text3)}
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div class="faq-inner">
-    <span class="section-tag purple">Preguntas frecuentes</span>
-    <h2 class="section-title">Todo lo que necesitas saber</h2>
+    <span class="section-tag purple" data-i18n="faq_tag">Preguntas frecuentes</span>
+    <h2 class="section-title" data-i18n="faq_title">Todo lo que necesitas saber</h2>
     <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">¿Necesito saber de tecnología para usar esto? <span class="faq-arrow">▾</span></div>
-        <div class="faq-a"><p>Para nada. Nosotros configuramos todo en 48 horas. Tú solo nos das la información de tu negocio (servicios, precios, horarios) y nosotros hacemos el resto. No necesitas instalar nada ni aprender ninguna plataforma.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si el cliente hace una pregunta que la IA no sabe? <span class="faq-arrow">▾</span></div>
-        <div class="faq-a"><p>La IA reconoce cuando no tiene la respuesta y automáticamente te notifica a ti por WhatsApp con el contexto completo de la conversación para que tú lo atiendas personalmente. Nunca deja al cliente sin respuesta.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">¿Funciona en Venezuela, Colombia, Ecuador y otros países? <span class="faq-arrow">▾</span></div>
-        <div class="faq-a"><p>Sí, 100%. El bot de WhatsApp funciona en cualquier país donde esté disponible WhatsApp. El número de voz es un número USA (+1) que cualquier persona puede llamar desde cualquier país, incluyendo Venezuela, Colombia, Ecuador y México.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">¿Puedo actualizar los precios o servicios después? <span class="faq-arrow">▾</span></div>
-        <div class="faq-a"><p>Sí, en cualquier momento. Solo nos mandas un mensaje por WhatsApp con los cambios y los actualizamos en 24 horas sin costo adicional. Si tienes plan Premium, tienes acceso a un panel donde puedes hacerlo tú mismo.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">¿Puedo cancelar cuando quiera? <span class="faq-arrow">▾</span></div>
-        <div class="faq-a"><p>Absolutamente. No hay contratos de permanencia ni penalizaciones. Si en algún mes decides cancelar, solo nos avisas y listo. Cobramos mensual, sin compromisos de largo plazo.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">¿Cómo se realiza el pago? <span class="faq-arrow">▾</span></div>
-        <div class="faq-a"><p>Aceptamos Zelle, Binance Pay, transferencia bancaria USD, Pago Móvil y efectivo. El pago es mensual y puedes pagar el mismo día de cada mes. Una vez confirmado el pago, el servicio se activa o renueva automáticamente.</p></div>
-      </div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq1_q">¿Necesito saber de tecnología?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq1_a">Para nada. Nosotros configuramos todo en 48 horas. Solo nos das la información de tu negocio y hacemos el resto. No necesitas instalar nada ni aprender ninguna plataforma.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq2_q">¿Qué pasa si la IA no sabe una pregunta?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq2_a">La IA reconoce cuando no tiene la respuesta y automáticamente te notifica a ti por WhatsApp con el contexto completo. Nunca deja al cliente sin respuesta.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq3_q">¿Funciona en EE.UU., Venezuela, Colombia y otros países?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq3_a">Sí, 100%. El bot de WhatsApp funciona en cualquier país. El número de voz es un número USA (+1) que cualquier persona puede llamar desde cualquier lugar del mundo.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq4_q">¿Puedo actualizar precios o servicios después?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq4_a">Sí, en cualquier momento. Solo nos mandas un mensaje con los cambios y los actualizamos en 24 horas sin costo adicional.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq5_q">¿Puedo cancelar cuando quiera?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq5_a">Absolutamente. No hay contratos de permanencia ni penalizaciones. Si en algún mes decides cancelar, solo nos avisas y listo. Cobramos mensual, sin compromisos.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq6_q">¿Cómo se realiza el pago?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq6_a">Aceptamos Payoneer, Facebank, Global66, Binance Pay, transferencia bancaria USD y Pago Móvil. El pago es mensual, sin sorpresas.</p></div></div>
     </div>
   </div>
 </section>
@@ -531,11 +406,11 @@ footer p{font-size:13px;color:var(--text3)}
 <!-- CTA FINAL -->
 <section class="cta-final">
   <div class="cta-final-inner">
-    <h2>¿Listo para nunca<br>perder un cliente?</h2>
-    <p>Únete a los negocios que ya tienen una recepcionista trabajando 24/7 sin pagar nómina. Configuración en 48 horas.</p>
+    <h2 data-i18n="cta_title">¿Listo para nunca<br>perder un cliente?</h2>
+    <p data-i18n="cta_sub">Únete a los negocios que ya tienen una recepcionista trabajando 24/7 sin pagar nómina. Configuración en 48 horas.</p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a class="btn-primary" href="https://wa.me/584126148666?text=Hola,%20quiero%20contratar%20Recepcionista%20AI%20para%20mi%20negocio" target="_blank">💬 Hablar con un asesor</a>
-      <a class="btn-ghost" href="#demo">Ver demo primero</a>
+      <a class="btn-primary" id="cta-final-btn" href="https://wa.me/584126148666?text=Hola,%20quiero%20contratar%20Recepcionista%20AI%20para%20mi%20negocio" target="_blank" data-i18n="cta_btn1">💬 Hablar con un asesor</a>
+      <a class="btn-ghost" href="#demo" data-i18n="cta_btn2">Ver demo primero</a>
     </div>
   </div>
 </section>
@@ -543,34 +418,178 @@ footer p{font-size:13px;color:var(--text3)}
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">A2K <span>Digital Studio</span></div>
-  <p>Recepcionista AI · Tecnología con propósito · © 2026</p>
+  <p data-i18n="footer_copy">Receptionist AI · Technology with purpose · © 2026</p>
 </footer>
 
 <!-- FLOAT WA -->
-<a class="float-wa" href="https://wa.me/584126148666?text=Hola,%20me%20interesa%20Recepcionista%20AI" target="_blank" title="Hablar por WhatsApp">💬</a>
+<a class="float-wa" id="float-wa" href="https://wa.me/584126148666?text=Hola,%20me%20interesa%20Recepcionista%20AI" target="_blank" title="WhatsApp">💬</a>
 
 <script>
+/* ═══════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════ */
+var T = {
+  es: {
+    nav_how:'Cómo funciona', nav_pricing:'Precios', nav_demo:'Demo en Vivo', nav_faq:'FAQ',
+    nav_cta:'Contratar ahora →',
+    hero_tag:'IA para negocios · A2K Digital Studio',
+    hero_h1a:'Tu negocio abierto', hero_h1b:'24 horas, 7 días',
+    hero_sub:'Un empleado de IA que atiende llamadas, responde WhatsApp, agenda citas y toma pedidos — mientras tú duermes, vacacionas o descansas.',
+    hero_btn1:'📞 Ver demo en vivo', hero_btn2:'Ver precios',
+    stat1:'Disponibilidad', stat2:'Tiempo de respuesta', stat3:'Horas extra', stat4:'Clientes simultáneos',
+    pain_tag:'El problema real',
+    pain_title:'¿Cuántos clientes pierdes<br>sin darte cuenta?',
+    pain_sub:'Cada vez que no contestas el teléfono o tardas en responder un mensaje, ese cliente llama al negocio de enfrente.',
+    pain1_title:'Llaman fuera de horario', pain1_desc:'El 40% de las llamadas ocurren antes de las 9am o después de las 6pm. Sin respuesta = cliente perdido.', pain1_cost:'Pérdida estimada: $200–$800/mes',
+    pain2_title:'WhatsApp sin responder', pain2_desc:'Los clientes esperan respuesta en menos de 5 minutos. Si tardas más de una hora, el 60% no vuelve a escribir.', pain2_cost:'Conversiones perdidas: 60%',
+    pain3_title:'Recepcionista = $400+/mes', pain3_desc:'Una recepcionista humana cuesta $400–$800 al mes. Solo trabaja 8 horas, se enferma y toma vacaciones.', pain3_cost:'Costo anual: $4,800–$9,600',
+    how_tag:'Proceso simple', how_title:'Listo en 48 horas', how_sub:'No necesitas saber de tecnología. Nosotros configuramos todo — tú solo empiezas a recibir clientes atendidos.',
+    step1_title:'Nos cuentas tu negocio', step1_desc:'Llenas un formulario de 10 minutos con tus servicios, precios y horarios.', step1_time:'⏱ 10 minutos de tu tiempo',
+    step2_title:'Configuramos tu IA', step2_desc:'Entrenamos al asistente con la información de tu negocio y lo conectamos a tu WhatsApp.', step2_time:'⏱ 48 horas (nosotros lo hacemos todo)',
+    step3_title:'Tu IA empieza a trabajar', step3_desc:'Tu Recepcionista AI está activa 24/7. Contesta llamadas, responde mensajes y agenda citas.', step3_time:'✅ Sin mantenimiento de tu parte',
+    feat_tag:'Capacidades', feat_title:'Tu empleado más completo', feat_sub:'Hace todo lo que hace una recepcionista — pero más rápido, sin errores y sin días libres.',
+    f1_title:'Atiende llamadas con IA', f1_desc:'Contesta el teléfono con voz natural. Habla y resuelve dudas al instante.', f1_1:'Voz natural, no robótica', f1_2:'Entiende español e inglés', f1_3:'Transfiere si el cliente lo pide',
+    f2_title:'Responde WhatsApp 24/7', f2_desc:'Atiende todos los mensajes en segundos. Sin importar el horario.', f2_1:'Respuesta en menos de 3 segundos', f2_2:'Múltiples conversaciones simultáneas', f2_3:'Envía fotos de productos y menú',
+    f3_title:'Agenda citas automáticamente', f3_desc:'El cliente escribe "quiero una cita" y el bot la agenda, confirma y recuerda.', f3_1:'Confirmación automática', f3_2:'Recordatorio 24h antes', f3_3:'Reagenda si el cliente cancela',
+    f4_title:'Toma pedidos y cotizaciones', f4_desc:'El cliente hace su pedido por WhatsApp. El bot lo registra y te notifica.', f4_1:'Catálogo de productos con precios', f4_2:'Calcula totales automáticamente', f4_3:'Te envía resumen del pedido',
+    f5_title:'Resuelve preguntas frecuentes', f5_desc:'¿Horarios? ¿Dirección? ¿Precios? Tu IA responde al instante, siempre correcto.', f5_1:'Precios y servicios actualizados', f5_2:'Ubicación y cómo llegar', f5_3:'Métodos de pago aceptados',
+    f6_title:'Te notifica lo importante', f6_desc:'Si un cliente necesita hablar contigo, tu IA te avisa de inmediato con el contexto.', f6_1:'Alertas de casos urgentes', f6_2:'Resumen diario de conversaciones', f6_3:'Nunca te pierdes un cliente VIP',
+    demo_tag:'Demo en vivo', demo_title:'Habla con la IA ahora mismo', demo_sub:'No es un video. Llama o escribe ahora y experimenta en vivo cómo funcionará en tu negocio.',
+    demo_label:'Número activo · Responde en segundos', demo_call:'📞 Llamar ahora', demo_wa:'💬 Probar por WhatsApp',
+    demo_note:'* Este número es un demo de muestra. Tu negocio tendrá su propio número personalizado.',
+    price_tag:'Planes y precios', price_title:'Menos que un empleado,<br>más que una recepcionista', price_sub:'Sin contratos largos. Sin sorpresas. Cancela cuando quieras.',
+    p1_name:'⚡ Básico', p1_period:'Ideal para negocios pequeños que empiezan',
+    p2_name:'🚀 Pro', p2_period:'Para negocios que quieren crecer de verdad',
+    p3_name:'👑 Premium', p3_period:'Para negocios serios que dominan su mercado',
+    popular_badge:'🔥 MÁS POPULAR',
+    pf1_1:'Bot WhatsApp 24/7', pf1_2:'Catálogo de servicios/productos', pf1_3:'Respuesta de preguntas frecuentes', pf1_4:'Notificaciones al dueño', pf1_5:'Soporte por WhatsApp', pf1_6:'Bot de voz (llamadas)', pf1_7:'Número telefónico propio', pf1_8:'Agenda de citas automática',
+    pf2_1:'Todo lo del plan Básico', pf2_2:'Bot de voz IA (atiende llamadas)', pf2_3:'Número telefónico propio USA', pf2_4:'Agenda de citas automática', pf2_5:'Recordatorios de citas', pf2_6:'Toma de pedidos completa', pf2_7:'Soporte prioritario', pf2_8:'Reportes mensuales',
+    pf3_1:'Todo lo del plan Pro', pf3_2:'Reportes mensuales detallados', pf3_3:'Mini landing page del negocio', pf3_4:'CRM básico de clientes', pf3_5:'Personalización avanzada de IA', pf3_6:'Soporte VIP 24/7', pf3_7:'Actualizaciones sin costo extra', pf3_8:'Landing page del negocio incluida',
+    p_cta1:'Contratar Básico', p_cta2:'Contratar Pro →', p_cta3:'Contratar Premium',
+    ind_tag:'Industrias', ind_title:'Funciona para cualquier negocio', ind_sub:'Si tienes clientes que llaman o escriben, Recepcionista AI trabaja para ti.',
+    ind1:'Clínicas y Consultorios', ind2:'Salones de Uñas', ind3:'Peluquerías y Barberías', ind4:'Restaurantes', ind5:'Bienes Raíces', ind6:'Ferreterías y Talleres', ind7:'Farmacias', ind8:'Despachos Jurídicos', ind9:'Academias y Cursos', ind10:'Gimnasios y Spas', ind11:'Concesionarios', ind12:'Tiendas y Bodegas',
+    faq_tag:'Preguntas frecuentes', faq_title:'Todo lo que necesitas saber',
+    faq1_q:'¿Necesito saber de tecnología?', faq1_a:'Para nada. Nosotros configuramos todo en 48 horas. Solo nos das la información de tu negocio y hacemos el resto.',
+    faq2_q:'¿Qué pasa si la IA no sabe una pregunta?', faq2_a:'La IA reconoce cuando no tiene la respuesta y te notifica por WhatsApp con el contexto completo. Nunca deja al cliente sin respuesta.',
+    faq3_q:'¿Funciona en EE.UU., Venezuela, Colombia y otros países?', faq3_a:'Sí, 100%. El bot de WhatsApp funciona en cualquier país. El número de voz es un +1 USA que se puede llamar desde cualquier lugar del mundo.',
+    faq4_q:'¿Puedo actualizar precios o servicios después?', faq4_a:'Sí, en cualquier momento. Nos mandas un mensaje y actualizamos en 24 horas sin costo adicional.',
+    faq5_q:'¿Puedo cancelar cuando quiera?', faq5_a:'Absolutamente. No hay contratos ni penalizaciones. Cobramos mensual, sin compromisos.',
+    faq6_q:'¿Cómo se realiza el pago?', faq6_a:'Aceptamos Payoneer, Facebank, Global66, Binance Pay, transferencia bancaria USD y Pago Móvil.',
+    cta_title:'¿Listo para nunca<br>perder un cliente?',
+    cta_sub:'Únete a los negocios que ya tienen una recepcionista trabajando 24/7 sin pagar nómina. Configuración en 48 horas.',
+    cta_btn1:'💬 Hablar con un asesor', cta_btn2:'Ver demo primero',
+    footer_copy:'Recepcionista AI · Tecnología con propósito · © 2026',
+    wa_msg:'Hola,%20me%20interesa%20Recepcionista%20AI',
+    wa_cta:'Hola,%20quiero%20información%20sobre%20Recepcionista%20AI',
+    wa_basic:'Quiero%20el%20plan%20Básico%20de%20Recepcionista%20AI',
+    wa_pro:'Quiero%20el%20plan%20Pro%20de%20Recepcionista%20AI',
+    wa_premium:'Quiero%20el%20plan%20Premium%20de%20Recepcionista%20AI',
+    wa_cta_final:'Hola,%20quiero%20contratar%20Recepcionista%20AI%20para%20mi%20negocio',
+    wa_demo:'Hola,%20quiero%20probar%20el%20demo',
+  },
+  en: {
+    nav_how:'How it works', nav_pricing:'Pricing', nav_demo:'Live Demo', nav_faq:'FAQ',
+    nav_cta:'Get started →',
+    hero_tag:'AI for businesses · A2K Digital Studio',
+    hero_h1a:'Your business open', hero_h1b:'24 hours, 7 days',
+    hero_sub:'An AI employee that answers calls, replies to WhatsApp messages, books appointments, and takes orders — while you sleep, vacation, or rest.',
+    hero_btn1:'📞 See live demo', hero_btn2:'See pricing',
+    stat1:'Availability', stat2:'Response time', stat3:'Overtime pay', stat4:'Simultaneous clients',
+    pain_tag:'The real problem',
+    pain_title:'How many clients are you<br>losing without knowing it?',
+    pain_sub:'Every time you miss a call or take too long to reply, that client calls your competitor.',
+    pain1_title:'Calls after hours', pain1_desc:'40% of business calls happen before 9AM or after 6PM. No answer = lost client.', pain1_cost:'Estimated loss: $200–$800/mo',
+    pain2_title:'Unanswered messages', pain2_desc:'Clients expect a reply in under 5 minutes. If you take over an hour, 60% never message back.', pain2_cost:'Lost conversions: 60%',
+    pain3_title:'Receptionist = $2,500+/mo', pain3_desc:'A human receptionist costs $2,500–$4,500/month. Only works 8 hours, gets sick, and takes vacations.', pain3_cost:'Annual cost: $30,000–$54,000',
+    how_tag:'Simple process', how_title:'Ready in 48 hours', how_sub:"You don't need to know anything about technology. We set everything up — you just start getting clients attended to.",
+    step1_title:'Tell us about your business', step1_desc:'Fill out a 10-minute form with your services, prices, hours, and FAQs.', step1_time:'⏱ 10 minutes of your time',
+    step2_title:'We configure your AI', step2_desc:'We train the assistant with your business info and connect it to your WhatsApp and phone number.', step2_time:'⏱ 48 hours (we do everything)',
+    step3_title:'Your AI starts working', step3_desc:'Your Receptionist AI is active 24/7. Answers calls, replies to messages, and books appointments automatically.', step3_time:'✅ Zero maintenance required',
+    feat_tag:'Capabilities', feat_title:'Your most complete employee', feat_sub:'Does everything a receptionist does — but faster, without errors, and without days off.',
+    f1_title:'Answers calls with AI', f1_desc:'Picks up the phone with a natural voice. Talks and resolves questions instantly.', f1_1:'Natural voice, not robotic', f1_2:'Understands English & Spanish', f1_3:'Transfers call if client requests',
+    f2_title:'Replies to WhatsApp 24/7', f2_desc:'Handles all messages in seconds. No matter the time of day or night.', f2_1:'Response in under 3 seconds', f2_2:'Multiple simultaneous conversations', f2_3:'Sends product photos and menu',
+    f3_title:'Books appointments automatically', f3_desc:'Client says "I want an appointment" and the bot books, confirms, and reminds them.', f3_1:'Automatic confirmation', f3_2:'Reminder 24h before', f3_3:'Reschedules if client cancels',
+    f4_title:'Takes orders & quotes', f4_desc:'Client places order via WhatsApp. The bot records it and notifies you with the full summary.', f4_1:'Product catalog with prices', f4_2:'Calculates totals automatically', f4_3:'Sends you order summary',
+    f5_title:'Answers FAQs instantly', f5_desc:'Hours? Location? Prices? Your AI answers instantly, always correctly.', f5_1:'Updated prices and services', f5_2:'Location and directions', f5_3:'Accepted payment methods',
+    f6_title:'Notifies you of what matters', f6_desc:'If a client needs to speak with you personally, your AI alerts you immediately with full context.', f6_1:'Urgent case alerts', f6_2:'Daily conversation summary', f6_3:'Never miss a VIP client',
+    demo_tag:'Live demo', demo_title:'Talk to the AI right now', demo_sub:"This is not a video. Call or message now and experience live how it will work for your business.",
+    demo_label:'Active number · Responds in seconds', demo_call:'📞 Call now', demo_wa:'💬 Try on WhatsApp',
+    demo_note:'* This is a demo number. Your business will have its own personalized number.',
+    price_tag:'Plans & pricing', price_title:'Less than an employee,<br>more than a receptionist', price_sub:'No long contracts. No surprises. Cancel anytime.',
+    p1_name:'⚡ Basic', p1_period:'Ideal for small businesses just getting started',
+    p2_name:'🚀 Pro', p2_period:'For businesses that want to grow for real',
+    p3_name:'👑 Premium', p3_period:'For serious businesses that dominate their market',
+    popular_badge:'🔥 MOST POPULAR',
+    pf1_1:'WhatsApp Bot 24/7', pf1_2:'Services/products catalog', pf1_3:'FAQ auto-responses', pf1_4:'Owner notifications', pf1_5:'WhatsApp support', pf1_6:'Voice bot (phone calls)', pf1_7:'Dedicated phone number', pf1_8:'Automatic appointment booking',
+    pf2_1:'Everything in Basic', pf2_2:'AI voice bot (answers calls)', pf2_3:'Dedicated USA phone number', pf2_4:'Automatic appointment booking', pf2_5:'Appointment reminders', pf2_6:'Full order taking', pf2_7:'Priority support', pf2_8:'Monthly reports',
+    pf3_1:'Everything in Pro', pf3_2:'Detailed monthly reports', pf3_3:'Business mini landing page', pf3_4:'Basic client CRM', pf3_5:'Advanced AI customization', pf3_6:'VIP 24/7 support', pf3_7:'Updates at no extra cost', pf3_8:'Business landing page included',
+    p_cta1:'Get Basic', p_cta2:'Get Pro →', p_cta3:'Get Premium',
+    ind_tag:'Industries', ind_title:'Works for any business', ind_sub:'If you have clients who call or message, Receptionist AI works for you.',
+    ind1:'Medical Clinics', ind2:'Nail Salons', ind3:'Hair Salons & Barbershops', ind4:'Restaurants', ind5:'Real Estate', ind6:'Hardware & Repair Shops', ind7:'Pharmacies', ind8:'Law Offices', ind9:'Academies & Courses', ind10:'Gyms & Spas', ind11:'Car Dealerships', ind12:'Retail Stores',
+    faq_tag:'Frequently asked questions', faq_title:'Everything you need to know',
+    faq1_q:'Do I need technical knowledge?', faq1_a:"Not at all. We set everything up in 48 hours. Just give us your business info and we handle the rest. No installs, no learning curve.",
+    faq2_q:"What if the AI doesn't know an answer?", faq2_a:'The AI recognizes when it lacks an answer and immediately notifies you on WhatsApp with the full conversation context. Your client is never left hanging.',
+    faq3_q:'Does it work in the US, Latin America, and other countries?', faq3_a:'Yes, 100%. The WhatsApp bot works anywhere. The voice number is a US +1 number that anyone can call from anywhere in the world.',
+    faq4_q:'Can I update prices or services later?', faq4_a:'Yes, anytime. Just message us the changes and we update within 24 hours at no extra charge.',
+    faq5_q:'Can I cancel anytime?', faq5_a:'Absolutely. No long-term contracts, no cancellation fees. We bill monthly, no strings attached.',
+    faq6_q:'How do I pay?', faq6_a:'We accept Payoneer, Facebank, Global66, Binance Pay, and bank wire transfer in USD.',
+    cta_title:'Ready to never<br>lose a client again?',
+    cta_sub:'Join businesses that already have an AI receptionist working 24/7 without a payroll. Setup in 48 hours.',
+    cta_btn1:'💬 Talk to an advisor', cta_btn2:'See demo first',
+    footer_copy:'Receptionist AI · Technology with purpose · © 2026',
+    wa_msg:'Hello,%20I\'m%20interested%20in%20Receptionist%20AI',
+    wa_cta:'Hello,%20I%20want%20information%20about%20Receptionist%20AI',
+    wa_basic:'I%20want%20the%20Basic%20plan%20for%20Receptionist%20AI',
+    wa_pro:'I%20want%20the%20Pro%20plan%20for%20Receptionist%20AI',
+    wa_premium:'I%20want%20the%20Premium%20plan%20for%20Receptionist%20AI',
+    wa_cta_final:'Hello,%20I%20want%20to%20hire%20Receptionist%20AI%20for%20my%20business',
+    wa_demo:'Hello,%20I%20want%20to%20try%20the%20live%20demo',
+  }
+};
+
+var LANG = 'es';
+
+function setLang(lang) {
+  LANG = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-es').classList.toggle('active', lang==='es');
+  document.documentElement.lang = lang;
+
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+  });
+
+  // Update WhatsApp links
+  var wa = T[lang].wa_msg;
+  document.getElementById('float-wa').href = 'https://wa.me/584126148666?text=' + wa;
+  document.getElementById('nav-cta-link').href = 'https://wa.me/584126148666?text=' + T[lang].wa_cta;
+  document.getElementById('cta-basic').href = 'https://wa.me/584126148666?text=' + T[lang].wa_basic;
+  document.getElementById('cta-pro').href = 'https://wa.me/584126148666?text=' + T[lang].wa_pro;
+  document.getElementById('cta-premium').href = 'https://wa.me/584126148666?text=' + T[lang].wa_premium;
+  document.getElementById('cta-final-btn').href = 'https://wa.me/584126148666?text=' + T[lang].wa_cta_final;
+  document.getElementById('demo-wa-btn').href = 'https://wa.me/17866056242?text=' + T[lang].wa_demo;
+}
+
 function toggleFaq(el) {
   var answer = el.nextElementSibling;
   var isOpen = el.classList.contains('open');
-  // Cerrar todos
   document.querySelectorAll('.faq-q').forEach(function(q){ q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
   if (!isOpen) { el.classList.add('open'); answer.classList.add('open'); }
 }
 
-// Animación de entrada para elementos al hacer scroll
+// Scroll animations
 var observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
-  });
-}, { threshold: 0.1 });
-
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }});
+}, {threshold:0.1});
 document.querySelectorAll('.feat-card,.step,.pain-card,.pricing-card,.ind-card').forEach(function(el){
-  el.style.opacity='0';
-  el.style.transform='translateY(20px)';
-  el.style.transition='opacity .5s ease, transform .5s ease';
+  el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity .5s ease,transform .5s ease';
   observer.observe(el);
 });
+
+// Auto-detect browser language
+if (navigator.language && navigator.language.startsWith('en')) setLang('en');
 </script>
 </body>
 </html>
