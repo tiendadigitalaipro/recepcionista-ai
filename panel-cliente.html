@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recepcionista AI — Panel de Cliente</title>
+<style>
+:root{
+  --bg:#0a0a12;--surface:#13131f;--surface2:#1a1a2e;--border:#252538;
+  --neon:#06d6a0;--purple:#7c3aed;--accent:#9d5bf4;--warn:#f59e0b;
+  --danger:#ef4444;--text:#e8e8f0;--muted:#6b6b8a;
+  --font:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh}
+
+/* ── LOCK SCREEN ── */
+#lockScreen{
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#0a0a12 0%,#13102a 50%,#0a0a12 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.lock-box{
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:48px 40px;width:100%;max-width:440px;text-align:center;
+  box-shadow:0 0 60px rgba(124,58,237,0.15);
+}
+.lock-logo{font-size:42px;margin-bottom:8px}
+.lock-title{font-size:24px;font-weight:800;color:var(--text);margin-bottom:4px}
+.lock-sub{font-size:13px;color:var(--muted);margin-bottom:32px}
+.lock-label{font-size:12px;color:var(--muted);text-align:left;margin-bottom:6px;font-weight:600;letter-spacing:.5px}
+.lock-input{
+  width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  padding:14px 16px;color:var(--text);font-size:15px;font-family:monospace;
+  letter-spacing:2px;outline:none;transition:border .2s;text-transform:uppercase;
+}
+.lock-input:focus{border-color:var(--purple)}
+.lock-btn{
+  width:100%;margin-top:16px;padding:14px;border:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--purple),var(--accent));
+  color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s;
+}
+.lock-btn:hover{opacity:.9}
+.lock-error{color:var(--danger);font-size:13px;margin-top:10px;display:none}
+.lock-demo{margin-top:20px;font-size:12px;color:var(--muted)}
+.lock-demo code{background:var(--bg);padding:3px 8px;border-radius:5px;color:var(--neon);font-size:12px}
+
+/* ── APP LAYOUT ── */
+#app{display:none;min-height:100vh}
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:220px;
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;z-index:100;
+}
+.sb-logo{padding:20px;border-bottom:1px solid var(--border)}
+.sb-logo .logo-icon{font-size:20px}
+.sb-logo .logo-text{font-size:14px;font-weight:800;color:var(--text)}
+.sb-logo .logo-sub{font-size:10px;color:var(--muted)}
+.sb-nav{flex:1;padding:12px 8px;overflow-y:auto}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;
+  border-radius:8px;cursor:pointer;transition:all .15s;
+  font-size:13px;color:var(--muted);margin-bottom:2px;
+}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:rgba(124,58,237,.15);color:var(--accent);border-left:3px solid var(--accent)}
+.nav-item .nav-icon{font-size:16px;width:20px}
+.sb-bottom{padding:12px;border-top:1px solid var(--border)}
+.plan-badge{
+  background:rgba(6,214,160,.1);border:1px solid rgba(6,214,160,.3);
+  border-radius:8px;padding:10px 12px;font-size:11px;
+}
+.plan-badge .plan-name{color:var(--neon);font-weight:700;font-size:13px}
+.plan-badge .plan-exp{color:var(--muted);margin-top:2px}
+
+.main{margin-left:220px;padding:28px;min-height:100vh}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:28px;
+}
+.page-title{font-size:22px;font-weight:800;color:var(--text)}
+.page-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.topbar-actions{display:flex;gap:10px;align-items:center}
+.btn{
+  padding:9px 18px;border-radius:8px;border:none;cursor:pointer;
+  font-size:13px;font-weight:600;transition:all .15s;
+}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--accent));color:#fff}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+
+/* ── PAGE SECTIONS ── */
+.page-section{display:none}
+.page-section.active{display:block}
+
+/* ── CARDS ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-icon{font-size:28px;margin-bottom:8px}
+.card-value{font-size:28px;font-weight:800;color:var(--text)}
+.card-label{font-size:12px;color:var(--muted);margin-top:2px}
+.card-trend{font-size:11px;color:var(--neon);margin-top:4px}
+
+/* ── STATUS INDICATOR ── */
+.status-bar{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:16px 20px;display:flex;align-items:center;gap:16px;margin-bottom:24px;
+}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px var(--neon);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-text{font-size:13px;color:var(--text);font-weight:600}
+.status-sub{font-size:11px;color:var(--muted);margin-left:auto}
+
+/* ── FORM STYLES ── */
+.form-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+.form-section-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.4px}
+.form-input,.form-select,.form-textarea{
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  padding:10px 12px;color:var(--text);font-size:13px;outline:none;
+  transition:border .2s;font-family:var(--font);
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--purple)}
+.form-textarea{resize:vertical;min-height:90px}
+.form-select option{background:var(--surface)}
+.save-btn{
+  padding:11px 28px;background:linear-gradient(135deg,var(--purple),var(--accent));
+  border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;
+  cursor:pointer;transition:opacity .2s;margin-top:4px;
+}
+.save-btn:hover{opacity:.85}
+.saved-msg{font-size:12px;color:var(--neon);margin-left:12px;display:none}
+
+/* ── HORARIOS ── */
+.horario-row{
+  display:flex;align-items:center;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.horario-dia{width:100px;font-size:13px;color:var(--text);font-weight:600}
+.horario-toggle{
+  position:relative;width:40px;height:22px;cursor:pointer;
+}
+.horario-toggle input{opacity:0;width:0;height:0}
+.toggle-slider{
+  position:absolute;inset:0;background:var(--border);border-radius:22px;
+  transition:.3s;
+}
+.toggle-slider:before{
+  content:'';position:absolute;width:16px;height:16px;
+  background:#fff;border-radius:50%;top:3px;left:3px;transition:.3s;
+}
+.horario-toggle input:checked + .toggle-slider{background:var(--neon)}
+.horario-toggle input:checked + .toggle-slider:before{transform:translateX(18px)}
+.horario-time{
+  background:var(--bg);border:1px solid var(--border);border-radius:6px;
+  padding:6px 10px;color:var(--text);font-size:12px;outline:none;
+  font-family:monospace;
+}
+.horario-sep{color:var(--muted);font-size:12px}
+
+/* ── MENSAJES ── */
+.msg-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:20px;margin-bottom:12px;
+}
+.msg-card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.msg-tag{
+  padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  background:rgba(124,58,237,.15);color:var(--accent);
+}
+.msg-card-title{font-size:13px;font-weight:700;color:var(--text)}
+.msg-preview{
+  background:var(--bg);border-radius:8px;padding:12px;
+  font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;
+  border-left:3px solid var(--purple);
+}
+
+/* ── HISTORIAL ── */
+.conv-list{display:flex;flex-direction:column;gap:8px}
+.conv-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;
+  transition:border .15s;
+}
+.conv-item:hover{border-color:var(--purple)}
+.conv-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--accent));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+}
+.conv-name{font-size:13px;font-weight:600;color:var(--text)}
+.conv-preview{font-size:11px;color:var(--muted);margin-top:2px}
+.conv-time{font-size:11px;color:var(--muted);margin-left:auto;flex-shrink:0}
+.conv-badge{
+  background:var(--neon);color:#000;font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:10px;
+}
+
+/* ── PLAN ── */
+.plan-card{
+  background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,214,160,.05));
+  border:1px solid rgba(124,58,237,.3);border-radius:16px;padding:28px;
+  margin-bottom:20px;
+}
+.plan-card-name{font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px}
+.plan-card-price{font-size:36px;font-weight:800;color:var(--accent)}
+.plan-card-period{font-size:14px;color:var(--muted)}
+.plan-features{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+.plan-feat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.plan-feat .check{color:var(--neon);font-size:14px}
+.upgrade-btn{
+  padding:13px 32px;background:linear-gradient(135deg,var(--purple),var(--accent));
+  border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;
+  cursor:pointer;margin-top:20px;
+}
+
+/* ── WHATSAPP CONFIG ── */
+.wa-preview{
+  background:#0a1a12;border:1px solid #1a3a2a;border-radius:12px;padding:20px;
+  font-family:monospace;
+}
+.wa-msg{
+  background:#1a3a2a;border-radius:10px 10px 10px 2px;
+  padding:10px 14px;max-width:80%;margin-bottom:8px;
+  font-size:12px;color:#e8f8e8;line-height:1.5;
+}
+.wa-msg.user{
+  background:#0d2d4a;border-radius:10px 10px 2px 10px;
+  margin-left:auto;color:#e8f0f8;
+}
+.wa-time{font-size:10px;color:#4a7a5a;margin-top:3px;text-align:right}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:24px;right:24px;z-index:99999;
+  background:var(--surface);border:1px solid var(--neon);border-radius:10px;
+  padding:12px 20px;font-size:13px;color:var(--neon);
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+  transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none;
+}
+#toast.show{transform:translateY(0);opacity:1}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .sidebar{width:60px}
+  .sb-logo .logo-text,.sb-logo .logo-sub,.nav-item span,.sb-bottom{display:none}
+  .main{margin-left:60px;padding:16px}
+  .form-grid{grid-template-columns:1fr}
+  .cards-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════ LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-logo">🤖</div>
+    <div class="lock-title">Recepcionista AI</div>
+    <div class="lock-sub">Panel de configuración — by A2K Digital Studio</div>
+    <div class="lock-label">INGRESA TU CÓDIGO DE LICENCIA</div>
+    <input type="text" class="lock-input" id="lockInput" placeholder="RCAI-XXXX-XXXX-XXXX" maxlength="19"
+      oninput="formatKey(this)" onkeydown="if(event.key==='Enter')activarLicencia()">
+    <button class="lock-btn" onclick="activarLicencia()">🔓 Activar Licencia</button>
+    <div class="lock-error" id="lockError">❌ Código inválido o expirado</div>
+    <div class="lock-demo">Demo: <code>RCAI-DEMO-2024</code></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ APP -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="logo-icon">🤖</div>
+      <div class="logo-text">Recepcionista AI</div>
+      <div class="logo-sub" id="sbBizName">Mi Negocio</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="nav-item active" onclick="showSection('dashboard',this)">
+        <span class="nav-icon">📊</span><span>Dashboard</span>
+      </div>
+      <div class="nav-item" onclick="showSection('config',this)">
+        <span class="nav-icon">⚙️</span><span>Configuración</span>
+      </div>
+      <div class="nav-item" onclick="showSection('mensajes',this)">
+        <span class="nav-icon">💬</span><span>Mensajes del Bot</span>
+      </div>
+      <div class="nav-item" onclick="showSection('horarios',this)">
+        <span class="nav-icon">🕐</span><span>Horarios</span>
+      </div>
+      <div class="nav-item" onclick="showSection('historial',this)">
+        <span class="nav-icon">📋</span><span>Historial</span>
+      </div>
+      <div class="nav-item" onclick="showSection('plan',this)">
+        <span class="nav-icon">💳</span><span>Mi Plan</span>
+      </div>
+    </nav>
+    <div class="sb-bottom">
+      <div class="plan-badge">
+        <div class="plan-name" id="sbPlanName">Plan Básico</div>
+        <div class="plan-exp" id="sbPlanExp">Expira: —</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- ── DASHBOARD ── -->
+    <div class="page-section active" id="sec-dashboard">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Dashboard</div>
+          <div class="page-sub" id="dashGreeting">Bienvenido a tu panel</div>
+        </div>
+        <div class="topbar-actions">
+          <span style="font-size:12px;color:var(--muted)" id="topDate"></span>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-dot"></div>
+        <div class="status-text">Bot activo — respondiendo mensajes</div>
+        <div class="status-sub">Última actividad: hace 3 minutos</div>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">💬</div>
+          <div class="card-value" id="statMensajes">0</div>
+          <div class="card-label">Mensajes hoy</div>
+          <div class="card-trend">↑ Bot activo 24/7</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">📅</div>
+          <div class="card-value" id="statCitas">0</div>
+          <div class="card-label">Citas agendadas</div>
+          <div class="card-trend" style="color:var(--accent)">Este mes</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <div class="card-value">3s</div>
+          <div class="card-label">Tiempo de respuesta</div>
+          <div class="card-trend">Promedio</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">✅</div>
+          <div class="card-value" id="statTasa">98%</div>
+          <div class="card-label">Tasa de respuesta</div>
+          <div class="card-trend">Clientes atendidos</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">📞 Últimas conversaciones</div>
+        <div class="conv-list" id="convListDash">
+          <div style="color:var(--muted);font-size:13px;padding:20px;text-align:center">
+            Las conversaciones aparecerán aquí cuando el bot empiece a responder
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONFIGURACIÓN ── -->
+    <div class="page-section" id="sec-config">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Configuración</div>
+          <div class="page-sub">Personaliza tu recepcionista AI</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">🏪 Información del negocio</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">NOMBRE DEL NEGOCIO</label>
+            <input type="text" class="form-input" id="cfgNombre" placeholder="Ej: Nail Salon Diana">
+          </div>
+          <div class="form-group">
+            <label class="form-label">TIPO DE NEGOCIO</label>
+            <select class="form-select" id="cfgTipo">
+              <option>Nail Salon</option>
+              <option>Salón de Belleza</option>
+              <option>Clínica Dental</option>
+              <option>Clínica Médica</option>
+              <option>Barbería</option>
+              <option>Spa</option>
+              <option>Restaurante</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">TELÉFONO / WHATSAPP</label>
+            <input type="text" class="form-input" id="cfgTelefono" placeholder="+1 (786) 000-0000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CIUDAD</label>
+            <input type="text" class="form-input" id="cfgCiudad" placeholder="Miami, FL">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">DIRECCIÓN</label>
+            <input type="text" class="form-input" id="cfgDireccion" placeholder="123 SW 8th Street, Miami, FL 33130">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">DESCRIPCIÓN DEL NEGOCIO (el bot usará esto para presentarse)</label>
+            <textarea class="form-textarea" id="cfgDescripcion" placeholder="Somos un nail salon especializado en uñas acrílicas, gel y nail art. Atendemos con cita previa..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">💬 Canal de comunicación</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">NÚMERO WHATSAPP DEL BOT</label>
+            <input type="text" class="form-input" id="cfgWaBot" placeholder="+1 (786) 605-6242 (demo A2K)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">EMAIL DE NOTIFICACIONES</label>
+            <input type="text" class="form-input" id="cfgEmail" placeholder="tu@email.com">
+          </div>
+          <div class="form-group full">
+            <label class="form-label">SERVICIOS OFRECIDOS (uno por línea)</label>
+            <textarea class="form-textarea" id="cfgServicios" placeholder="Uñas acrílicas — $45&#10;Gel completo — $55&#10;Nail art — desde $10&#10;Manicure simple — $25"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <button class="save-btn" onclick="guardarConfig()">💾 Guardar configuración</button>
+      <span class="saved-msg" id="cfgSavedMsg">✅ Guardado</span>
+    </div>
+
+    <!-- ── MENSAJES DEL BOT ── -->
+    <div class="page-section" id="sec-mensajes">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Mensajes del Bot</div>
+          <div class="page-sub">Personaliza lo que responde tu recepcionista AI</div>
+        </div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-tag">BIENVENIDA</span>
+          <span class="msg-card-title">Saludo inicial</span>
+        </div>
+        <div class="msg-preview" id="prevBienvenida">Hola! 👋 Gracias por contactar a [Tu Negocio]. Soy tu recepcionista virtual. ¿En qué puedo ayudarte hoy?</div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="msgBienvenida" placeholder="Personaliza el mensaje de bienvenida..."></textarea>
+        </div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-tag">CITAS</span>
+          <span class="msg-card-title">Respuesta para agendar citas</span>
+        </div>
+        <div class="msg-preview" id="prevCitas">Para agendar tu cita, necesito: 📅 Fecha y hora preferida, 💅 Servicio que deseas, 📞 Tu nombre y número. ¿Tienes alguna fecha en mente?</div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="msgCitas" placeholder="Personaliza el mensaje para citas..."></textarea>
+        </div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-tag">HORARIO</span>
+          <span class="msg-card-title">Respuesta sobre horarios</span>
+        </div>
+        <div class="msg-preview" id="prevHorario">Nuestro horario es: Lun-Vie 9am-7pm, Sáb 9am-5pm. ¡Te esperamos! 🕐</div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="msgHorario" placeholder="Personaliza el mensaje de horario..."></textarea>
+        </div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-tag">PRECIOS</span>
+          <span class="msg-card-title">Respuesta sobre precios</span>
+        </div>
+        <div class="msg-preview" id="prevPrecios">Nuestros precios: 💅 Acrílicas desde $45, Gel $55, Nail art +$10. ¡Pregunta por nuestros combos especiales!</div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="msgPrecios" placeholder="Personaliza el mensaje de precios..."></textarea>
+        </div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-tag">FUERA DE HORARIO</span>
+          <span class="msg-card-title">Mensaje nocturno / fin de semana</span>
+        </div>
+        <div class="msg-preview" id="prevFuera">Hola! 🌙 Estamos cerrados en este momento. Tu mensaje fue recibido y te contactaremos en cuanto abramos. Horario: Lun-Vie 9am-7pm.</div>
+        <div class="form-group">
+          <textarea class="form-textarea" id="msgFuera" placeholder="Personaliza el mensaje fuera de horario..."></textarea>
+        </div>
+      </div>
+
+      <button class="save-btn" onclick="guardarMensajes()">💾 Guardar mensajes</button>
+      <span class="saved-msg" id="msgSavedMsg">✅ Guardado</span>
+    </div>
+
+    <!-- ── HORARIOS ── -->
+    <div class="page-section" id="sec-horarios">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Horarios de atención</div>
+          <div class="page-sub">Define cuándo tu bot responde en vivo vs. modo nocturno</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">📅 Días y horas de atención</div>
+        <div id="horariosContainer"></div>
+      </div>
+
+      <button class="save-btn" onclick="guardarHorarios()">💾 Guardar horarios</button>
+      <span class="saved-msg" id="horSavedMsg">✅ Guardado</span>
+    </div>
+
+    <!-- ── HISTORIAL ── -->
+    <div class="page-section" id="sec-historial">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Historial de conversaciones</div>
+          <div class="page-sub">Chats manejados por tu recepcionista AI</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">💬 Conversaciones recientes</div>
+        <div id="historialList">
+          <div style="color:var(--muted);font-size:13px;padding:30px;text-align:center">
+            📭 Las conversaciones aparecerán aquí una vez que el bot esté conectado a tu WhatsApp
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MI PLAN ── -->
+    <div class="page-section" id="sec-plan">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Mi Plan</div>
+          <div class="page-sub">Gestiona tu suscripción</div>
+        </div>
+      </div>
+
+      <div class="plan-card">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between">
+          <div>
+            <div class="plan-card-name" id="planNombreCard">Plan Básico</div>
+            <div style="margin-top:8px">
+              <span class="plan-card-price" id="planPrecioCard">$99</span>
+              <span class="plan-card-period">/mes</span>
+            </div>
+          </div>
+          <div style="background:rgba(6,214,160,.15);border:1px solid rgba(6,214,160,.3);border-radius:8px;padding:6px 14px;font-size:12px;color:var(--neon);font-weight:700">ACTIVO</div>
+        </div>
+        <div class="plan-features" id="planFeatures">
+          <div class="plan-feat"><span class="check">✓</span> Respuestas WhatsApp 24/7</div>
+          <div class="plan-feat"><span class="check">✓</span> Hasta 500 mensajes/mes</div>
+          <div class="plan-feat"><span class="check">✓</span> Agendamiento automático de citas</div>
+          <div class="plan-feat"><span class="check">✓</span> Panel de configuración</div>
+          <div class="plan-feat"><span class="check">✓</span> Soporte por WhatsApp</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">📋 Información de licencia</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">CÓDIGO DE LICENCIA</label>
+            <input type="text" class="form-input" id="infoLicencia" readonly style="font-family:monospace;color:var(--neon)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">FECHA DE VENCIMIENTO</label>
+            <input type="text" class="form-input" id="infoVenc" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">PLAN</label>
+            <input type="text" class="form-input" id="infoPlan" readonly>
+          </div>
+          <div class="form-group">
+            <label class="form-label">ESTADO</label>
+            <input type="text" class="form-input" id="infoEstado" readonly style="color:var(--neon)">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">🔧 Soporte</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="https://wa.me/584126148666?text=Hola%2C%20necesito%20soporte%20con%20mi%20Recepcionista%20AI"
+             target="_blank" class="save-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+            💬 WhatsApp Soporte
+          </a>
+          <a href="mailto:shoppingelectronics3112@gmail.com?subject=Soporte Recepcionista AI"
+             class="save-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text)">
+            📧 Email Soporte
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<div id="toast"></div>
+
+<script>
+// ════════════════════════ LICENCIAS ════════════════════════
+var LICENCIAS = {
+  "RCAI-DEMO-2024":  { plan:"Demo",    precio:"$0",   dias:7,   msgs:100  },
+  "RCAI-BASE-0001":  { plan:"Básico",  precio:"$99",  dias:30,  msgs:500  },
+  "RCAI-BASE-0002":  { plan:"Básico",  precio:"$99",  dias:30,  msgs:500  },
+  "RCAI-BASE-0003":  { plan:"Básico",  precio:"$99",  dias:30,  msgs:500  },
+  "RCAI-PRO-0001":   { plan:"Pro",     precio:"$149", dias:30,  msgs:2000 },
+  "RCAI-PRO-0002":   { plan:"Pro",     precio:"$149", dias:30,  msgs:2000 },
+  "RCAI-PRO-0003":   { plan:"Pro",     precio:"$149", dias:30,  msgs:2000 },
+  "RCAI-VIP-0001":   { plan:"VIP",     precio:"$199", dias:365, msgs:99999},
+};
+
+function formatKey(el){
+  var v = el.value.replace(/[^A-Z0-9]/gi,'').toUpperCase();
+  var parts = [];
+  for(var i=0;i<v.length&&parts.join('').replace(/-/g,'').length<16;i+=4)
+    parts.push(v.substr(i,4));
+  el.value = parts.join('-').substr(0,19);
+}
+
+function activarLicencia(){
+  var key = document.getElementById('lockInput').value.trim().toUpperCase();
+  var err = document.getElementById('lockError');
+
+  // Revisar si ya está activada
+  var saved = JSON.parse(localStorage.getItem('rcai_licencia')||'null');
+  if(saved && saved.key === key){
+    if(new Date(saved.vence) > new Date()){
+      iniciarApp(saved); return;
+    } else {
+      err.style.display='block'; err.textContent='⏰ Licencia expirada. Contacta soporte.'; return;
+    }
+  }
+
+  if(!LICENCIAS[key]){
+    err.style.display='block'; err.textContent='❌ Código inválido'; return;
+  }
+
+  var lic = LICENCIAS[key];
+  var vence = new Date();
+  vence.setDate(vence.getDate() + lic.dias);
+
+  var data = {
+    key: key,
+    plan: lic.plan,
+    precio: lic.precio,
+    msgs: lic.msgs,
+    vence: vence.toISOString(),
+    activado: new Date().toISOString()
+  };
+
+  localStorage.setItem('rcai_licencia', JSON.stringify(data));
+  iniciarApp(data);
+}
+
+function iniciarApp(data){
+  document.getElementById('lockScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+
+  // Actualizar UI con datos de licencia
+  document.getElementById('sbPlanName').textContent = 'Plan ' + data.plan;
+  document.getElementById('sbPlanExp').textContent = 'Exp: ' + new Date(data.vence).toLocaleDateString('es');
+  document.getElementById('infoLicencia').value = data.key;
+  document.getElementById('infoVenc').value = new Date(data.vence).toLocaleDateString('es-US', {year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('infoPlan').value = 'Plan ' + data.plan + ' — ' + data.precio + '/mes';
+  document.getElementById('infoEstado').value = '✅ ACTIVO';
+  document.getElementById('planNombreCard').textContent = 'Plan ' + data.plan;
+  document.getElementById('planPrecioCard').textContent = data.precio;
+
+  // Cargar config guardada
+  cargarTodo();
+  iniciarHorarios();
+
+  // Fecha en topbar
+  document.getElementById('topDate').textContent = new Date().toLocaleDateString('es-US',{weekday:'long',month:'long',day:'numeric'});
+
+  // Simulación de stats
+  document.getElementById('statMensajes').textContent = Math.floor(Math.random()*40)+5;
+  document.getElementById('statCitas').textContent = Math.floor(Math.random()*15)+2;
+
+  // Nombre negocio en sidebar
+  var cfg = JSON.parse(localStorage.getItem('rcai_config')||'{}');
+  if(cfg.nombre) document.getElementById('sbBizName').textContent = cfg.nombre;
+  document.getElementById('dashGreeting').textContent = 'Bienvenido' + (cfg.nombre ? ', ' + cfg.nombre : '') + ' 👋';
+}
+
+// ════════════════════════ NAVEGACIÓN ════════════════════════
+function showSection(id, el){
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ════════════════════════ CONFIG ════════════════════════
+function guardarConfig(){
+  var cfg = {
+    nombre:      document.getElementById('cfgNombre').value,
+    tipo:        document.getElementById('cfgTipo').value,
+    telefono:    document.getElementById('cfgTelefono').value,
+    ciudad:      document.getElementById('cfgCiudad').value,
+    direccion:   document.getElementById('cfgDireccion').value,
+    descripcion: document.getElementById('cfgDescripcion').value,
+    waBot:       document.getElementById('cfgWaBot').value,
+    email:       document.getElementById('cfgEmail').value,
+    servicios:   document.getElementById('cfgServicios').value,
+  };
+  localStorage.setItem('rcai_config', JSON.stringify(cfg));
+  if(cfg.nombre){ document.getElementById('sbBizName').textContent=cfg.nombre; }
+  mostrarSaved('cfgSavedMsg');
+  showToast('✅ Configuración guardada');
+}
+
+function cargarConfig(){
+  var cfg = JSON.parse(localStorage.getItem('rcai_config')||'{}');
+  if(cfg.nombre)      document.getElementById('cfgNombre').value      = cfg.nombre;
+  if(cfg.tipo)        document.getElementById('cfgTipo').value         = cfg.tipo;
+  if(cfg.telefono)    document.getElementById('cfgTelefono').value     = cfg.telefono;
+  if(cfg.ciudad)      document.getElementById('cfgCiudad').value       = cfg.ciudad;
+  if(cfg.direccion)   document.getElementById('cfgDireccion').value    = cfg.direccion;
+  if(cfg.descripcion) document.getElementById('cfgDescripcion').value  = cfg.descripcion;
+  if(cfg.waBot)       document.getElementById('cfgWaBot').value        = cfg.waBot;
+  if(cfg.email)       document.getElementById('cfgEmail').value        = cfg.email;
+  if(cfg.servicios)   document.getElementById('cfgServicios').value    = cfg.servicios;
+}
+
+// ════════════════════════ MENSAJES ════════════════════════
+var MSGS_DEFAULT = {
+  bienvenida: "Hola! 👋 Gracias por contactar a {negocio}. Soy tu recepcionista virtual. ¿En qué puedo ayudarte hoy?\n\n1️⃣ Agendar cita\n2️⃣ Ver precios\n3️⃣ Horarios\n4️⃣ Hablar con alguien",
+  citas:      "¡Perfecto! Para agendar tu cita necesito:\n\n📅 ¿Qué fecha y hora prefieres?\n💅 ¿Qué servicio deseas?\n📞 Tu nombre\n\n¿Tienes alguna fecha en mente?",
+  horario:    "Nuestro horario es:\n\n⏰ Lun - Vie: 9:00am - 7:00pm\n⏰ Sábado: 9:00am - 5:00pm\n🚫 Domingo: Cerrado\n\n¡Te esperamos! 🌟",
+  precios:    "Nuestros servicios y precios:\n\n💅 Uñas acrílicas: $45\n✨ Gel completo: $55\n🎨 Nail art: desde $10\n💆 Manicure: $25\n\n¿Te gustaría agendar una cita?",
+  fuera:      "Hola! 🌙 Gracias por escribirnos.\n\nEn este momento estamos cerrados, pero tu mensaje fue recibido. Te contactamos en cuanto abramos.\n\n⏰ Horario: Lun-Vie 9am-7pm, Sáb 9am-5pm"
+};
+
+function guardarMensajes(){
+  var msgs = {
+    bienvenida: document.getElementById('msgBienvenida').value || MSGS_DEFAULT.bienvenida,
+    citas:      document.getElementById('msgCitas').value      || MSGS_DEFAULT.citas,
+    horario:    document.getElementById('msgHorario').value    || MSGS_DEFAULT.horario,
+    precios:    document.getElementById('msgPrecios').value    || MSGS_DEFAULT.precios,
+    fuera:      document.getElementById('msgFuera').value      || MSGS_DEFAULT.fuera,
+  };
+  localStorage.setItem('rcai_mensajes', JSON.stringify(msgs));
+  // Actualizar previews
+  document.getElementById('prevBienvenida').textContent = msgs.bienvenida.substr(0,120)+'...';
+  document.getElementById('prevCitas').textContent      = msgs.citas.substr(0,120)+'...';
+  document.getElementById('prevHorario').textContent    = msgs.horario.substr(0,120)+'...';
+  document.getElementById('prevPrecios').textContent    = msgs.precios.substr(0,120)+'...';
+  document.getElementById('prevFuera').textContent      = msgs.fuera.substr(0,120)+'...';
+  mostrarSaved('msgSavedMsg');
+  showToast('✅ Mensajes guardados');
+}
+
+function cargarMensajes(){
+  var msgs = JSON.parse(localStorage.getItem('rcai_mensajes')||'{}');
+  ['bienvenida','citas','horario','precios','fuera'].forEach(function(k){
+    var v = msgs[k] || MSGS_DEFAULT[k];
+    var el = document.getElementById('msg'+k.charAt(0).toUpperCase()+k.slice(1));
+    if(el) el.value = v;
+    var prev = document.getElementById('prev'+k.charAt(0).toUpperCase()+k.slice(1));
+    if(prev) prev.textContent = v.substr(0,120)+(v.length>120?'...':'');
+  });
+}
+
+// ════════════════════════ HORARIOS ════════════════════════
+var DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+var DEFAULTS = [
+  {a:true,de:'09:00',hasta:'19:00'},{a:true,de:'09:00',hasta:'19:00'},
+  {a:true,de:'09:00',hasta:'19:00'},{a:true,de:'09:00',hasta:'19:00'},
+  {a:true,de:'09:00',hasta:'19:00'},{a:true,de:'09:00',hasta:'17:00'},
+  {a:false,de:'09:00',hasta:'13:00'}
+];
+
+function iniciarHorarios(){
+  var saved = JSON.parse(localStorage.getItem('rcai_horarios')||'null') || DEFAULTS;
+  var c = document.getElementById('horariosContainer');
+  c.innerHTML = '';
+  DIAS.forEach(function(dia, i){
+    var h = saved[i] || DEFAULTS[i];
+    var row = document.createElement('div');
+    row.className='horario-row';
+    row.innerHTML=`
+      <div class="horario-dia">${dia}</div>
+      <label class="horario-toggle">
+        <input type="checkbox" id="hact${i}" ${h.a?'checked':''}>
+        <span class="toggle-slider"></span>
+      </label>
+      <input type="time" class="horario-time" id="hde${i}" value="${h.de}">
+      <span class="horario-sep">a</span>
+      <input type="time" class="horario-time" id="hhasta${i}" value="${h.hasta}">
+    `;
+    c.appendChild(row);
+  });
+}
+
+function guardarHorarios(){
+  var hs = DIAS.map(function(_,i){
+    return {
+      a:     document.getElementById('hact'+i).checked,
+      de:    document.getElementById('hde'+i).value,
+      hasta: document.getElementById('hhasta'+i).value
+    };
+  });
+  localStorage.setItem('rcai_horarios', JSON.stringify(hs));
+  mostrarSaved('horSavedMsg');
+  showToast('✅ Horarios guardados');
+}
+
+// ════════════════════════ UTILS ════════════════════════
+function cargarTodo(){
+  cargarConfig();
+  cargarMensajes();
+}
+
+function mostrarSaved(id){
+  var el=document.getElementById(id);
+  el.style.display='inline';
+  setTimeout(function(){el.style.display='none';},2500);
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+// ════════════════════════ AUTO-LOGIN ════════════════════════
+(function(){
+  var saved = JSON.parse(localStorage.getItem('rcai_licencia')||'null');
+  if(saved && new Date(saved.vence) > new Date()){
+    iniciarApp(saved);
+  }
+})();
+</script>
+</body>
+</html>
