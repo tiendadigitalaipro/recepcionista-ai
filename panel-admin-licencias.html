@@ -661,9 +661,50 @@ function renderClientes() {
       + '<td style="font-size:11px;color:var(--text3);font-family:monospace">'+(l.fecha||'—')+'</td>'
       + '<td><span class="badge '+(l.activo?'badge-active':'badge-exp')+'">'+(l.activo?'✅ Activo':'❌ Inactivo')+'</span></td>'
       + '<td><button class="btn btn-ghost" style="font-size:11px;padding:4px 10px" onclick="reenviarMensaje(\''+l.id+'\')">📱 Reenviar</button>'
+      + ' <button class="btn" style="font-size:11px;padding:4px 10px;background:#7c3aed;color:#fff;border:none;border-radius:6px;cursor:pointer" onclick="cambiarEquipo(\''+l.id+'\')">🖥️</button>'
       + ' <button class="btn btn-danger" style="font-size:11px;padding:4px 10px" onclick="eliminarLic(\''+l.id+'\')">🗑</button></td>'
       + '</tr>';
   }).join('');
+}
+
+function cambiarEquipo(id) {
+  var lics = cargarLicencias();
+  var l = lics.find(function(x){ return x.id===id; });
+  if (!l) return;
+  var viejo = document.getElementById('_modalCambioEquipo'); if (viejo) viejo.remove();
+  var devActual = l.deviceId || l.deviceLocked || '';
+  var m = document.createElement('div'); m.id = '_modalCambioEquipo';
+  m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px';
+  var box = document.createElement('div');
+  box.style.cssText = 'background:var(--card,#111);border:2px solid #7c3aed;border-radius:18px;padding:28px;width:100%;max-width:420px';
+  box.innerHTML = '<div style="font-size:34px;text-align:center;margin-bottom:8px">🖥️</div>'
+    + '<div style="font-size:15px;font-weight:800;color:#fff;text-align:center;margin-bottom:4px">Cambiar Equipo</div>'
+    + '<div style="font-size:12px;color:#aaa;text-align:center;margin-bottom:16px">' + (l.nombre||'—') + '</div>'
+    + '<div style="background:#0a0a0a;border-radius:10px;padding:12px;margin-bottom:14px;font-size:11px;color:#888">'
+      + '<div>📌 <strong>Equipo actual:</strong> ' + (devActual || 'Sin equipo registrado') + '</div>'
+    + '</div>'
+    + '<div style="font-size:12px;color:#ccc;margin-bottom:6px;font-weight:700">Nuevo Device ID:</div>'
+    + '<input id="_nuevoDevInput" placeholder="Dejar vacío para solo liberar el equipo" '
+      + 'style="width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1px solid #333;background:#0a0a0a;color:#fff;font-family:monospace;font-size:12px;margin-bottom:6px;text-transform:uppercase">'
+    + '<div style="font-size:10px;color:#666;margin-bottom:18px">⚠️ El equipo anterior quedará desvinculado al guardar.</div>'
+    + '<div style="display:flex;gap:8px">';
+  var bCan = document.createElement('button'); bCan.textContent = 'Cancelar';
+  bCan.style.cssText = 'flex:1;padding:12px;border-radius:10px;border:1px solid #333;background:transparent;color:#aaa;cursor:pointer;font-size:13px';
+  bCan.onclick = function(){ m.remove(); };
+  var bOk = document.createElement('button'); bOk.innerHTML = '🔓 Guardar cambio';
+  bOk.style.cssText = 'flex:1;padding:12px;border-radius:10px;border:none;background:#7c3aed;color:#fff;cursor:pointer;font-size:13px;font-weight:800';
+  bOk.onclick = function(){
+    var lics2 = cargarLicencias(); var l2 = lics2.find(function(x){ return x.id===id; }); if (!l2) return;
+    var nuevoId = (document.getElementById('_nuevoDevInput').value||'').trim().toUpperCase();
+    l2.deviceId = nuevoId || null; l2.deviceLocked = nuevoId || null; l2.devices = nuevoId ? [nuevoId] : [];
+    guardarLicencias(lics2); renderClientes(); m.remove();
+    mostrarToast(nuevoId ? '✅ Equipo actualizado: ' + nuevoId : '✅ Equipo liberado');
+  };
+  box.querySelector('div:last-child').appendChild(bCan);
+  box.querySelector('div:last-child').appendChild(bOk);
+  m.appendChild(box); m.addEventListener('click', function(e){ if(e.target===m) m.remove(); });
+  document.body.appendChild(m);
+  setTimeout(function(){ var i=document.getElementById('_nuevoDevInput'); if(i) i.focus(); }, 100);
 }
 
 function reenviarMensaje(id) {
