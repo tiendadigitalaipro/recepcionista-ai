@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Licencias Recepcionista AI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07070f;--bg2:#0d0d1a;--bg3:#131325;--card:#0f0f1e;
+  --border:rgba(124,58,237,0.2);--border2:rgba(124,58,237,0.4);
+  --accent:#7c3aed;--accent2:#9d5bf4;--neon:#06d6a0;
+  --warn:#f59e0b;--danger:#ef4444;--success:#10b981;
+  --text:#e8e8f4;--text2:#8888aa;--text3:#44445a;
+  --display:'Segoe UI',sans-serif;--mono:'Courier New',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--display);min-height:100vh}
+
+/* LOCK */
+#lockScreen{position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse at center,#13102a 0%,#07070f 70%);display:flex;align-items:center;justify-content:center}
+.lock-box{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:48px 40px;width:100%;max-width:420px;text-align:center;box-shadow:0 0 80px rgba(124,58,237,0.2)}
+.lock-icon{font-size:48px;margin-bottom:12px}
+.lock-title{font-size:22px;font-weight:800;margin-bottom:4px}
+.lock-sub{font-size:13px;color:var(--text2);margin-bottom:28px}
+.lock-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--text);font-size:15px;outline:none;transition:border .2s;text-align:center;letter-spacing:3px}
+.lock-input:focus{border-color:var(--accent)}
+.lock-btn{width:100%;margin-top:14px;padding:13px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s}
+.lock-btn:hover{opacity:.85}
+.lock-err{color:var(--danger);font-size:13px;margin-top:10px;display:none}
+
+/* APP */
+#app{display:none}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.topbar-logo{font-size:16px;font-weight:800;display:flex;align-items:center;gap:10px}
+.topbar-logo span{background:linear-gradient(135deg,var(--accent),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tabs{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:4px}
+.tab{padding:11px 18px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:-1px}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent2);border-bottom-color:var(--accent2)}
+.section{display:none;padding:28px 24px}
+.section.active{display:block}
+
+/* CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center}
+.stat-num{font-size:32px;font-family:var(--mono);font-weight:700}
+.stat-lbl{font-size:12px;color:var(--text2);margin-top:4px}
+
+/* FORM */
+.form-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:24px;max-width:600px;margin-bottom:28px}
+.form-title{font-size:16px;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+.form-input{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:8px;font-family:var(--display);font-size:14px;outline:none;transition:border .2s}
+.form-input:focus{border-color:var(--accent)}
+select.form-input{cursor:pointer}
+.btn{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.btn-primary:hover{opacity:.85}
+.btn-ghost{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--text)}
+.btn-success{background:rgba(16,185,129,0.15);color:var(--success);border:1px solid rgba(16,185,129,0.3)}
+.btn-danger{background:rgba(239,68,68,0.1);color:var(--danger);border:1px solid rgba(239,68,68,0.2)}
+
+/* LICENSE RESULT */
+.lic-result{display:none;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:20px;margin-top:16px;text-align:center}
+.lic-code{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--neon);letter-spacing:3px;background:var(--bg);padding:12px 24px;border-radius:8px;display:inline-block;margin:10px 0;cursor:pointer;border:1px solid rgba(6,214,160,0.3)}
+.lic-code:hover{background:rgba(6,214,160,0.1)}
+.lic-plan-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:8px}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:800px}
+thead th{padding:10px 12px;text-align:left;font-size:11px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid rgba(124,58,237,0.07);transition:background .15s}
+tbody tr:hover{background:rgba(124,58,237,0.05)}
+tbody td{padding:11px 12px;font-size:13px;vertical-align:middle}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge-demo{background:rgba(124,58,237,0.15);color:var(--accent2);border:1px solid rgba(124,58,237,0.3)}
+.badge-base{background:rgba(245,158,11,0.15);color:var(--warn);border:1px solid rgba(245,158,11,0.3)}
+.badge-pro{background:rgba(6,214,160,0.15);color:var(--neon);border:1px solid rgba(6,214,160,0.3)}
+.badge-vip{background:rgba(239,68,68,0.1);color:#ff8c94;border:1px solid rgba(239,68,68,0.2)}
+.badge-ent{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3)}
+.badge-active{background:rgba(16,185,129,0.1);color:var(--success);border:1px solid rgba(16,185,129,0.2)}
+.badge-exp{background:rgba(239,68,68,0.08);color:var(--danger);border:1px solid rgba(239,68,68,0.15)}
+
+/* MESSAGE BOX */
+.msg-box{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;font-size:13px;color:var(--text2);white-space:pre-wrap;font-family:var(--mono);line-height:1.6;cursor:pointer;transition:border .2s}
+.msg-box:hover{border-color:var(--accent2)}
+
+/* PLAN PRICES */
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+.plan-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all .2s}
+.plan-card:hover,.plan-card.selected{border-color:var(--accent2);background:rgba(124,58,237,0.08)}
+.plan-name{font-size:14px;font-weight:800;margin-bottom:4px}
+.plan-price{font-size:22px;font-family:var(--mono);font-weight:700;color:var(--neon)}
+.plan-price small{font-size:12px;color:var(--text2)}/mo
+.plan-features{font-size:12px;color:var(--text2);margin-top:8px;line-height:1.7}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:700;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s}
+#toast.show{transform:translateY(0);opacity:1}
+</style>
+</head>
+<body>
+
+<!-- LOCK -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">Admin — Recepcionista AI</div>
+    <div class="lock-sub">Panel privado · A2K Digital Studio</div>
+    <input type="password" class="lock-input" id="adminPw" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="lock-btn" onclick="adminLogin()">Ingresar</button>
+    <div class="lock-err" id="adminErr">Contraseña incorrecta</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-logo">🤖 Recepcionista AI · <span>Admin Panel</span></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span style="font-size:12px;color:var(--text2)" id="topbar-fecha"></span>
+      <button class="btn btn-ghost" style="font-size:12px;padding:6px 12px" onclick="exportarLicencias()">📥 Exportar lista</button>
+      <button class="btn btn-danger" style="font-size:12px;padding:6px 12px" onclick="cerrarSesion()">🚪 Salir</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+    <button class="tab" onclick="switchTab('generar')">➕ Nueva Licencia</button>
+    <button class="tab" onclick="switchTab('clientes')">👥 Clientes</button>
+    <button class="tab" onclick="switchTab('bots')">🤖 Bots Activos</button>
+    <button class="tab" onclick="switchTab('planes')">💳 Planes y Precios</button>
+    <button class="tab" onclick="switchTab('guia')">📖 Guía de Uso</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="section-dashboard" class="section active">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" id="d-total" style="color:var(--accent2)">0</div><div class="stat-lbl">Licencias Totales</div></div>
+      <div class="stat-card"><div class="stat-num" id="d-activas" style="color:var(--success)">0</div><div class="stat-lbl">Activas</div></div>
+      <div class="stat-card"><div class="stat-num" id="d-mrr" style="color:var(--neon)">$0</div><div class="stat-lbl">MRR Estimado</div></div>
+      <div class="stat-card"><div class="stat-num" id="d-arr" style="color:var(--warn)">$0</div><div class="stat-lbl">ARR Estimado</div></div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px">
+      <div style="font-size:15px;font-weight:800;margin-bottom:16px">📋 Licencias Recientes</div>
+      <div id="recent-list"><p style="color:var(--text3);font-size:14px;text-align:center;padding:20px">Sin licencias emitidas aún. Ve a <b>Nueva Licencia</b> para generar una.</p></div>
+    </div>
+  </div>
+
+  <!-- GENERAR -->
+  <div id="section-generar" class="section">
+    <div class="form-card">
+      <div class="form-title">➕ Generar Nueva Licencia de Cliente</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nombre del negocio *</label>
+          <input type="text" class="form-input" id="gen-nombre" placeholder="Miami Nails & Spa">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email del cliente</label>
+          <input type="email" class="form-input" id="gen-email" placeholder="owner@negocio.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Teléfono</label>
+          <input type="text" class="form-input" id="gen-tel" placeholder="+1 (305) 000-0000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ciudad / Estado</label>
+          <input type="text" class="form-input" id="gen-ciudad" placeholder="Miami, FL">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Plan *</label>
+          <select class="form-input" id="gen-plan" onchange="actualizarInfoPlan()">
+            <option value="DEMO">Demo — $0 (7 días)</option>
+            <option value="BASE" selected>Básico — $99/mes</option>
+            <option value="PRO">Pro — $149/mes</option>
+            <option value="VIP">VIP — $199/mes</option>
+            <option value="ENT">Enterprise — $399/mes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tipo de negocio</label>
+          <input type="text" class="form-input" id="gen-tipo" placeholder="nail salon, dental office...">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label class="form-label">Notas internas (opcional)</label>
+        <input type="text" class="form-input" id="gen-notas" placeholder="Cómo contactó, detalles del pago...">
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn btn-primary" onclick="generarLicencia()" style="font-size:14px;padding:11px 24px">🔑 Generar Licencia</button>
+        <span id="gen-plan-info" style="font-size:12px;color:var(--text2)"></span>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="lic-result" id="licResult">
+        <div style="font-size:13px;color:var(--text2);margin-bottom:4px">✅ Licencia generada para <b id="res-nombre">—</b></div>
+        <div class="lic-code" id="res-codigo" onclick="copiarCodigo()" title="Click para copiar">—</div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:12px">📋 Click para copiar el código</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-success" onclick="copiarMensaje()">📱 Copiar mensaje para enviar</button>
+          <button class="btn btn-ghost" onclick="copiarCodigo()">📋 Copiar solo el código</button>
+        </div>
+        <div style="margin-top:16px;text-align:left">
+          <div style="font-size:11px;color:var(--text2);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Mensaje listo para enviar al cliente:</div>
+          <div class="msg-box" id="res-mensaje" onclick="copiarMensaje()" title="Click para copiar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTES -->
+  <div id="section-clientes" class="section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div>
+        <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">👥 Clientes con Licencia</h2>
+        <p style="color:var(--text2);font-size:13px">Todas las licencias emitidas desde este panel</p>
+      </div>
+      <div style="display:flex;gap:10px">
+        <input type="text" class="form-input" id="search-clientes" placeholder="🔍 Buscar cliente..." oninput="renderClientes()" style="width:220px">
+        <button class="btn btn-danger" onclick="limpiarTodo()" style="font-size:12px;padding:6px 14px">🗑 Borrar todo</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Negocio</th>
+            <th>Licencia</th>
+            <th>Plan</th>
+            <th>Email / Tel</th>
+            <th>Ciudad</th>
+            <th>Generada</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="clientes-tbody"></tbody>
+      </table>
+      <div id="clientes-empty" style="text-align:center;padding:60px 20px;color:var(--text3);display:none">
+        <div style="font-size:40px;margin-bottom:10px">📭</div>
+        <p>No hay clientes registrados. Ve a <b>Nueva Licencia</b> para agregar uno.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTS ACTIVOS -->
+  <div id="section-bots" class="section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div>
+        <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">🤖 Bots Activos</h2>
+        <p style="color:var(--text2);font-size:13px">Control en tiempo real — activar, pausar y gestionar cada cliente</p>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-ghost" onclick="cargarBots()" style="font-size:12px;padding:6px 14px">🔄 Actualizar</button>
+        <button class="btn btn-primary" onclick="toggleFormBot()" style="font-size:12px;padding:6px 14px">➕ Agregar Cliente</button>
+      </div>
+    </div>
+
+    <!-- FORM AGREGAR BOT -->
+    <div id="add-bot-form" style="display:none;background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:24px;margin-bottom:24px">
+      <div style="font-size:15px;font-weight:800;margin-bottom:18px">➕ Registrar nuevo cliente en el sistema</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div class="form-group">
+          <label class="form-label">ID del cliente (sin espacios) *</label>
+          <input type="text" class="form-input" id="bot-id" placeholder="nail-salon-miami">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nombre del negocio *</label>
+          <input type="text" class="form-input" id="bot-nombre" placeholder="Nail Salon Miami">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instance ID Green API *</label>
+          <input type="text" class="form-input" id="bot-instance" placeholder="7107XXXXXX">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Token Green API *</label>
+          <input type="text" class="form-input" id="bot-token" placeholder="83d1...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Licencia (clave del cliente) *</label>
+          <input type="text" class="form-input" id="bot-license" placeholder="RCAI-BASE-XXXXXX">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Vencimiento del plan *</label>
+          <input type="date" class="form-input" id="bot-expiry">
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp dueño (alertas)</label>
+          <input type="text" class="form-input" id="bot-owner" placeholder="17865056242">
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary" onclick="agregarBot()">✅ Registrar cliente</button>
+        <button class="btn btn-ghost" onclick="toggleFormBot()">Cancelar</button>
+      </div>
+      <div id="bot-add-msg" style="margin-top:12px;font-size:13px;display:none"></div>
+    </div>
+
+    <!-- GRID DE BOTS -->
+    <div id="bots-loading" style="text-align:center;padding:40px;color:var(--text2)">Cargando...</div>
+    <div id="bots-grid" style="display:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px"></div>
+    <div id="bots-empty" style="display:none;text-align:center;padding:60px;color:var(--text3)">
+      <div style="font-size:40px;margin-bottom:10px">🤖</div>
+      <p>No hay clientes registrados. Usa <b>Agregar Cliente</b> para registrar el primero.</p>
+    </div>
+  </div>
+
+  <!-- PLANES -->
+  <div id="section-planes" class="section">
+    <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">💳 Planes y Precios</h2>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:24px">Referencia de precios para vender. Edita el código para cambiarlos.</p>
+    <div class="plan-grid">
+      <div class="plan-card">
+        <div class="plan-name">🎁 Demo</div>
+        <div class="plan-price" style="color:var(--text2)">$0 <small>/ 7 días</small></div>
+        <div class="plan-features">• 100 mensajes<br>• Configuración básica<br>• Sin WhatsApp real<br>• Para probar el panel</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name" style="color:var(--warn)">⚡ Básico</div>
+        <div class="plan-price" style="color:var(--warn)">$99 <small>/mo</small></div>
+        <div class="plan-features">• 500 mensajes/mes<br>• 1 número WhatsApp<br>• Horarios configurables<br>• Soporte por email</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name" style="color:var(--neon)">🚀 Pro</div>
+        <div class="plan-price" style="color:var(--neon)">$149 <small>/mo</small></div>
+        <div class="plan-features">• 2,000 mensajes/mes<br>• 2 números WhatsApp<br>• Citas automáticas<br>• Reportes mensuales</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name" style="color:#ff8c94">💎 VIP</div>
+        <div class="plan-price" style="color:#ff8c94">$199 <small>/mo</small></div>
+        <div class="plan-features">• Mensajes ilimitados<br>• 5 números WhatsApp<br>• Instalación incluida<br>• Soporte prioritario</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name" style="color:#60a5fa">🏢 Enterprise</div>
+        <div class="plan-price" style="color:#60a5fa">$399 <small>/mo</small></div>
+        <div class="plan-features">• Todo ilimitado<br>• Múltiples ubicaciones<br>• Custom branding<br>• Soporte 24/7 directo</div>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px">
+      <div style="font-size:15px;font-weight:800;margin-bottom:12px">💡 Estrategia de ventas recomendada</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.9">
+        1. <b style="color:var(--text)">Enviar Demo</b> a todos los leads contactados → código <code style="background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--neon)">RCAI-DEMO-XXXXXX</code><br>
+        2. <b style="color:var(--text)">Follow-up en 48h</b> preguntando si probaron el panel<br>
+        3. <b style="color:var(--text)">Upgrade</b> al Básico si muestran interés → $99/mes<br>
+        4. <b style="color:var(--text)">Upsell</b> a Pro después del primer mes si están activos<br>
+        5. <b style="color:var(--text)">Cobros</b> vía Zelle, CashApp, Venmo o tarjeta
+      </div>
+    </div>
+  </div>
+
+  <!-- GUÍA -->
+  <div id="section-guia" class="section">
+    <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">📖 Guía de Operación Completa</h2>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:24px">Cómo funciona todo el sistema paso a paso</p>
+
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:800px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:14px;font-weight:800;color:var(--accent2);margin-bottom:10px">PASO 1 · Encontrar Clientes</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.8">
+          1. Abrir <code style="color:var(--neon)">finder.py</code> en la terminal: <code style="color:var(--warn)">python finder.py --tipo "nail salon" --ciudad "Miami, FL" --max 50</code><br>
+          2. El script busca negocios en Google Maps y guarda en <code>leads.json</code><br>
+          3. Importar <code>leads.json</code> en el CRM (<code>crm/index.html</code>)<br>
+          4. Filtrar los que tienen email y estado "nuevo"
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:14px;font-weight:800;color:var(--warn);margin-bottom:10px">PASO 2 · Enviar Emails Masivos</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.8">
+          1. Correr: <code style="color:var(--warn)">python outreach.py --limite 30</code><br>
+          2. El script envía emails personalizados por tipo de negocio (nail salon, dental, etc.)<br>
+          3. Se actualiza <code>leads.json</code> marcando estado "contactado"<br>
+          4. Se guarda <code>outreach_log.json</code> con el registro de cada envío<br>
+          5. Ver resultados en CRM → Tab "Historial de Envíos"
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:14px;font-weight:800;color:var(--neon);margin-bottom:10px">PASO 3 · Cliente Responde Interesado</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.8">
+          1. El cliente responde al email o llama al demo: <b style="color:var(--text)">+1 (786) 605-6242</b><br>
+          2. En el CRM marcar lead como "Interesado"<br>
+          3. Ofrecer prueba demo gratuita de 7 días<br>
+          4. Ir a <b style="color:var(--text)">Nueva Licencia</b> → generar código DEMO para ese cliente<br>
+          5. Enviarle: <code>panel-cliente.html</code> + su código de licencia
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:14px;font-weight:800;color:var(--success);margin-bottom:10px">PASO 4 · Cerrar la Venta</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.8">
+          1. El cliente prueba el panel 7 días (demo)<br>
+          2. Hacer follow-up: "¿Cómo está funcionando?"<br>
+          3. Ofrecer plan Básico $99/mes → cobrar por Zelle/CashApp/Venmo<br>
+          4. Una vez pagado → generar nueva licencia BASE en este panel<br>
+          5. Enviarle el nuevo código y marcar en CRM como "Cerrado ✅"
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px">
+        <div style="font-size:14px;font-weight:800;color:var(--accent2);margin-bottom:10px">ARCHIVOS QUE DEBES TENER</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.8">
+          📂 <b style="color:var(--text)">recepcionista-ai/</b><br>
+          &nbsp;&nbsp;&nbsp;├── <code style="color:var(--neon)">panel-cliente.html</code> → enviar a cada cliente<br>
+          &nbsp;&nbsp;&nbsp;└── <code style="color:var(--accent2)">panel-admin-licencias.html</code> → este panel (solo tú)<br>
+          <br>
+          📂 <b style="color:var(--text)">recepcionista-ai-crm/</b><br>
+          &nbsp;&nbsp;&nbsp;├── <code style="color:var(--neon)">crm/index.html</code> → tu CRM de leads<br>
+          &nbsp;&nbsp;&nbsp;├── <code style="color:var(--warn)">finder.py</code> → busca clientes en Google Maps<br>
+          &nbsp;&nbsp;&nbsp;├── <code style="color:var(--warn)">outreach.py</code> → envía emails masivos<br>
+          &nbsp;&nbsp;&nbsp;├── <code>leads.json</code> → base de datos de leads<br>
+          &nbsp;&nbsp;&nbsp;└── <code>outreach_log.json</code> → historial de envíos
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(6,214,160,0.05));border:1px solid var(--border2);border-radius:14px;padding:22px">
+        <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:10px">💰 Proyección de Ingresos</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;font-size:13px">
+          <div style="text-align:center;background:var(--bg2);padding:12px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:var(--warn)">$990</div><div style="color:var(--text2)">10 clientes Básico</div></div>
+          <div style="text-align:center;background:var(--bg2);padding:12px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:var(--neon)">$1,490</div><div style="color:var(--text2)">10 clientes Pro</div></div>
+          <div style="text-align:center;background:var(--bg2);padding:12px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:var(--success)">$2,490</div><div style="color:var(--text2)">Mix 10 clientes</div></div>
+          <div style="text-align:center;background:var(--bg2);padding:12px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:#ff8c94)">$9,900</div><div style="color:var(--text2)">Meta: 100 clientes</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast">✅ Copiado al portapapeles</div>
+
+<script>
+// ── CONTRASEÑA ADMIN ──
+var ADMIN_PW = "A2K2024";
+
+function adminLogin() {
+  var pw = document.getElementById('adminPw').value;
+  if (pw === ADMIN_PW) {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('topbar-fecha').textContent = new Date().toLocaleString('es-US');
+    renderDashboard();
+    renderClientes();
+  } else {
+    document.getElementById('adminErr').style.display = 'block';
+    document.getElementById('adminPw').value = '';
+  }
+}
+document.getElementById('adminPw').addEventListener('keydown', function(e){ if(e.key==='Enter') adminLogin(); });
+
+function cerrarSesion() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('lockScreen').style.display = 'flex';
+  document.getElementById('adminPw').value = '';
+}
+
+// ── TABS ──
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.getElementById('section-'+name).classList.add('active');
+  if (name === 'clientes') renderClientes();
+  if (name === 'dashboard') renderDashboard();
+  if (name === 'bots') cargarBots();
+}
+
+// ── GENERADOR DE LICENCIAS ──
+var PLANES_INFO = {
+  DEMO: {label:'Demo',    precio:'$0',    dias:7,   msgs:100,   color:'badge-demo'},
+  BASE: {label:'Básico',  precio:'$99',   dias:30,  msgs:500,   color:'badge-base'},
+  PRO:  {label:'Pro',     precio:'$149',  dias:30,  msgs:2000,  color:'badge-pro'},
+  VIP:  {label:'VIP',     precio:'$199',  dias:365, msgs:99999, color:'badge-vip'},
+  ENT:  {label:'Enterprise',precio:'$399',dias:365, msgs:99999, color:'badge-ent'},
+};
+
+function simpleHash(str) {
+  var h = 5381;
+  for (var i = 0; i < str.length; i++) {
+    h = ((h << 5) + h) ^ str.charCodeAt(i);
+    h = h >>> 0;
+  }
+  return h;
+}
+
+function generarCodigo(plan, seq) {
+  var SECRET = "A2K_RCAI_STUDIO_2024_VE";
+  var input  = plan + "|" + seq + "|" + SECRET;
+  var h1 = simpleHash(input);
+  var h2 = simpleHash(input + h1);
+  var combined = (h1 ^ h2) >>> 0;
+  var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  var code = "";
+  var tmp = combined;
+  for (var i = 0; i < 6; i++) {
+    code += chars[tmp % chars.length];
+    tmp = Math.floor(tmp / chars.length);
+  }
+  return "RCAI-" + plan + "-" + code;
+}
+
+function getNextSeq() {
+  var lics = cargarLicencias();
+  return lics.length + 1;
+}
+
+function actualizarInfoPlan() {
+  var plan = document.getElementById('gen-plan').value;
+  var info = PLANES_INFO[plan];
+  document.getElementById('gen-plan-info').textContent =
+    info ? info.precio + '/mes · ' + info.dias + ' días · ' + (info.msgs === 99999 ? 'ilimitados' : info.msgs) + ' msgs' : '';
+}
+actualizarInfoPlan();
+
+function generarLicencia() {
+  var nombre = document.getElementById('gen-nombre').value.trim();
+  var email  = document.getElementById('gen-email').value.trim();
+  var tel    = document.getElementById('gen-tel').value.trim();
+  var ciudad = document.getElementById('gen-ciudad').value.trim();
+  var plan   = document.getElementById('gen-plan').value;
+  var tipo   = document.getElementById('gen-tipo').value.trim();
+  var notas  = document.getElementById('gen-notas').value.trim();
+
+  if (!nombre) { alert('El nombre del negocio es obligatorio'); return; }
+
+  var seq    = getNextSeq();
+  var codigo = generarCodigo(plan, seq);
+  var info   = PLANES_INFO[plan];
+  var fecha  = new Date().toISOString().substring(0,16);
+
+  // Guardar cliente
+  var lics = cargarLicencias();
+  lics.push({ id:'lic_'+Date.now(), nombre, email, tel, ciudad, tipo, notas, plan, codigo, fecha, seq, precio:info.precio, activo:true });
+  guardarLicencias(lics);
+
+  // Mostrar resultado
+  var result = document.getElementById('licResult');
+  result.style.display = 'block';
+  document.getElementById('res-nombre').textContent = nombre;
+  document.getElementById('res-codigo').textContent = codigo;
+
+  var msg = generarMensaje(nombre, codigo, plan, ciudad);
+  document.getElementById('res-mensaje').textContent = msg;
+  window._lastCodigo  = codigo;
+  window._lastMensaje = msg;
+
+  result.scrollIntoView({behavior:'smooth', block:'nearest'});
+  renderDashboard();
+
+  // Limpiar form
+  ['gen-nombre','gen-email','gen-tel','gen-ciudad','gen-tipo','gen-notas'].forEach(function(id){
+    document.getElementById(id).value = '';
+  });
+}
+
+function generarMensaje(nombre, codigo, plan, ciudad) {
+  var info = PLANES_INFO[plan];
+  var planLbl = info ? info.label : plan;
+  var precio  = info ? info.precio : '';
+  var dias    = info ? info.dias : 30;
+  return "Hi! This is A2K Digital Studio 🤖\n\n"
+    + "Your Receptionist AI panel is ready for " + nombre + "!\n\n"
+    + "📋 YOUR LICENSE CODE:\n"
+    + codigo + "\n\n"
+    + "✅ Plan: " + planLbl + (precio !== '$0' ? " (" + precio + "/month)" : " (FREE trial - " + dias + " days)") + "\n\n"
+    + "📖 HOW TO ACCESS:\n"
+    + "1. Open the file: panel-cliente.html\n"
+    + "2. Enter your license code: " + codigo + "\n"
+    + "3. Click 'Activate License'\n\n"
+    + (plan === 'DEMO'
+      ? "🎁 This is a FREE " + dias + "-day trial. After that, upgrade to keep your AI receptionist.\n\n"
+      : "")
+    + "📞 Questions? Reply to this message or WhatsApp: +1 (786) 605-6242\n\n"
+    + "— A2K Digital Studio\n"
+    + "   Receptionist AI Division";
+}
+
+function copiarCodigo() {
+  if (!window._lastCodigo) return;
+  navigator.clipboard.writeText(window._lastCodigo).then(function(){ mostrarToast('✅ Código copiado: ' + window._lastCodigo); });
+}
+
+function copiarMensaje() {
+  if (!window._lastMensaje) return;
+  navigator.clipboard.writeText(window._lastMensaje).then(function(){ mostrarToast('✅ Mensaje copiado al portapapeles'); });
+}
+
+// ── STORAGE ──
+function cargarLicencias() { return JSON.parse(localStorage.getItem('rcai_licencias') || '[]'); }
+function guardarLicencias(data) { localStorage.setItem('rcai_licencias', JSON.stringify(data)); }
+
+// ── DASHBOARD ──
+function renderDashboard() {
+  var lics = cargarLicencias();
+  var activas = lics.filter(function(l){ return l.activo; });
+  var mrr = activas.reduce(function(s,l){
+    var p = l.precio ? parseInt(l.precio.replace(/\D/g,'')) : 0;
+    return s + (l.plan === 'DEMO' ? 0 : p);
+  }, 0);
+
+  document.getElementById('d-total').textContent  = lics.length;
+  document.getElementById('d-activas').textContent = activas.length;
+  document.getElementById('d-mrr').textContent    = '$' + mrr.toLocaleString();
+  document.getElementById('d-arr').textContent    = '$' + (mrr*12).toLocaleString();
+
+  var recent = document.getElementById('recent-list');
+  if (!lics.length) {
+    recent.innerHTML = '<p style="color:var(--text3);font-size:14px;text-align:center;padding:20px">Sin licencias emitidas aún.</p>';
+    return;
+  }
+  var sorted = lics.slice().sort(function(a,b){ return b.fecha > a.fecha ? 1 : -1; }).slice(0,5);
+  recent.innerHTML = '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">'
+    + '<thead><tr>'
+    + '<th style="padding:8px 12px;text-align:left;font-size:11px;font-weight:800;color:var(--text3);text-transform:uppercase;border-bottom:1px solid var(--border)">Negocio</th>'
+    + '<th style="padding:8px 12px;text-align:left;font-size:11px;font-weight:800;color:var(--text3);text-transform:uppercase;border-bottom:1px solid var(--border)">Código</th>'
+    + '<th style="padding:8px 12px;text-align:left;font-size:11px;font-weight:800;color:var(--text3);text-transform:uppercase;border-bottom:1px solid var(--border)">Plan</th>'
+    + '<th style="padding:8px 12px;text-align:left;font-size:11px;font-weight:800;color:var(--text3);text-transform:uppercase;border-bottom:1px solid var(--border)">Fecha</th>'
+    + '</tr></thead><tbody>'
+    + sorted.map(function(l) {
+        var info = PLANES_INFO[l.plan] || {};
+        return '<tr style="border-bottom:1px solid rgba(124,58,237,0.07)">'
+          + '<td style="padding:9px 12px;font-size:13px;font-weight:700">' + escH(l.nombre) + '</td>'
+          + '<td style="padding:9px 12px;font-family:monospace;font-size:13px;color:var(--neon)">' + escH(l.codigo) + '</td>'
+          + '<td style="padding:9px 12px"><span class="badge ' + (info.color||'badge-base') + '">' + (info.label||l.plan) + '</span></td>'
+          + '<td style="padding:9px 12px;font-size:12px;color:var(--text2)">' + (l.fecha||'—') + '</td>'
+          + '</tr>';
+      }).join('')
+    + '</tbody></table></div>';
+}
+
+// ── TABLA CLIENTES ──
+function renderClientes() {
+  var lics  = cargarLicencias();
+  var q     = (document.getElementById('search-clientes')||{}).value || '';
+  if (q) lics = lics.filter(function(l){
+    return (l.nombre+l.email+l.codigo+l.ciudad+l.tipo).toLowerCase().includes(q.toLowerCase());
+  });
+  var tbody = document.getElementById('clientes-tbody');
+  var empty = document.getElementById('clientes-empty');
+  if (!lics.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  var sorted = lics.slice().sort(function(a,b){ return b.fecha > a.fecha ? 1 : -1; });
+  tbody.innerHTML = sorted.map(function(l) {
+    var info = PLANES_INFO[l.plan] || {};
+    return '<tr>'
+      + '<td style="font-weight:700">' + escH(l.nombre) + (l.tipo ? '<br><small style="color:var(--text3);font-size:11px">'+escH(l.tipo)+'</small>' : '') + '</td>'
+      + '<td style="font-family:monospace;font-size:13px;color:var(--neon);cursor:pointer" onclick="copiarTexto(\''+l.codigo+'\')" title="Click para copiar">' + escH(l.codigo) + '</td>'
+      + '<td><span class="badge '+(info.color||'')+'">'+escH(info.label||l.plan)+'</span></td>'
+      + '<td style="font-size:12px;color:var(--text2)">'+(l.email||'—')+'<br>'+(l.tel||'')+'</td>'
+      + '<td style="font-size:12px;color:var(--text2)">'+(l.ciudad||'—')+'</td>'
+      + '<td style="font-size:11px;color:var(--text3);font-family:monospace">'+(l.fecha||'—')+'</td>'
+      + '<td><span class="badge '+(l.activo?'badge-active':'badge-exp')+'">'+(l.activo?'✅ Activo':'❌ Inactivo')+'</span></td>'
+      + '<td><button class="btn btn-ghost" style="font-size:11px;padding:4px 10px" onclick="reenviarMensaje(\''+l.id+'\')">📱 Reenviar</button>'
+      + ' <button class="btn btn-danger" style="font-size:11px;padding:4px 10px" onclick="eliminarLic(\''+l.id+'\')">🗑</button></td>'
+      + '</tr>';
+  }).join('');
+}
+
+function reenviarMensaje(id) {
+  var lics = cargarLicencias();
+  var l = lics.find(function(x){ return x.id===id; });
+  if (!l) return;
+  var msg = generarMensaje(l.nombre, l.codigo, l.plan, l.ciudad);
+  navigator.clipboard.writeText(msg).then(function(){ mostrarToast('✅ Mensaje copiado para ' + l.nombre); });
+}
+
+function eliminarLic(id) {
+  if (!confirm('¿Eliminar esta licencia?')) return;
+  var lics = cargarLicencias().filter(function(l){ return l.id !== id; });
+  guardarLicencias(lics);
+  renderClientes(); renderDashboard();
+}
+
+function limpiarTodo() {
+  if (!confirm('¿BORRAR TODAS las licencias? Esto no se puede deshacer.')) return;
+  localStorage.removeItem('rcai_licencias');
+  renderClientes(); renderDashboard();
+}
+
+function exportarLicencias() {
+  var lics = cargarLicencias();
+  if (!lics.length) { alert('No hay licencias para exportar'); return; }
+  var csv = ['Negocio,Email,Telefono,Ciudad,Plan,Codigo,Fecha,Precio'].concat(
+    lics.map(function(l){
+      return [l.nombre,l.email,l.tel,l.ciudad,l.plan,l.codigo,l.fecha,l.precio]
+        .map(function(v){ return '"'+(v||'').replace(/"/g,'""')+'"'; }).join(',');
+    })
+  ).join('\n');
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download = 'licencias_rcai_' + new Date().toISOString().substring(0,10) + '.csv';
+  a.click();
+}
+
+function copiarTexto(txt) {
+  navigator.clipboard.writeText(txt).then(function(){ mostrarToast('✅ Copiado: ' + txt); });
+}
+
+function mostrarToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+function escH(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── BOTS ACTIVOS ──────────────────────────────────────────
+var WORKER_URL = "https://recepcionista-ai-bot.a2kdigitalstudio.workers.dev";
+var WORKER_KEY = "A2K2024";
+
+function apiAdmin(method, endpoint, body) {
+  var opts = {
+    method: method,
+    headers: { 'Authorization': 'Bearer ' + WORKER_KEY, 'Content-Type': 'application/json' }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  return fetch(WORKER_URL + endpoint, opts).then(function(r){ return r.json(); });
+}
+
+function toggleFormBot() {
+  var f = document.getElementById('add-bot-form');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+  // poner fecha por defecto: 1 mes desde hoy
+  if (f.style.display === 'block') {
+    var d = new Date(); d.setMonth(d.getMonth() + 1);
+    document.getElementById('bot-expiry').value = d.toISOString().substring(0,10);
+  }
+}
+
+function cargarBots() {
+  document.getElementById('bots-loading').style.display = 'block';
+  document.getElementById('bots-grid').style.display   = 'none';
+  document.getElementById('bots-empty').style.display  = 'none';
+
+  apiAdmin('GET', '/api/admin/clients').then(function(data) {
+    document.getElementById('bots-loading').style.display = 'none';
+    if (!data || !data.length) {
+      document.getElementById('bots-empty').style.display = 'block';
+      return;
+    }
+    document.getElementById('bots-grid').style.display = 'grid';
+    // cargar stats de cada bot en paralelo
+    Promise.all(data.map(function(bot) {
+      return apiAdmin('GET', '/api/admin/clients/' + bot.id + '/stats')
+        .then(function(s){ return Object.assign({}, bot, { _stats: s }); })
+        .catch(function(){ return Object.assign({}, bot, { _stats: {} }); });
+    })).then(function(bots) {
+      renderBotsGrid(bots);
+    });
+  }).catch(function() {
+    document.getElementById('bots-loading').textContent = '❌ Error conectando al Worker. Verifica la clave admin.';
+  });
+}
+
+function renderBotsGrid(bots) {
+  var grid = document.getElementById('bots-grid');
+  grid.innerHTML = bots.map(function(b) {
+    var activo    = b.active;
+    var expiry    = b.planExpiry ? new Date(b.planExpiry) : null;
+    var vencido   = expiry && expiry < new Date();
+    var expiryStr = expiry ? expiry.toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'}) : 'Sin fecha';
+    var stats     = b._stats || {};
+
+    return '<div style="background:var(--card);border:1px solid '+(activo && !vencido ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.2)')+';border-radius:14px;padding:20px">'
+      // Header
+      + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">'
+      +   '<div>'
+      +     '<div style="font-size:15px;font-weight:800">' + escH(b.nombre) + '</div>'
+      +     '<div style="font-size:11px;color:var(--text3);font-family:monospace;margin-top:2px">' + escH(b.id) + '</div>'
+      +   '</div>'
+      +   '<span class="badge ' + (activo && !vencido ? 'badge-active' : 'badge-exp') + '" style="font-size:12px">'
+      +     (activo && !vencido ? '✅ Activo' : vencido ? '⏰ Vencido' : '⏸ Pausado')
+      +   '</span>'
+      + '</div>'
+      // Info
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;font-size:12px">'
+      +   '<div style="background:var(--bg2);padding:8px 10px;border-radius:8px"><div style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Licencia</div><div style="color:var(--neon);font-family:monospace">' + escH(b.licenseKey) + '</div></div>'
+      +   '<div style="background:var(--bg2);padding:8px 10px;border-radius:8px"><div style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Plan vence</div><div style="color:' + (vencido?'var(--danger)':'var(--warn)') + '">' + expiryStr + '</div></div>'
+      +   '<div style="background:var(--bg2);padding:8px 10px;border-radius:8px"><div style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Hoy</div><div style="color:var(--text);font-weight:700">' + (stats.hoy||0) + ' msgs</div></div>'
+      +   '<div style="background:var(--bg2);padding:8px 10px;border-radius:8px"><div style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Total</div><div style="color:var(--text);font-weight:700">' + (stats.total||0) + ' msgs</div></div>'
+      + '</div>'
+      // Extender plan
+      + '<div style="display:flex;gap:6px;align-items:center;margin-bottom:10px">'
+      +   '<input type="date" id="expiry-' + b.id + '" value="' + (b.planExpiry ? b.planExpiry.substring(0,10) : '') + '" style="flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:8px;font-size:12px">'
+      +   '<button class="btn btn-ghost" style="font-size:11px;padding:6px 12px;white-space:nowrap" onclick="extenderPlan(\'' + b.id + '\')">📅 Actualizar</button>'
+      + '</div>'
+      // Botones
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap">'
+      +   (activo
+          ? '<button class="btn btn-danger" style="font-size:12px;padding:7px 14px;flex:1" onclick="toggleBot(\'' + b.id + '\',false)">⏸ Pausar bot</button>'
+          : '<button class="btn btn-success" style="font-size:12px;padding:7px 14px;flex:1" onclick="toggleBot(\'' + b.id + '\',true)">▶ Activar bot</button>')
+      +   '<button class="btn btn-ghost" style="font-size:12px;padding:7px 14px" onclick="copiarWebhook(\'' + b.id + '\')" title="Copiar URL del webhook">🔗</button>'
+      +   '<button class="btn btn-danger" style="font-size:12px;padding:7px 10px;background:rgba(239,68,68,0.05)" onclick="eliminarBot(\'' + b.id + '\',\'' + escH(b.nombre) + '\')" title="Eliminar cliente">🗑</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function toggleBot(id, active) {
+  var txt = active ? 'activar' : 'pausar';
+  if (!confirm('¿' + (active?'Activar':'Pausar') + ' el bot de este cliente?')) return;
+  apiAdmin('PUT', '/api/admin/clients/' + id, { active: active }).then(function(r) {
+    if (r.ok) {
+      mostrarToast(active ? '✅ Bot activado' : '⏸ Bot pausado');
+      cargarBots();
+    } else {
+      mostrarToast('❌ Error: ' + (r.error || 'desconocido'));
+    }
+  });
+}
+
+function extenderPlan(id) {
+  var val = document.getElementById('expiry-' + id).value;
+  if (!val) { mostrarToast('❌ Selecciona una fecha'); return; }
+  apiAdmin('PUT', '/api/admin/clients/' + id, { planExpiry: val }).then(function(r) {
+    if (r.ok) { mostrarToast('✅ Plan actualizado hasta ' + val); cargarBots(); }
+    else mostrarToast('❌ Error: ' + (r.error || 'desconocido'));
+  });
+}
+
+function agregarBot() {
+  var id       = document.getElementById('bot-id').value.trim().toLowerCase().replace(/\s+/g,'-');
+  var nombre   = document.getElementById('bot-nombre').value.trim();
+  var instance = document.getElementById('bot-instance').value.trim();
+  var token    = document.getElementById('bot-token').value.trim();
+  var license  = document.getElementById('bot-license').value.trim();
+  var expiry   = document.getElementById('bot-expiry').value;
+  var owner    = document.getElementById('bot-owner').value.trim();
+  var msg      = document.getElementById('bot-add-msg');
+
+  if (!id || !nombre || !instance || !token || !license) {
+    msg.style.display = 'block'; msg.style.color = 'var(--danger)';
+    msg.textContent = '❌ Completa todos los campos obligatorios (*)'; return;
+  }
+
+  msg.style.display = 'block'; msg.style.color = 'var(--text2)';
+  msg.textContent = 'Registrando...';
+
+  apiAdmin('POST', '/api/admin/clients', {
+    id, nombre, instanceId: instance, token, licenseKey: license,
+    planExpiry: expiry || null, ownerPhone: owner || null
+  }).then(function(r) {
+    if (r.ok) {
+      msg.style.color = 'var(--success)';
+      msg.textContent = '✅ Cliente registrado. Webhook: ' + r.webhookUrl;
+      mostrarToast('✅ Cliente ' + nombre + ' registrado');
+      setTimeout(function(){ toggleFormBot(); cargarBots(); }, 2000);
+    } else {
+      msg.style.color = 'var(--danger)';
+      msg.textContent = '❌ ' + (r.error || 'Error desconocido');
+    }
+  });
+}
+
+function eliminarBot(id, nombre) {
+  if (!confirm('¿ELIMINAR permanentemente el bot de ' + nombre + '?\n\nEsto borra el cliente del sistema. No se puede deshacer.')) return;
+  apiAdmin('DELETE', '/api/admin/clients/' + id).then(function(r) {
+    if (r.ok) { mostrarToast('🗑 Cliente eliminado'); cargarBots(); }
+    else mostrarToast('❌ Error: ' + (r.error || 'desconocido'));
+  });
+}
+
+function copiarWebhook(id) {
+  var url = WORKER_URL + '/webhook/' + id;
+  navigator.clipboard.writeText(url).then(function(){ mostrarToast('✅ URL copiada: ' + url); });
+}
+</script>
+</body>
+</html>

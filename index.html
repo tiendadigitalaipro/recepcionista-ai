@@ -3,8 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Receptionist AI — Your business open 24/7 | A2K Digital Studio</title>
-<meta name="description" content="AI WhatsApp + Voice Bot for your business. Answers clients 24/7, books appointments, responds automatically.">
+<title>Recepcionista AI — Tu negocio abierto 24/7 | A2K Digital Studio 🇺🇸🇪🇸</title>
+<meta name="description" content="Bot de WhatsApp + Voz IA para negocios en EE.UU. y España. Atiende clientes 24/7, agenda citas y responde automáticamente. Disponible en USA (+1) y España (+34).">
+<meta name="keywords" content="recepcionista virtual, bot WhatsApp negocio, asistente IA WhatsApp, recepcionista IA España, receptionist AI USA, bot para negocios España, atención al cliente IA, WhatsApp bot 24/7">
+<meta property="og:title" content="Recepcionista AI — Tu negocio abierto 24/7 | A2K Digital Studio">
+<meta property="og:description" content="Un empleado de IA que atiende tu negocio 24/7 por WhatsApp y teléfono. Disponible en EE.UU. 🇺🇸 y España 🇪🇸">
+<meta property="og:type" content="website">
+<link rel="alternate" hreflang="es-US" href="#">
+<link rel="alternate" hreflang="es-ES" href="#">
+<link rel="alternate" hreflang="en-US" href="#">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -184,6 +191,64 @@ footer p{font-size:13px;color:var(--text3)}
 @keyframes bounce-wa{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
 @media(max-width:768px){.nav-links{display:none}.pricing-card.popular{transform:scale(1)}.pricing-card.popular:hover{transform:translateY(-4px)}}
+
+/* ── VIDEO SHOWCASE ── */
+.ivideo-wrap{margin:28px auto 8px;max-width:700px;border-radius:18px;overflow:hidden;border:2px solid var(--border2);box-shadow:0 0 50px rgba(124,58,237,0.25)}
+.ivideo-wrap video{display:block;width:100%}
+.ivideo-caption{text-align:center;font-size:13px;color:var(--text2);margin-bottom:32px;margin-top:10px}
+.ivideo-ext{display:inline-block;margin-top:6px;font-size:12px;color:var(--accent2);text-decoration:none}
+.ivideo-ext:hover{color:var(--neon)}
+
+/* ── INTERACTIVE DEMO ── */
+.idemo{padding:80px 24px;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(6,214,160,0.04));border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
+.idemo-inner{max-width:1000px;margin:0 auto}
+.idemo-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:32px 0 28px}
+.itab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;min-width:84px;font-family:var(--display)}
+.itab .tico{font-size:24px}
+.itab:hover{border-color:var(--accent2);color:var(--text)}
+.itab.active{border-color:var(--accent2);background:rgba(124,58,237,0.12);color:var(--text);box-shadow:0 0 16px rgba(124,58,237,0.2)}
+.idemo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;text-align:left}
+@media(max-width:700px){.idemo-grid{grid-template-columns:1fr}}
+/* Chat */
+.ichat-panel{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.ichat-head{background:#1a1a2e;padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.ichat-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--neon));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ichat-nm{font-size:14px;font-weight:700;font-family:var(--display)}
+.ichat-st{font-size:11px;color:var(--neon)}
+.ichat-body{padding:14px;min-height:300px;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#0a0a18}
+.imsg{max-width:82%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.55;opacity:0;transform:translateY(6px);transition:all .3s ease}
+.imsg.show{opacity:1;transform:translateY(0)}
+.imsg-bot{background:#1e1e35;border-radius:4px 12px 12px 12px;align-self:flex-start;color:var(--text)}
+.imsg-bot .isender{font-size:10px;font-weight:700;color:var(--neon);margin-bottom:2px}
+.imsg-user{background:linear-gradient(135deg,rgba(124,58,237,0.55),rgba(157,91,244,0.45));border-radius:12px 4px 12px 12px;align-self:flex-end;color:#fff}
+.imsg-time{font-size:10px;color:var(--text2);margin-top:3px;text-align:right}
+.ityping{display:none;align-self:flex-start;background:#1e1e35;border-radius:4px 12px 12px 12px;padding:10px 14px}
+.ityping span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text2);margin:0 2px;animation:ibounce 1.2s infinite}
+.ityping span:nth-child(2){animation-delay:.2s}.ityping span:nth-child(3){animation-delay:.4s}
+@keyframes ibounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+/* Audio+Info */
+.iright{display:flex;flex-direction:column;gap:14px}
+.iaudio-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px}
+.iaudio-title{font-size:14px;font-weight:800;margin-bottom:5px;font-family:var(--display)}
+.iaudio-desc{font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.5}
+.iplayer{display:flex;align-items:center;gap:10px}
+.iplay-btn{width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;font-size:17px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transition:all .2s}
+.iplay-btn:hover{opacity:.85;transform:scale(1.05)}
+.iplay-btn.playing{background:linear-gradient(135deg,var(--neon),#0891b2)}
+.iprog-wrap{flex:1}
+.iprog{width:100%;height:5px;border-radius:3px;background:rgba(255,255,255,0.1);appearance:none;outline:none;cursor:pointer;accent-color:var(--accent2)}
+.iprog-time{font-size:11px;color:var(--text2);font-family:var(--mono);margin-top:4px}
+.ifeats{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px}
+.ifeats-ttl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:12px}
+.ifeat{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;font-size:13px}
+.ifeat-i{font-size:15px;flex-shrink:0;margin-top:1px}
+.ifeat-t{color:var(--text2);line-height:1.5}
+.ifeat-t strong{color:var(--text)}
+.idemo-cta{margin-top:6px;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,214,160,0.08));border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:20px;text-align:center}
+.idemo-cta h4{font-size:15px;font-weight:800;margin-bottom:5px;font-family:var(--display)}
+.idemo-cta p{font-size:12px;color:var(--text2);margin-bottom:12px}
+.idemo-cta a{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;text-decoration:none;padding:11px 22px;border-radius:10px;font-size:13px;font-weight:800;transition:opacity .2s}
+.idemo-cta a:hover{opacity:.85}
 </style>
 </head>
 <body>
@@ -284,20 +349,94 @@ footer p{font-size:13px;color:var(--text3)}
 </section>
 
 <!-- DEMO -->
-<section class="demo" id="demo">
-  <div class="demo-inner">
+<section class="idemo" id="demo">
+  <div class="idemo-inner">
     <span class="section-tag green" data-i18n="demo_tag">Demo en vivo</span>
-    <h2 class="section-title" data-i18n="demo_title">Habla con la IA ahora mismo</h2>
-    <p class="section-sub" data-i18n="demo_sub">No es un video. Llama o escribe ahora y experimenta en vivo cómo funcionará en tu negocio.</p>
-    <div class="demo-phone">
-      <div class="demo-number">+1 (786) 605-6242</div>
-      <div class="demo-label" data-i18n="demo_label">Número activo · Responde en segundos</div>
-      <div class="demo-channels">
+    <h2 class="section-title" data-i18n="demo_title">Ve cómo trabaja tu IA</h2>
+    <p class="section-sub" data-i18n="demo_sub">Selecciona tu tipo de negocio y mira la IA en acción — atendiendo clientes en tiempo real.</p>
+
+    <!-- VIDEO SHOWCASE -->
+    <div class="ivideo-wrap">
+      <video controls muted autoplay loop playsinline>
+        <source src="https://recepcionista-ai-video.pages.dev/A2K-Recepcionista-AI-Showcase.mp4" type="video/mp4">
+        <a href="https://recepcionista-ai-video.pages.dev/?utm_source=landing&utm_medium=embed&utm_content=demo_video" target="_blank" style="display:block;padding:48px;background:#1a1a2e;text-align:center;color:#9d5bf4;font-size:16px;font-weight:700">▶ Ver demo en video</a>
+      </video>
+    </div>
+    <p class="ivideo-caption" data-i18n="video_caption">
+      Mira cómo la IA atiende llamadas y WhatsApp en tiempo real
+      <br><a class="ivideo-ext" href="https://recepcionista-ai-video.pages.dev/?utm_source=landing&utm_medium=embed&utm_content=fullscreen" target="_blank" data-i18n="video_fullscreen">▶ Ver en pantalla completa</a>
+    </p>
+
+    <!-- INDUSTRY TABS -->
+    <div class="idemo-tabs">
+      <button class="itab active" onclick="iSetIndustry('nail',this)"><span class="tico">💅</span>Nail Salon</button>
+      <button class="itab" onclick="iSetIndustry('restaurante',this)"><span class="tico">🍽️</span>Restaurante</button>
+      <button class="itab" onclick="iSetIndustry('bodega',this)"><span class="tico">🛒</span>Bodega</button>
+      <button class="itab" onclick="iSetIndustry('dental',this)"><span class="tico">🦷</span>Dental</button>
+      <button class="itab" onclick="iSetIndustry('barberia',this)"><span class="tico">✂️</span>Barbería</button>
+      <button class="itab" onclick="iSetIndustry('salon',this)"><span class="tico">💇</span>Salón</button>
+    </div>
+
+    <!-- DEMO GRID -->
+    <div class="idemo-grid">
+
+      <!-- CHAT PANEL -->
+      <div class="ichat-panel">
+        <div class="ichat-head">
+          <div class="ichat-av" id="i-chat-icon">💅</div>
+          <div>
+            <div class="ichat-nm" id="i-chat-name">Nails by Marilú</div>
+            <div class="ichat-st" id="i-chat-status">● En línea · Responde en segundos</div>
+          </div>
+        </div>
+        <div class="ichat-body" id="i-chat-body">
+          <div class="ityping" id="i-typing"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="iright">
+
+        <!-- AUDIO -->
+        <div class="iaudio-card">
+          <div class="iaudio-title" id="i-audio-title">💅 Nail Salon · Español</div>
+          <div class="iaudio-desc" id="i-audio-desc">Escucha cómo suena la voz de la IA atendiendo clientes en español.</div>
+          <div class="iplayer">
+            <button class="iplay-btn" id="i-play-btn" onclick="iToggleAudio()">▶</button>
+            <div class="iprog-wrap">
+              <input class="iprog" type="range" id="i-prog" value="0" min="0" max="100" step="0.1" oninput="iSeek(this)">
+              <div class="iprog-time" id="i-time">0:00 / 0:00</div>
+            </div>
+          </div>
+          <audio id="i-audio" onended="iResetAudio()" ontimeupdate="iUpdateProgress()"></audio>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="ifeats">
+          <div class="ifeats-ttl" id="i-feats-title">✅ LO QUE HACE EL BOT</div>
+          <div id="i-feats-list"></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="idemo-cta">
+          <h4 data-i18n="demo_cta_title">¿Lo quieres para tu negocio?</h4>
+          <p data-i18n="demo_cta_sub">Setup en 24h · Sin contratos · Cancela cuando quieras</p>
+          <a id="i-cta-link" href="https://wa.me/17865056242?text=Hola%2C+vi+el+demo+y+quiero+Recepcionista+AI+para+mi+negocio" target="_blank" data-i18n="demo_cta_btn">📱 Quiero probarlo GRATIS</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LIVE PHONE -->
+    <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);text-align:center">
+      <p style="color:var(--text2);font-size:14px;margin-bottom:18px" data-i18n="demo_live">O pruébalo tú mismo — número activo 24/7:</p>
+      <div class="demo-channels" style="justify-content:center">
         <a class="demo-btn call" href="tel:+17866056242" data-i18n="demo_call">📞 Llamar ahora</a>
         <a class="demo-btn wa" id="demo-wa-btn" href="https://wa.me/17866056242?text=Hola,%20quiero%20probar%20el%20demo" target="_blank" data-i18n="demo_wa">💬 Probar por WhatsApp</a>
       </div>
+      <p class="demo-note" data-i18n="demo_note">* Este número es un demo de muestra. Tu negocio tendrá su propio número personalizado.</p>
     </div>
-    <p class="demo-note" data-i18n="demo_note">* Este número es un demo de muestra. Tu negocio tendrá su propio número personalizado.</p>
+
   </div>
 </section>
 
@@ -395,7 +534,7 @@ footer p{font-size:13px;color:var(--text3)}
     <div class="faq-list">
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq1_q">¿Necesito saber de tecnología?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq1_a">Para nada. Nosotros configuramos todo en 48 horas. Solo nos das la información de tu negocio y hacemos el resto. No necesitas instalar nada ni aprender ninguna plataforma.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq2_q">¿Qué pasa si la IA no sabe una pregunta?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq2_a">La IA reconoce cuando no tiene la respuesta y automáticamente te notifica a ti por WhatsApp con el contexto completo. Nunca deja al cliente sin respuesta.</p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq3_q">¿Funciona en EE.UU., Venezuela, Colombia y otros países?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq3_a">Sí, 100%. El bot de WhatsApp funciona en cualquier país. El número de voz es un número USA (+1) que cualquier persona puede llamar desde cualquier lugar del mundo.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq3_q">¿Funciona en EE.UU., España y Latinoamérica?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq3_a">Sí, 100%. El bot de WhatsApp funciona en cualquier país del mundo. Para negocios en EE.UU. asignamos número propio 🇺🇸 +1, y para negocios en España asignamos número 🇪🇸 +34. También cubrimos Venezuela, Colombia, México y toda Latinoamérica.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq4_q">¿Puedo actualizar precios o servicios después?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq4_a">Sí, en cualquier momento. Solo nos mandas un mensaje con los cambios y los actualizamos en 24 horas sin costo adicional.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq5_q">¿Puedo cancelar cuando quiera?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq5_a">Absolutamente. No hay contratos de permanencia ni penalizaciones. Si en algún mes decides cancelar, solo nos avisas y listo. Cobramos mensual, sin compromisos.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq6_q">¿Cómo se realiza el pago?</span><span class="faq-arrow">▾</span></div><div class="faq-a"><p data-i18n="faq6_a">Aceptamos Payoneer, Facebank, Global66, Binance Pay, transferencia bancaria USD y Pago Móvil. El pago es mensual, sin sorpresas.</p></div></div>
@@ -432,7 +571,7 @@ var T = {
   es: {
     nav_how:'Cómo funciona', nav_pricing:'Precios', nav_demo:'Demo en Vivo', nav_faq:'FAQ',
     nav_cta:'Contratar ahora →',
-    hero_tag:'IA para negocios · A2K Digital Studio',
+    hero_tag:'🇺🇸 EE.UU. · 🇪🇸 España · A2K Digital Studio',
     hero_h1a:'Tu negocio abierto', hero_h1b:'24 horas, 7 días',
     hero_sub:'Un empleado de IA que atiende llamadas, responde WhatsApp, agenda citas y toma pedidos — mientras tú duermes, vacacionas o descansas.',
     hero_btn1:'📞 Ver demo en vivo', hero_btn2:'Ver precios',
@@ -454,16 +593,20 @@ var T = {
     f4_title:'Toma pedidos y cotizaciones', f4_desc:'El cliente hace su pedido por WhatsApp. El bot lo registra y te notifica.', f4_1:'Catálogo de productos con precios', f4_2:'Calcula totales automáticamente', f4_3:'Te envía resumen del pedido',
     f5_title:'Resuelve preguntas frecuentes', f5_desc:'¿Horarios? ¿Dirección? ¿Precios? Tu IA responde al instante, siempre correcto.', f5_1:'Precios y servicios actualizados', f5_2:'Ubicación y cómo llegar', f5_3:'Métodos de pago aceptados',
     f6_title:'Te notifica lo importante', f6_desc:'Si un cliente necesita hablar contigo, tu IA te avisa de inmediato con el contexto.', f6_1:'Alertas de casos urgentes', f6_2:'Resumen diario de conversaciones', f6_3:'Nunca te pierdes un cliente VIP',
-    demo_tag:'Demo en vivo', demo_title:'Habla con la IA ahora mismo', demo_sub:'No es un video. Llama o escribe ahora y experimenta en vivo cómo funcionará en tu negocio.',
+    demo_tag:'Demo en vivo', demo_title:'Ve cómo trabaja tu IA', demo_sub:'Selecciona tu tipo de negocio y mira la IA en acción — atendiendo clientes en tiempo real.',
     demo_label:'Número activo · Responde en segundos', demo_call:'📞 Llamar ahora', demo_wa:'💬 Probar por WhatsApp',
     demo_note:'* Este número es un demo de muestra. Tu negocio tendrá su propio número personalizado.',
+    demo_cta_title:'¿Lo quieres para tu negocio?', demo_cta_sub:'Setup en 24h · Sin contratos · Cancela cuando quieras', demo_cta_btn:'📱 Quiero probarlo GRATIS',
+    demo_live:'O pruébalo tú mismo — número activo 24/7:',
+    video_caption:'Mira cómo la IA atiende llamadas y WhatsApp en tiempo real',
+    video_fullscreen:'▶ Ver en pantalla completa',
     price_tag:'Planes y precios', price_title:'Menos que un empleado,<br>más que una recepcionista', price_sub:'Sin contratos largos. Sin sorpresas. Cancela cuando quieras.',
     p1_name:'⚡ Básico', p1_period:'Ideal para negocios pequeños que empiezan',
     p2_name:'🚀 Pro', p2_period:'Para negocios que quieren crecer de verdad',
     p3_name:'👑 Premium', p3_period:'Para negocios serios que dominan su mercado',
     popular_badge:'🔥 MÁS POPULAR',
     pf1_1:'Bot WhatsApp 24/7', pf1_2:'Catálogo de servicios/productos', pf1_3:'Respuesta de preguntas frecuentes', pf1_4:'Notificaciones al dueño', pf1_5:'Soporte por WhatsApp', pf1_6:'Bot de voz (llamadas)', pf1_7:'Número telefónico propio', pf1_8:'Agenda de citas automática',
-    pf2_1:'Todo lo del plan Básico', pf2_2:'Bot de voz IA (atiende llamadas)', pf2_3:'Número telefónico propio USA', pf2_4:'Agenda de citas automática', pf2_5:'Recordatorios de citas', pf2_6:'Toma de pedidos completa', pf2_7:'Soporte prioritario', pf2_8:'Reportes mensuales',
+    pf2_1:'Todo lo del plan Básico', pf2_2:'Bot de voz IA (atiende llamadas)', pf2_3:'Número propio 🇺🇸 USA o 🇪🇸 España (+34)', pf2_4:'Agenda de citas automática', pf2_5:'Recordatorios de citas', pf2_6:'Toma de pedidos completa', pf2_7:'Soporte prioritario', pf2_8:'Reportes mensuales',
     pf3_1:'Todo lo del plan Pro', pf3_2:'Reportes mensuales detallados', pf3_3:'Mini landing page del negocio', pf3_4:'CRM básico de clientes', pf3_5:'Personalización avanzada de IA', pf3_6:'Soporte VIP 24/7', pf3_7:'Actualizaciones sin costo extra', pf3_8:'Landing page del negocio incluida',
     p_cta1:'Contratar Básico', p_cta2:'Contratar Pro →', p_cta3:'Contratar Premium',
     ind_tag:'Industrias', ind_title:'Funciona para cualquier negocio', ind_sub:'Si tienes clientes que llaman o escriben, Recepcionista AI trabaja para ti.',
@@ -471,10 +614,10 @@ var T = {
     faq_tag:'Preguntas frecuentes', faq_title:'Todo lo que necesitas saber',
     faq1_q:'¿Necesito saber de tecnología?', faq1_a:'Para nada. Nosotros configuramos todo en 48 horas. Solo nos das la información de tu negocio y hacemos el resto.',
     faq2_q:'¿Qué pasa si la IA no sabe una pregunta?', faq2_a:'La IA reconoce cuando no tiene la respuesta y te notifica por WhatsApp con el contexto completo. Nunca deja al cliente sin respuesta.',
-    faq3_q:'¿Funciona en EE.UU., Venezuela, Colombia y otros países?', faq3_a:'Sí, 100%. El bot de WhatsApp funciona en cualquier país. El número de voz es un +1 USA que se puede llamar desde cualquier lugar del mundo.',
+    faq3_q:'¿Funciona en EE.UU., España y Latinoamérica?', faq3_a:'Sí, 100%. El bot de WhatsApp funciona en cualquier país del mundo. Para negocios en EE.UU. asignamos número propio 🇺🇸 +1, y para negocios en España asignamos número 🇪🇸 +34. También cubrimos Venezuela, Colombia, México y toda Latinoamérica.',
     faq4_q:'¿Puedo actualizar precios o servicios después?', faq4_a:'Sí, en cualquier momento. Nos mandas un mensaje y actualizamos en 24 horas sin costo adicional.',
     faq5_q:'¿Puedo cancelar cuando quiera?', faq5_a:'Absolutamente. No hay contratos ni penalizaciones. Cobramos mensual, sin compromisos.',
-    faq6_q:'¿Cómo se realiza el pago?', faq6_a:'Aceptamos Payoneer, Facebank, Global66, Binance Pay, transferencia bancaria USD y Pago Móvil.',
+    faq6_q:'¿Cómo se realiza el pago?', faq6_a:'🇺🇸 EE.UU. y Latinoamérica: Payoneer, Facebank, Global66, Binance Pay, Zelle, transferencia USD y Pago Móvil. 🇪🇸 España: Bizum, transferencia bancaria en euros (€) y tarjeta de crédito/débito.',
     cta_title:'¿Listo para nunca<br>perder un cliente?',
     cta_sub:'Únete a los negocios que ya tienen una recepcionista trabajando 24/7 sin pagar nómina. Configuración en 48 horas.',
     cta_btn1:'💬 Hablar con un asesor', cta_btn2:'Ver demo primero',
@@ -490,7 +633,7 @@ var T = {
   en: {
     nav_how:'How it works', nav_pricing:'Pricing', nav_demo:'Live Demo', nav_faq:'FAQ',
     nav_cta:'Get started →',
-    hero_tag:'AI for businesses · A2K Digital Studio',
+    hero_tag:'🇺🇸 USA · 🇪🇸 Spain · A2K Digital Studio',
     hero_h1a:'Your business open', hero_h1b:'24 hours, 7 days',
     hero_sub:'An AI employee that answers calls, replies to WhatsApp messages, books appointments, and takes orders — while you sleep, vacation, or rest.',
     hero_btn1:'📞 See live demo', hero_btn2:'See pricing',
@@ -512,16 +655,20 @@ var T = {
     f4_title:'Takes orders & quotes', f4_desc:'Client places order via WhatsApp. The bot records it and notifies you with the full summary.', f4_1:'Product catalog with prices', f4_2:'Calculates totals automatically', f4_3:'Sends you order summary',
     f5_title:'Answers FAQs instantly', f5_desc:'Hours? Location? Prices? Your AI answers instantly, always correctly.', f5_1:'Updated prices and services', f5_2:'Location and directions', f5_3:'Accepted payment methods',
     f6_title:'Notifies you of what matters', f6_desc:'If a client needs to speak with you personally, your AI alerts you immediately with full context.', f6_1:'Urgent case alerts', f6_2:'Daily conversation summary', f6_3:'Never miss a VIP client',
-    demo_tag:'Live demo', demo_title:'Talk to the AI right now', demo_sub:"This is not a video. Call or message now and experience live how it will work for your business.",
+    demo_tag:'Live demo', demo_title:'See your AI in action', demo_sub:'Select your business type and watch the AI handle real clients in real time.',
     demo_label:'Active number · Responds in seconds', demo_call:'📞 Call now', demo_wa:'💬 Try on WhatsApp',
     demo_note:'* This is a demo number. Your business will have its own personalized number.',
+    demo_cta_title:'Want it for your business?', demo_cta_sub:'Setup in 24h · No contracts · Cancel anytime', demo_cta_btn:'📱 Try it FREE',
+    demo_live:'Or try it yourself — active number 24/7:',
+    video_caption:'Watch how the AI handles calls and WhatsApp messages in real time',
+    video_fullscreen:'▶ Watch fullscreen',
     price_tag:'Plans & pricing', price_title:'Less than an employee,<br>more than a receptionist', price_sub:'No long contracts. No surprises. Cancel anytime.',
     p1_name:'⚡ Basic', p1_period:'Ideal for small businesses just getting started',
     p2_name:'🚀 Pro', p2_period:'For businesses that want to grow for real',
     p3_name:'👑 Premium', p3_period:'For serious businesses that dominate their market',
     popular_badge:'🔥 MOST POPULAR',
     pf1_1:'WhatsApp Bot 24/7', pf1_2:'Services/products catalog', pf1_3:'FAQ auto-responses', pf1_4:'Owner notifications', pf1_5:'WhatsApp support', pf1_6:'Voice bot (phone calls)', pf1_7:'Dedicated phone number', pf1_8:'Automatic appointment booking',
-    pf2_1:'Everything in Basic', pf2_2:'AI voice bot (answers calls)', pf2_3:'Dedicated USA phone number', pf2_4:'Automatic appointment booking', pf2_5:'Appointment reminders', pf2_6:'Full order taking', pf2_7:'Priority support', pf2_8:'Monthly reports',
+    pf2_1:'Everything in Basic', pf2_2:'AI voice bot (answers calls)', pf2_3:'Dedicated 🇺🇸 USA or 🇪🇸 Spain (+34) number', pf2_4:'Automatic appointment booking', pf2_5:'Appointment reminders', pf2_6:'Full order taking', pf2_7:'Priority support', pf2_8:'Monthly reports',
     pf3_1:'Everything in Pro', pf3_2:'Detailed monthly reports', pf3_3:'Business mini landing page', pf3_4:'Basic client CRM', pf3_5:'Advanced AI customization', pf3_6:'VIP 24/7 support', pf3_7:'Updates at no extra cost', pf3_8:'Business landing page included',
     p_cta1:'Get Basic', p_cta2:'Get Pro →', p_cta3:'Get Premium',
     ind_tag:'Industries', ind_title:'Works for any business', ind_sub:'If you have clients who call or message, Receptionist AI works for you.',
@@ -529,10 +676,10 @@ var T = {
     faq_tag:'Frequently asked questions', faq_title:'Everything you need to know',
     faq1_q:'Do I need technical knowledge?', faq1_a:"Not at all. We set everything up in 48 hours. Just give us your business info and we handle the rest. No installs, no learning curve.",
     faq2_q:"What if the AI doesn't know an answer?", faq2_a:'The AI recognizes when it lacks an answer and immediately notifies you on WhatsApp with the full conversation context. Your client is never left hanging.',
-    faq3_q:'Does it work in the US, Latin America, and other countries?', faq3_a:'Yes, 100%. The WhatsApp bot works anywhere. The voice number is a US +1 number that anyone can call from anywhere in the world.',
+    faq3_q:'Does it work in the US, Spain, and Latin America?', faq3_a:'Yes, 100%. The WhatsApp bot works in any country worldwide. For US businesses we assign a 🇺🇸 +1 number, for Spain businesses a 🇪🇸 +34 number. We also serve Venezuela, Colombia, Mexico, and all of Latin America.',
     faq4_q:'Can I update prices or services later?', faq4_a:'Yes, anytime. Just message us the changes and we update within 24 hours at no extra charge.',
     faq5_q:'Can I cancel anytime?', faq5_a:'Absolutely. No long-term contracts, no cancellation fees. We bill monthly, no strings attached.',
-    faq6_q:'How do I pay?', faq6_a:'We accept Payoneer, Facebank, Global66, Binance Pay, and bank wire transfer in USD.',
+    faq6_q:'How do I pay?', faq6_a:'🇺🇸 US & Latin America: Payoneer, Facebank, Global66, Binance Pay, Zelle, and USD bank wire. 🇪🇸 Spain: Bizum, bank transfer in euros (€), and credit/debit card.',
     cta_title:'Ready to never<br>lose a client again?',
     cta_sub:'Join businesses that already have an AI receptionist working 24/7 without a payroll. Setup in 48 hours.',
     cta_btn1:'💬 Talk to an advisor', cta_btn2:'See demo first',
@@ -570,6 +717,7 @@ function setLang(lang) {
   document.getElementById('cta-premium').href = 'https://wa.me/584126148666?text=' + T[lang].wa_premium;
   document.getElementById('cta-final-btn').href = 'https://wa.me/584126148666?text=' + T[lang].wa_cta_final;
   document.getElementById('demo-wa-btn').href = 'https://wa.me/17866056242?text=' + T[lang].wa_demo;
+  if (typeof iLoadDemo === 'function') iLoadDemo();
 }
 
 function toggleFaq(el) {
@@ -588,8 +736,333 @@ document.querySelectorAll('.feat-card,.step,.pain-card,.pricing-card,.ind-card')
   observer.observe(el);
 });
 
+/* ═══════════════════════════════════════
+   INTERACTIVE DEMO
+═══════════════════════════════════════ */
+var I_INDUSTRY = 'nail';
+var i_chatTimers = [];
+var AUDIO_BASE = 'https://recepcionista-ai-video.pages.dev/';
+
+var I_DATA = {
+  nail:{
+    icon:'💅', name_es:'Nails by Marilú', name_en:'Nails by Marilú',
+    audio_es:AUDIO_BASE+'nail_salon_es.mp3', audio_en:AUDIO_BASE+'nail_salon_en.mp3',
+    desc_es:'Escucha cómo la IA atiende clientes de nail salon en español.',
+    desc_en:'Hear how the AI handles nail salon clients in English.',
+    features_es:[
+      {icon:'💰',text:'<strong>Precios al instante:</strong> Manicura $25, Rusa+Semi $45, Sistema gel $65'},
+      {icon:'📅',text:'<strong>Agenda citas:</strong> Verifica disponibilidad y reserva en segundos'},
+      {icon:'📸',text:'<strong>Catálogo:</strong> Envía fotos de trabajos anteriores'},
+      {icon:'⏰',text:'<strong>24/7:</strong> Responde a las 2am, fines de semana, feriados'},
+    ],
+    features_en:[
+      {icon:'💰',text:'<strong>Instant pricing:</strong> Manicure $25, Russian+Gel $45, Nail system $65'},
+      {icon:'📅',text:'<strong>Books appointments:</strong> Checks availability and books in seconds'},
+      {icon:'📸',text:'<strong>Design catalog:</strong> Sends photos of previous work'},
+      {icon:'⏰',text:'<strong>24/7:</strong> Replies at 2am, weekends, holidays'},
+    ],
+    chat_es:[
+      {from:'user',text:'Hola, ¿qué servicios tienen?',time:'4:32 pm'},
+      {from:'bot',text:'¡Hola! 👋 Soy Valeria de *Nails by Marilú*. Tenemos:\n\n💅 Manicura tradicional – $25\n✨ Manicura rusa + semipermanente – $45\n🦶 Pedicura rusa – $55\n💎 Sistema gel completo – $65\n💜 Polygel – $70\n\n¿Cuál te interesa?',time:'4:32 pm'},
+      {from:'user',text:'La manicura rusa, ¿tienen esta semana?',time:'4:33 pm'},
+      {from:'bot',text:'¡Claro! 😊 Tenemos disponibilidad:\n\n📅 Martes – 10:00am o 3:00pm\n📅 Jueves – 11:00am o 4:00pm\n📅 Sábado – 9:00am\n\n¿Cuál te funciona mejor?',time:'4:33 pm'},
+      {from:'user',text:'El jueves a las 4pm perfecto',time:'4:34 pm'},
+      {from:'bot',text:'✅ ¡Reservado!\n📅 Jueves · 4:00pm\n💅 Manicura rusa + semipermanente\nTe esperamos 🥰',time:'4:34 pm'},
+    ],
+    chat_en:[
+      {from:'user',text:'Hi, what services do you offer?',time:'4:32 pm'},
+      {from:'bot',text:'Hi! 👋 I\'m Valeria from *Nails by Marilú*. We offer:\n\n💅 Traditional manicure – $25\n✨ Russian manicure + gel polish – $45\n🦶 Russian pedicure – $55\n💎 Full gel system – $65\n💜 Polygel – $70\n\nWhich one interests you?',time:'4:32 pm'},
+      {from:'user',text:'Russian manicure, availability this week?',time:'4:33 pm'},
+      {from:'bot',text:'Absolutely! 😊 We have:\n\n📅 Tuesday – 10:00am or 3:00pm\n📅 Thursday – 11:00am or 4:00pm\n📅 Saturday – 9:00am\n\nWhich works best?',time:'4:33 pm'},
+      {from:'user',text:'Thursday at 4pm',time:'4:34 pm'},
+      {from:'bot',text:'✅ Booked!\n📅 Thursday · 4:00pm\n💅 Russian manicure + gel polish\nSee you then! 🥰',time:'4:34 pm'},
+    ],
+  },
+  restaurante:{
+    icon:'🍽️', name_es:'La Hacienda Restaurante', name_en:'La Hacienda Restaurant',
+    audio_es:AUDIO_BASE+'restaurante_es.mp3', audio_en:AUDIO_BASE+'restaurante_en.mp3',
+    desc_es:'La IA toma reservaciones, informa el menú y gestiona pedidos a domicilio.',
+    desc_en:'The AI takes reservations, shares the menu and manages delivery orders.',
+    features_es:[
+      {icon:'📋',text:'<strong>Menú del día:</strong> Informa platos y precios automáticamente'},
+      {icon:'📅',text:'<strong>Reservaciones:</strong> Gestiona mesas para grupos y eventos'},
+      {icon:'🛵',text:'<strong>Delivery:</strong> Toma pedidos con dirección y tiempo estimado'},
+      {icon:'⏰',text:'<strong>24/7:</strong> Atiende consultas fuera del horario de cocina'},
+    ],
+    features_en:[
+      {icon:'📋',text:'<strong>Daily menu:</strong> Shares dishes and prices automatically'},
+      {icon:'📅',text:'<strong>Reservations:</strong> Manages tables for groups and events'},
+      {icon:'🛵',text:'<strong>Delivery:</strong> Takes orders with address and ETA'},
+      {icon:'⏰',text:'<strong>24/7:</strong> Handles inquiries outside kitchen hours'},
+    ],
+    chat_es:[
+      {from:'user',text:'Hola, ¿cuál es el menú de hoy?',time:'1:15 pm'},
+      {from:'bot',text:'¡Buenas tardes! 🍽️ Hoy en *La Hacienda*:\n\n🥘 Pollo a la plancha – $12\n🦞 Arroz con mariscos – $18\n🥘 Paella valenciana – $22\n🥗 Ensalada mediterránea – $9\n\n¿Comes aquí o pides delivery?',time:'1:15 pm'},
+      {from:'user',text:'Delivery por favor',time:'1:16 pm'},
+      {from:'bot',text:'¡Claro! 🛵 Envío en 35-45 min, gratis en pedidos +$30.\n\n¿Cuál es tu dirección y qué deseas ordenar?',time:'1:16 pm'},
+      {from:'user',text:'Paella y pollo. Calle 5ta #23',time:'1:17 pm'},
+      {from:'bot',text:'✅ ¡Pedido confirmado!\n🥘 Paella – $22 + Pollo – $12\n📍 Calle 5ta #23 · Total: $34\nEn 40 minutos 🚗',time:'1:17 pm'},
+    ],
+    chat_en:[
+      {from:'user',text:"What's on the menu today?",time:'1:15 pm'},
+      {from:'bot',text:'Good afternoon! 🍽️ Today at *La Hacienda*:\n\n🥘 Grilled chicken – $12\n🦞 Seafood rice – $18\n🥘 Valencian paella – $22\n🥗 Mediterranean salad – $9\n\nDine in or delivery?',time:'1:15 pm'},
+      {from:'user',text:'Delivery please',time:'1:16 pm'},
+      {from:'bot',text:'Sure! 🛵 Delivery in 35-45 min, free on orders +$30.\n\nWhat\'s your address and what would you like?',time:'1:16 pm'},
+      {from:'user',text:'Paella and chicken. 5th St #23',time:'1:17 pm'},
+      {from:'bot',text:'✅ Order confirmed!\n🥘 Paella – $22 + Chicken – $12\n📍 5th St #23 · Total: $34\nArriving in 40 min 🚗',time:'1:17 pm'},
+    ],
+  },
+  bodega:{
+    icon:'🛒', name_es:'Bodega Don Pedro', name_en:'Don Pedro Store',
+    audio_es:AUDIO_BASE+'bodega_es.mp3', audio_en:AUDIO_BASE+'bodega_en.mp3',
+    desc_es:'La IA toma pedidos, informa disponibilidad y da seguimiento en tiempo real.',
+    desc_en:'The AI takes delivery orders, checks availability and tracks in real time.',
+    features_es:[
+      {icon:'🛵',text:'<strong>Delivery express:</strong> 30-45 minutos a domicilio'},
+      {icon:'📦',text:'<strong>Catálogo:</strong> Bebidas, snacks, lácteos, carnes, limpieza'},
+      {icon:'💳',text:'<strong>Pagos:</strong> Efectivo, Zelle, tarjeta, CashApp'},
+      {icon:'📍',text:'<strong>Seguimiento:</strong> Actualiza al cliente del estado del pedido'},
+    ],
+    features_en:[
+      {icon:'🛵',text:'<strong>Express delivery:</strong> 30-45 minutes to your door'},
+      {icon:'📦',text:'<strong>Full catalog:</strong> Beverages, snacks, dairy, meats, cleaning'},
+      {icon:'💳',text:'<strong>Payments:</strong> Cash, Zelle, card, CashApp'},
+      {icon:'📍',text:'<strong>Tracking:</strong> Updates customer on order status'},
+    ],
+    chat_es:[
+      {from:'user',text:'Hola, ¿hacen delivery?',time:'8:45 pm'},
+      {from:'bot',text:'¡Hola! 🛒 Sí, *Bodega Don Pedro* hace delivery toda la noche.\n⏱️ 30-45 min · Gratis +$30 · Mínimo $15\n\n¿Qué necesitas?',time:'8:45 pm'},
+      {from:'user',text:'2 Coronas, papas fritas y un Gatorade azul',time:'8:46 pm'},
+      {from:'bot',text:'¡Disponible!\n🍺 Corona x2 – $6 · Papas – $3.50 · Gatorade – $2.50\n💰 Total: $12 (+$3 envío)\n\n¿Dirección y forma de pago?',time:'8:46 pm'},
+      {from:'user',text:'Av. Principal #45, pago Zelle',time:'8:47 pm'},
+      {from:'bot',text:'✅ ¡Confirmado!\n📍 Av. Principal #45\n💳 Zelle: bodega@donpedro.com\n⏱️ En 35 minutos 🛵',time:'8:47 pm'},
+    ],
+    chat_en:[
+      {from:'user',text:'Hi, do you deliver?',time:'8:45 pm'},
+      {from:'bot',text:'Hi! 🛒 Yes, *Don Pedro Store* delivers all night.\n⏱️ 30-45 min · Free on +$30 · Min $15\n\nWhat do you need?',time:'8:45 pm'},
+      {from:'user',text:'2 Coronas, chips and blue Gatorade',time:'8:46 pm'},
+      {from:'bot',text:'Got it!\n🍺 Corona x2 – $6 · Chips – $3.50 · Gatorade – $2.50\n💰 Total: $12 (+$3 delivery)\n\nAddress and payment method?',time:'8:46 pm'},
+      {from:'user',text:"Main Ave #45, I'll pay with Zelle",time:'8:47 pm'},
+      {from:'bot',text:'✅ Confirmed!\n📍 Main Ave #45\n💳 Zelle: store@donpedro.com\n⏱️ Arriving in 35 minutes 🛵',time:'8:47 pm'},
+    ],
+  },
+  dental:{
+    icon:'🦷', name_es:'Sonrisa Perfecta Dental', name_en:'Perfect Smile Dental',
+    audio_es:AUDIO_BASE+'clinica_dental_es.mp3', audio_en:AUDIO_BASE+'clinica_dental_en.mp3',
+    desc_es:'La IA agenda citas, informa tratamientos y maneja urgencias 24/7.',
+    desc_en:'The AI books appointments, informs treatments and handles emergencies 24/7.',
+    features_es:[
+      {icon:'🦷',text:'<strong>Servicios:</strong> Limpieza $80, blanqueamiento $150, implantes $800'},
+      {icon:'🆘',text:'<strong>Urgencias 24/7:</strong> Conecta con el dentista de guardia'},
+      {icon:'🏥',text:'<strong>Seguros:</strong> Verifica cobertura y acepta la mayoría de planes'},
+      {icon:'📋',text:'<strong>Historial:</strong> Recuerda pacientes y citas anteriores'},
+    ],
+    features_en:[
+      {icon:'🦷',text:'<strong>Services:</strong> Cleaning $80, whitening $150, implants $800'},
+      {icon:'🆘',text:'<strong>24/7 emergencies:</strong> Connects to on-call dentist'},
+      {icon:'🏥',text:'<strong>Insurance:</strong> Verifies coverage and accepts most plans'},
+      {icon:'📋',text:'<strong>History:</strong> Remembers patients and appointment history'},
+    ],
+    chat_es:[
+      {from:'user',text:'Hola, me duele una muela desde ayer',time:'11:30 pm'},
+      {from:'bot',text:'Hola 🦷 Entiendo que estás con dolor.\n¿Es constante o pulsante? ¿Tienes la cara hinchada?\n\nSi el dolor es muy fuerte te conecto con nuestro dentista de guardia ahora mismo.',time:'11:30 pm'},
+      {from:'user',text:'Es constante y me duele al morder',time:'11:31 pm'},
+      {from:'bot',text:'Puede ser infección o fractura dental 🆘 Recomiendo atención urgente.\n\nTenemos turno mañana 7:30am o te conecto ahora con el Dr. Ramírez.\n\n¿Qué prefieres?',time:'11:31 pm'},
+      {from:'user',text:'Mañana 7:30am',time:'11:32 pm'},
+      {from:'bot',text:'✅ Cita de urgencia:\n📅 Mañana – 7:30am · Urgencia dental\n📍 Sonrisa Perfecta · Calle 10 #45\n\nSi empeora esta noche llama al: 786-000-0000 🙏',time:'11:32 pm'},
+    ],
+    chat_en:[
+      {from:'user',text:"I've had a toothache since yesterday",time:'11:30 pm'},
+      {from:'bot',text:"Hello 🦷 Sorry you're in pain.\nIs it constant or throbbing? Is your face swollen?\n\nIf severe, I can connect you with our on-call dentist right now.",time:'11:30 pm'},
+      {from:'user',text:"It's constant and hurts when I bite",time:'11:31 pm'},
+      {from:'bot',text:'This could be an infection or cracked tooth 🆘 Urgent care recommended.\n\nWe have tomorrow at 7:30am or I can connect you with Dr. Ramirez now.\n\nWhich do you prefer?',time:'11:31 pm'},
+      {from:'user',text:'Tomorrow 7:30am',time:'11:32 pm'},
+      {from:'bot',text:'✅ Emergency appointment:\n📅 Tomorrow – 7:30am · Dental emergency\n📍 Perfect Smile · 10th St #45\n\nIf pain worsens, call: 786-000-0000 🙏',time:'11:32 pm'},
+    ],
+  },
+  barberia:{
+    icon:'✂️', name_es:'Barbería Élite', name_en:'Elite Barbershop',
+    audio_es:AUDIO_BASE+'barberia_es.mp3', audio_en:AUDIO_BASE+'barberia_en.mp3',
+    desc_es:'La IA informa servicios, precios y agenda turnos automáticamente.',
+    desc_en:'The AI shares services, pricing and books barbershop slots automatically.',
+    features_es:[
+      {icon:'✂️',text:'<strong>Servicios:</strong> Corte $20, degradado $25, afeitado $30'},
+      {icon:'📅',text:'<strong>Sin espera:</strong> Agenda tu hora exacta para no hacer fila'},
+      {icon:'💈',text:'<strong>Barberos:</strong> Elige tu barbero favorito'},
+      {icon:'🎁',text:'<strong>Promos:</strong> Informa sobre combos y descuentos del día'},
+    ],
+    features_en:[
+      {icon:'✂️',text:'<strong>Services:</strong> Cut $20, fade $25, shave $30'},
+      {icon:'📅',text:'<strong>Skip the wait:</strong> Book your exact time slot'},
+      {icon:'💈',text:'<strong>Barbers:</strong> Choose your favorite barber'},
+      {icon:'🎁',text:'<strong>Promos:</strong> Shares daily deals and combo discounts'},
+    ],
+    chat_es:[
+      {from:'user',text:'¿Cuánto vale el corte con degradado?',time:'3:20 pm'},
+      {from:'bot',text:'¡Hola! ✂️ *Barbería Élite*:\n💈 Corte clásico – $20\n🔥 Degradado fade – $25\n🪒 Afeitado con navaja – $30\n✂️ Corte + barba – $40\n\n¿Te agendo un turno?',time:'3:20 pm'},
+      {from:'user',text:'Sí, corte con barba. ¿Tienen hoy?',time:'3:21 pm'},
+      {from:'bot',text:'¡Sí tenemos hoy!\n🕔 4:30pm – Barber Mike\n🕔 5:00pm – Barber Carlos\n🕔 6:15pm – Barber Mike\n\n¿Cuál prefieres?',time:'3:21 pm'},
+      {from:'user',text:'Las 5pm con Carlos',time:'3:22 pm'},
+      {from:'bot',text:'✅ ¡Turno reservado!\n📅 Hoy – 5:00pm\n💈 Corte + barba – $40\n👤 Barber Carlos · Te esperamos 💪',time:'3:22 pm'},
+    ],
+    chat_en:[
+      {from:'user',text:'How much is a haircut with fade?',time:'3:20 pm'},
+      {from:'bot',text:'Hey! ✂️ *Elite Barbershop*:\n💈 Classic cut – $20\n🔥 Fade haircut – $25\n🪒 Straight razor shave – $30\n✂️ Cut + beard – $40\n\nWant to book?',time:'3:20 pm'},
+      {from:'user',text:"Cut with beard, do you have today?",time:'3:21 pm'},
+      {from:'bot',text:"Today's openings:\n🕔 4:30pm – Barber Mike\n🕔 5:00pm – Barber Carlos\n🕔 6:15pm – Barber Mike\n\nWhich do you prefer?",time:'3:21 pm'},
+      {from:'user',text:'5pm with Carlos',time:'3:22 pm'},
+      {from:'bot',text:'✅ Booked!\n📅 Today – 5:00pm\n💈 Cut + beard – $40\n👤 Barber Carlos · See you! 💪',time:'3:22 pm'},
+    ],
+  },
+  salon:{
+    icon:'💇', name_es:'Studio Glam', name_en:'Studio Glam',
+    audio_es:AUDIO_BASE+'salon_belleza_es.mp3', audio_en:AUDIO_BASE+'salon_belleza_en.mp3',
+    desc_es:'La IA asesora sobre coloración, tratamientos y agenda citas al instante.',
+    desc_en:'The AI advises on coloring, treatments and books appointments instantly.',
+    features_es:[
+      {icon:'💇',text:'<strong>Servicios:</strong> Corte $35, color $80, balayage $120, keratina $150'},
+      {icon:'🎨',text:'<strong>Asesoría de color:</strong> Recomienda tonos según foto enviada'},
+      {icon:'📅',text:'<strong>Citas largas:</strong> Gestiona servicios de varias horas'},
+      {icon:'💆',text:'<strong>Tratamientos:</strong> Hidratación, botox capilar y más'},
+    ],
+    features_en:[
+      {icon:'💇',text:'<strong>Services:</strong> Cut $35, color $80, balayage $120, keratin $150'},
+      {icon:'🎨',text:'<strong>Color advice:</strong> Recommends shades based on photo'},
+      {icon:'📅',text:'<strong>Long appointments:</strong> Multi-hour service scheduling'},
+      {icon:'💆',text:'<strong>Treatments:</strong> Hydration, hair botox and more'},
+    ],
+    chat_es:[
+      {from:'user',text:'Hola, quiero hacerme mechas, ¿cuánto?',time:'10:05 am'},
+      {from:'bot',text:'¡Hola! 💇 *Studio Glam*:\n✨ Mechas clásicas – desde $90\n🌟 Balayage completo – desde $120\n🔥 Highlights + tónico – desde $110\n\n¿Me envías una foto para darte precio exacto?',time:'10:05 am'},
+      {from:'user',text:'[📷 foto cabello castaño largo]',time:'10:06 am'},
+      {from:'bot',text:'Gracias 😊 Para tu cabello recomiendo:\n🌟 *Balayage natural* – $135\n⏱️ 3-4 horas · Incluye mascarilla y secado\n\n¿Te hago la cita?',time:'10:06 am'},
+      {from:'user',text:'Sí, ¿tienen el sábado por la mañana?',time:'10:07 am'},
+      {from:'bot',text:'✅ ¡Cita reservada!\n📅 Sábado – 9:00am\n✨ Balayage natural – $135\n💇 Estilista: Sofía · ¡Te va a encantar! 🥰',time:'10:07 am'},
+    ],
+    chat_en:[
+      {from:'user',text:'Hi, I want highlights, how much?',time:'10:05 am'},
+      {from:'bot',text:'Hi! 💇 *Studio Glam*:\n✨ Classic highlights – from $90\n🌟 Full balayage – from $120\n🔥 Highlights + toner – from $110\n\nCan you send a photo for an exact quote?',time:'10:05 am'},
+      {from:'user',text:'[📷 photo of long brown hair]',time:'10:06 am'},
+      {from:'bot',text:'Thanks 😊 For your hair I recommend:\n🌟 *Natural balayage* – $135\n⏱️ 3-4 hours · Includes mask and blowdry\n\nShall I book your appointment?',time:'10:06 am'},
+      {from:'user',text:'Yes, Saturday morning?',time:'10:07 am'},
+      {from:'bot',text:"✅ Booked!\n📅 Saturday – 9:00am\n✨ Natural balayage – $135\n💇 Stylist: Sofia · You're going to love it! 🥰",time:'10:07 am'},
+    ],
+  },
+};
+
+function iSetIndustry(ind, btn) {
+  I_INDUSTRY = ind;
+  document.querySelectorAll('.itab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  iLoadDemo();
+}
+
+function iLoadDemo() {
+  var d = I_DATA[I_INDUSTRY];
+  if (!d) return;
+  var lang = LANG;
+
+  var aud = document.getElementById('i-audio');
+  if (!aud) return;
+  aud.pause(); aud.currentTime = 0;
+  var pbtn = document.getElementById('i-play-btn');
+  pbtn.textContent = '▶'; pbtn.className = 'iplay-btn';
+
+  document.getElementById('i-chat-icon').textContent = d.icon;
+  document.getElementById('i-chat-name').textContent = lang==='es' ? d.name_es : d.name_en;
+  document.getElementById('i-chat-status').textContent = lang==='es' ? '● En línea · Responde en segundos' : '● Online · Responds in seconds';
+
+  aud.src = lang==='es' ? d.audio_es : d.audio_en;
+  document.getElementById('i-audio-title').textContent = d.icon + ' ' + (lang==='es' ? d.name_es : d.name_en) + ' · ' + (lang==='es' ? 'Español' : 'English');
+  document.getElementById('i-audio-desc').textContent = lang==='es' ? d.desc_es : d.desc_en;
+  document.getElementById('i-prog').value = 0;
+  document.getElementById('i-time').textContent = '0:00 / 0:00';
+
+  document.getElementById('i-feats-title').textContent = lang==='es' ? '✅ LO QUE HACE EL BOT' : '✅ WHAT THE BOT DOES';
+  var feats = lang==='es' ? d.features_es : d.features_en;
+  document.getElementById('i-feats-list').innerHTML = feats.map(function(f){
+    return '<div class="ifeat"><span class="ifeat-i">'+f.icon+'</span><span class="ifeat-t">'+f.text+'</span></div>';
+  }).join('');
+
+  iLoadChat(lang==='es' ? d.chat_es : d.chat_en);
+}
+
+function iLoadChat(msgs) {
+  i_chatTimers.forEach(function(t){ clearTimeout(t); });
+  i_chatTimers = [];
+  var body = document.getElementById('i-chat-body');
+  body.innerHTML = '<div class="ityping" id="i-typing"><span></span><span></span><span></span></div>';
+  var delay = 400;
+  msgs.forEach(function(msg) {
+    (function(m, d1, d2){
+      var t1 = setTimeout(function(){
+        var typing = document.getElementById('i-typing');
+        if (m.from==='bot' && typing) typing.style.display = 'flex';
+      }, d1);
+      i_chatTimers.push(t1);
+      var t2 = setTimeout(function(){
+        var typing = document.getElementById('i-typing');
+        if (typing) typing.style.display = 'none';
+        var el = document.createElement('div');
+        el.className = 'imsg ' + (m.from==='bot' ? 'imsg-bot' : 'imsg-user');
+        var raw = m.text
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+          .replace(/\*([^*]+)\*/g,'<strong>$1</strong>')
+          .replace(/\n/g,'<br>');
+        if (m.from==='bot') {
+          el.innerHTML = '<div class="isender">Recepcionista AI</div>' + raw + '<div class="imsg-time">'+m.time+'</div>';
+        } else {
+          el.innerHTML = raw + '<div class="imsg-time">'+m.time+'</div>';
+        }
+        body.insertBefore(el, typing || null);
+        requestAnimationFrame(function(){ el.classList.add('show'); });
+        body.scrollTop = body.scrollHeight;
+        if (typing) body.appendChild(typing);
+      }, d2);
+      i_chatTimers.push(t2);
+    })(msg, delay, delay + (msg.from==='bot' ? 900 : 400));
+    delay += msg.from==='bot' ? 1600 : 900;
+  });
+}
+
+function iToggleAudio() {
+  var aud = document.getElementById('i-audio');
+  var btn = document.getElementById('i-play-btn');
+  if (aud.paused) {
+    aud.play();
+    btn.textContent = '⏸'; btn.className = 'iplay-btn playing';
+  } else {
+    aud.pause();
+    btn.textContent = '▶'; btn.className = 'iplay-btn';
+  }
+}
+
+function iResetAudio() {
+  document.getElementById('i-play-btn').textContent = '▶';
+  document.getElementById('i-play-btn').className = 'iplay-btn';
+  document.getElementById('i-prog').value = 0;
+}
+
+function iUpdateProgress() {
+  var aud = document.getElementById('i-audio');
+  if (!aud.duration) return;
+  document.getElementById('i-prog').value = (aud.currentTime / aud.duration) * 100;
+  document.getElementById('i-time').textContent = iFmt(aud.currentTime) + ' / ' + iFmt(aud.duration);
+}
+
+function iSeek(slider) {
+  var aud = document.getElementById('i-audio');
+  if (aud.duration) aud.currentTime = (slider.value / 100) * aud.duration;
+}
+
+function iFmt(s) {
+  var m = Math.floor(s/60), sec = Math.floor(s%60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
 // Auto-detect browser language
 if (navigator.language && navigator.language.startsWith('en')) setLang('en');
+else iLoadDemo();
 </script>
 </body>
 </html>

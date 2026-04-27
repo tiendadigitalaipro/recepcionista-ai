@@ -244,6 +244,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 }
 #toast.show{transform:translateY(0);opacity:1}
 
+/* ── QR CODE ── */
+.qr-section{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:24px;margin-bottom:20px;text-align:center;
+}
+.qr-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.qr-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+#qrcode{display:inline-block;padding:12px;background:#fff;border-radius:12px;margin-bottom:12px}
+#qrcode canvas,#qrcode img{display:block;border-radius:6px}
+.qr-num{font-family:monospace;color:var(--neon);font-size:13px;font-weight:700;margin-bottom:12px}
+.qr-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-qr{
+  padding:9px 20px;border-radius:8px;border:none;cursor:pointer;
+  font-size:13px;font-weight:600;transition:all .15s;
+}
+.btn-qr.primary{background:linear-gradient(135deg,var(--purple),var(--accent));color:#fff}
+.btn-qr.ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-qr:hover{opacity:.85;transform:translateY(-1px)}
+
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .sidebar{width:60px}
@@ -253,6 +272,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
   .cards-grid{grid-template-columns:1fr 1fr}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -324,44 +344,67 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
         </div>
       </div>
 
-      <div class="status-bar">
-        <div class="status-dot"></div>
-        <div class="status-text">Bot activo — respondiendo mensajes</div>
-        <div class="status-sub">Última actividad: hace 3 minutos</div>
+      <div class="status-bar" id="statusBar">
+        <div class="status-dot" id="statusDot" style="background:var(--muted);box-shadow:none"></div>
+        <div class="status-text" id="statusText">Conectando con el bot...</div>
+        <div class="status-sub" id="statusSub">
+          <button onclick="fetchStats()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer">↻ Actualizar</button>
+        </div>
       </div>
 
       <div class="cards-grid">
         <div class="card">
           <div class="card-icon">💬</div>
-          <div class="card-value" id="statMensajes">0</div>
+          <div class="card-value" id="statMensajes">—</div>
           <div class="card-label">Mensajes hoy</div>
-          <div class="card-trend">↑ Bot activo 24/7</div>
+          <div class="card-trend" id="statTendencia">Cargando...</div>
         </div>
         <div class="card">
-          <div class="card-icon">📅</div>
-          <div class="card-value" id="statCitas">0</div>
-          <div class="card-label">Citas agendadas</div>
-          <div class="card-trend" style="color:var(--accent)">Este mes</div>
+          <div class="card-icon">👥</div>
+          <div class="card-value" id="statConversaciones">—</div>
+          <div class="card-label">Conversaciones activas</div>
+          <div class="card-trend" style="color:var(--accent)">Últimos 30 días</div>
         </div>
         <div class="card">
-          <div class="card-icon">⚡</div>
-          <div class="card-value">3s</div>
-          <div class="card-label">Tiempo de respuesta</div>
-          <div class="card-trend">Promedio</div>
+          <div class="card-icon">📊</div>
+          <div class="card-value" id="statTotal">—</div>
+          <div class="card-label">Total histórico</div>
+          <div class="card-trend">Desde el inicio</div>
         </div>
         <div class="card">
           <div class="card-icon">✅</div>
-          <div class="card-value" id="statTasa">98%</div>
-          <div class="card-label">Tasa de respuesta</div>
-          <div class="card-trend">Clientes atendidos</div>
+          <div class="card-value" id="statTasa">—</div>
+          <div class="card-label">Ayer</div>
+          <div class="card-trend">Mensajes recibidos</div>
+        </div>
+      </div>
+
+      <!-- QR del bot -->
+      <div class="qr-section">
+        <div style="background:#1a3a1a;border:1px solid #2d6a2d;border-radius:10px;padding:14px 18px;margin-bottom:18px;text-align:left">
+          <div style="font-size:13px;font-weight:800;color:#4ade80;margin-bottom:6px">📌 ¿Para qué es este QR?</div>
+          <div style="font-size:12px;color:#86efac;line-height:1.7">
+            Este QR es para que <strong>tus clientes</strong> lo escaneen con la <strong>cámara del celular</strong> y abran un chat directo con tu bot de WhatsApp.<br>
+            <span style="color:#fbbf24;font-weight:700">⚠️ NO se escanea desde dentro de WhatsApp — usa la cámara normal del celular.</span>
+          </div>
+        </div>
+        <div class="qr-title">QR para tus clientes</div>
+        <div class="qr-sub">Imprímelo, ponlo en tu negocio o compártelo en redes sociales</div>
+        <div id="qrcode"></div>
+        <div class="qr-num" id="qrBotNum">+1 (786) 605-6242</div>
+        <div class="qr-actions">
+          <button class="btn-qr primary" onclick="descargarQR()">⬇️ Descargar QR</button>
+          <button class="btn-qr ghost" onclick="compartirQR()">📤 Compartir</button>
         </div>
       </div>
 
       <div class="form-section">
-        <div class="form-section-title">📞 Últimas conversaciones</div>
+        <div class="form-section-title">📞 Últimas conversaciones
+          <span id="convCount" style="font-size:11px;color:var(--muted);font-weight:400;margin-left:8px"></span>
+        </div>
         <div class="conv-list" id="convListDash">
-          <div style="color:var(--muted);font-size:13px;padding:20px;text-align:center">
-            Las conversaciones aparecerán aquí cuando el bot empiece a responder
+          <div id="convPlaceholder" style="color:var(--muted);font-size:13px;padding:20px;text-align:center">
+            ⏳ Configura la URL del Worker en Configuración para ver conversaciones en vivo
           </div>
         </div>
       </div>
@@ -426,6 +469,30 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
             <label class="form-label">EMAIL DE NOTIFICACIONES</label>
             <input type="text" class="form-input" id="cfgEmail" placeholder="tu@email.com">
           </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">🔗 Conexión con el Bot (para stats en vivo)</div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label">URL DEL WORKER (obtenida al hacer deploy)</label>
+            <input type="text" class="form-input" id="cfgWorkerUrl" placeholder="https://recepcionista-ai-bot.tu-usuario.workers.dev">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CLAVE API DEL PANEL</label>
+            <input type="text" class="form-input" id="cfgApiKey" placeholder="La misma que configuraste en Cloudflare">
+          </div>
+          <div class="form-group" style="display:flex;align-items:flex-end">
+            <button class="save-btn" style="margin-top:0" onclick="probarConexion()">🔌 Probar conexión</button>
+            <span id="connStatus" style="font-size:12px;margin-left:12px;display:none"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">💅 Servicios y precios</div>
+        <div class="form-grid">
           <div class="form-group full">
             <label class="form-label">SERVICIOS OFRECIDOS (uno por línea)</label>
             <textarea class="form-textarea" id="cfgServicios" placeholder="Uñas acrílicas — $45&#10;Gel completo — $55&#10;Nail art — desde $10&#10;Manicure simple — $25"></textarea>
@@ -533,10 +600,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
       </div>
 
       <div class="form-section">
-        <div class="form-section-title">💬 Conversaciones recientes</div>
+        <div class="form-section-title" style="display:flex;align-items:center;justify-content:space-between">
+          <span>💬 Conversaciones recientes</span>
+          <button onclick="fetchHistorial(true)" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer">↻ Actualizar</button>
+        </div>
         <div id="historialList">
           <div style="color:var(--muted);font-size:13px;padding:30px;text-align:center">
-            📭 Las conversaciones aparecerán aquí una vez que el bot esté conectado a tu WhatsApp
+            📭 Configura la URL del Worker en Configuración para ver el historial en vivo
           </div>
         </div>
       </div>
@@ -616,27 +686,66 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 <script>
 // ════════════════════════ LICENCIAS ════════════════════════
 var LICENCIAS = {
-  "RCAI-DEMO-2024":  { plan:"Demo",    precio:"$0",   dias:7,   msgs:100  },
-  "RCAI-BASE-0001":  { plan:"Básico",  precio:"$99",  dias:30,  msgs:500  },
-  "RCAI-BASE-0002":  { plan:"Básico",  precio:"$99",  dias:30,  msgs:500  },
-  "RCAI-BASE-0003":  { plan:"Básico",  precio:"$99",  dias:30,  msgs:500  },
-  "RCAI-PRO-0001":   { plan:"Pro",     precio:"$149", dias:30,  msgs:2000 },
-  "RCAI-PRO-0002":   { plan:"Pro",     precio:"$149", dias:30,  msgs:2000 },
-  "RCAI-PRO-0003":   { plan:"Pro",     precio:"$149", dias:30,  msgs:2000 },
-  "RCAI-VIP-0001":   { plan:"VIP",     precio:"$199", dias:365, msgs:99999},
+  "RCAI-DEMO-2024": { plan:"Demo", precio:"$0", dias:7, msgs:100 },
 };
+
+var PLANES_DINAMICOS = {
+  DEMO: { plan:"Demo",       precio:"$0",   dias:7,   msgs:100   },
+  BASE: { plan:"Básico",     precio:"$99",  dias:30,  msgs:500   },
+  PRO:  { plan:"Pro",        precio:"$149", dias:30,  msgs:2000  },
+  VIP:  { plan:"VIP",        precio:"$199", dias:365, msgs:99999 },
+  ENT:  { plan:"Enterprise", precio:"$399", dias:365, msgs:99999 },
+};
+
+function _hash(str) {
+  var h = 5381;
+  for (var i = 0; i < str.length; i++) {
+    h = ((h << 5) + h) ^ str.charCodeAt(i);
+    h = h >>> 0;
+  }
+  return h;
+}
+
+function verificarCodigoDinamico(key) {
+  var parts = key.split('-');
+  if (parts.length !== 3 || parts[0] !== 'RCAI') return null;
+  var plan = parts[1];
+  var code = parts[2];
+  if (!PLANES_DINAMICOS[plan]) return null;
+  var SECRET = "A2K_RCAI_STUDIO_2024_VE";
+  var chars  = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  for (var seq = 1; seq <= 9999; seq++) {
+    var input = plan + "|" + seq + "|" + SECRET;
+    var h1 = _hash(input);
+    var h2 = _hash(input + h1);
+    var combined = (h1 ^ h2) >>> 0;
+    var expected = "";
+    var tmp = combined;
+    for (var i = 0; i < 6; i++) {
+      expected += chars[tmp % chars.length];
+      tmp = Math.floor(tmp / chars.length);
+    }
+    if (expected === code) return PLANES_DINAMICOS[plan];
+  }
+  return null;
+}
 
 function formatKey(el){
   var v = el.value.replace(/[^A-Z0-9]/gi,'').toUpperCase();
-  var parts = [];
-  for(var i=0;i<v.length&&parts.join('').replace(/-/g,'').length<16;i+=4)
-    parts.push(v.substr(i,4));
-  el.value = parts.join('-').substr(0,19);
+  // Allow variable length for dynamic codes (RCAI-PLAN-6CHARS)
+  var raw = v.substring(0,20);
+  // Format as RCAI-XXXX-XXXXXX or RCAI-XXXX-XXXX-XXXX
+  var out = '';
+  if (raw.length > 0) out = raw.substring(0,4);
+  if (raw.length > 4) out += '-' + raw.substring(4,8);
+  if (raw.length > 8) out += '-' + raw.substring(8,14);
+  el.value = out;
 }
 
 function activarLicencia(){
-  var key = document.getElementById('lockInput').value.trim().toUpperCase();
+  var key = document.getElementById('lockInput').value.trim().toUpperCase().replace(/\s/g,'');
   var err = document.getElementById('lockError');
+  err.style.display = 'none';
 
   // Revisar si ya está activada
   var saved = JSON.parse(localStorage.getItem('rcai_licencia')||'null');
@@ -648,11 +757,16 @@ function activarLicencia(){
     }
   }
 
-  if(!LICENCIAS[key]){
+  // 1. Buscar en lista fija
+  var lic = LICENCIAS[key];
+
+  // 2. Si no está en lista fija, verificar código dinámico
+  if (!lic) lic = verificarCodigoDinamico(key);
+
+  if(!lic){
     err.style.display='block'; err.textContent='❌ Código inválido'; return;
   }
 
-  var lic = LICENCIAS[key];
   var vence = new Date();
   vence.setDate(vence.getDate() + lic.dias);
 
@@ -690,14 +804,85 @@ function iniciarApp(data){
   // Fecha en topbar
   document.getElementById('topDate').textContent = new Date().toLocaleDateString('es-US',{weekday:'long',month:'long',day:'numeric'});
 
-  // Simulación de stats
-  document.getElementById('statMensajes').textContent = Math.floor(Math.random()*40)+5;
-  document.getElementById('statCitas').textContent = Math.floor(Math.random()*15)+2;
+  // Cargar stats reales (con fallback visual)
+  fetchStats();
+  fetchHistorial(false);
 
   // Nombre negocio en sidebar
   var cfg = JSON.parse(localStorage.getItem('rcai_config')||'{}');
   if(cfg.nombre) document.getElementById('sbBizName').textContent = cfg.nombre;
   document.getElementById('dashGreeting').textContent = 'Bienvenido' + (cfg.nombre ? ', ' + cfg.nombre : '') + ' 👋';
+
+  // Generar QR del bot
+  setTimeout(generarQR, 300);
+}
+
+// ════════════════════════ QR CODE ════════════════════════
+var _qrInstance = null;
+
+function generarQR() {
+  var cfg     = JSON.parse(localStorage.getItem('rcai_config') || '{}');
+  var waRaw   = (cfg.waBot || '17866056242').replace(/\D/g, '');
+  if (!waRaw) waRaw = '17866056242';
+  var negocio = encodeURIComponent(cfg.nombre || 'mi negocio');
+  var url     = 'https://wa.me/' + waRaw + '?text=Hola%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20' + negocio;
+
+  var container = document.getElementById('qrcode');
+  if (!container) return;
+  container.innerHTML = '';
+
+  try {
+    _qrInstance = new QRCode(container, {
+      text:         url,
+      width:        256,
+      height:       256,
+      colorDark:    '#000000',
+      colorLight:   '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  } catch(e) {
+    container.innerHTML = '<div style="color:var(--muted);font-size:12px;padding:20px">QR no disponible sin conexión</div>';
+  }
+
+  var numEl = document.getElementById('qrBotNum');
+  if (numEl) numEl.textContent = '+' + waRaw;
+}
+
+function descargarQR() {
+  var canvas = document.querySelector('#qrcode canvas');
+  if (!canvas) { showToast('⚠️ Genera la config primero'); return; }
+  var cfg    = JSON.parse(localStorage.getItem('rcai_config') || '{}');
+  var nombre = (cfg.nombre || 'bot').replace(/\s+/g, '-').toLowerCase();
+  var link   = document.createElement('a');
+  link.download = 'qr-' + nombre + '.png';
+  link.href      = canvas.toDataURL('image/png');
+  link.click();
+  showToast('✅ QR descargado');
+}
+
+function compartirQR() {
+  var canvas = document.querySelector('#qrcode canvas');
+  if (!canvas) { showToast('⚠️ Genera la config primero'); return; }
+  canvas.toBlob(function(blob) {
+    var cfg     = JSON.parse(localStorage.getItem('rcai_config') || '{}');
+    var waRaw   = (cfg.waBot || '17866056242').replace(/\D/g, '');
+    var negocio = cfg.nombre || 'mi negocio';
+    if (navigator.share) {
+      var file = new File([blob], 'qr-bot.png', { type: 'image/png' });
+      navigator.share({
+        title: 'Bot de ' + negocio,
+        text:  'Escanea este QR para hablar con el recepcionista AI de ' + negocio,
+        files: [file]
+      }).catch(function(){});
+    } else {
+      var txt = 'https://wa.me/' + waRaw + '?text=Hola';
+      navigator.clipboard.writeText(txt).then(function(){
+        showToast('📋 Link del bot copiado');
+      }).catch(function(){
+        showToast('📋 Link: wa.me/' + waRaw);
+      });
+    }
+  });
 }
 
 // ════════════════════════ NAVEGACIÓN ════════════════════════
@@ -710,6 +895,18 @@ function showSection(id, el){
 
 // ════════════════════════ CONFIG ════════════════════════
 function guardarConfig(){
+  var serviciosRaw = document.getElementById('cfgServicios').value;
+  var serviciosArr = serviciosRaw.split('\n').filter(function(l){ return l.trim(); });
+  var precios = {};
+  serviciosArr.forEach(function(linea) {
+    var partes = linea.split(/[—\-–]{1}/);
+    if (partes.length >= 2) {
+      precios[partes[0].trim()] = partes[1].trim();
+    } else {
+      precios[linea.trim()] = 'Consultar';
+    }
+  });
+
   var cfg = {
     nombre:      document.getElementById('cfgNombre').value,
     tipo:        document.getElementById('cfgTipo').value,
@@ -719,12 +916,40 @@ function guardarConfig(){
     descripcion: document.getElementById('cfgDescripcion').value,
     waBot:       document.getElementById('cfgWaBot').value,
     email:       document.getElementById('cfgEmail').value,
-    servicios:   document.getElementById('cfgServicios').value,
+    servicios:   serviciosRaw,
+    workerUrl:   document.getElementById('cfgWorkerUrl').value.replace(/\/$/,''),
+    apiKey:      document.getElementById('cfgApiKey').value,
   };
   localStorage.setItem('rcai_config', JSON.stringify(cfg));
   if(cfg.nombre){ document.getElementById('sbBizName').textContent=cfg.nombre; }
-  mostrarSaved('cfgSavedMsg');
-  showToast('✅ Configuración guardada');
+  generarQR();
+
+  // Guardar perfil en el Worker para que el bot use los datos reales
+  if (cfg.workerUrl && cfg.apiKey) {
+    var perfilBot = {
+      nombre:      cfg.nombre,
+      tipo:        cfg.tipo.toLowerCase(),
+      nombre_bot:  'Sofia',
+      horario:     cfg.descripcion || 'Consultar horario',
+      direccion:   cfg.direccion,
+      telefono:    cfg.telefono,
+      booking_link:'',
+      servicios:   Object.keys(precios),
+      precios:     precios,
+      info_extra:  cfg.descripcion || '',
+    };
+    fetch(cfg.workerUrl + '/api/perfil', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + cfg.apiKey },
+      body: JSON.stringify(perfilBot)
+    }).then(function(r){
+      if (r.ok) showToast('✅ Config guardada y bot actualizado');
+      else showToast('⚠️ Config local guardada (verifica URL/clave del Worker)');
+    }).catch(function(){ showToast('⚠️ Config local guardada (sin conexion al Worker)'); });
+  } else {
+    mostrarSaved('cfgSavedMsg');
+    showToast('✅ Configuracion guardada — QR actualizado');
+  }
 }
 
 function cargarConfig(){
@@ -738,6 +963,8 @@ function cargarConfig(){
   if(cfg.waBot)       document.getElementById('cfgWaBot').value        = cfg.waBot;
   if(cfg.email)       document.getElementById('cfgEmail').value        = cfg.email;
   if(cfg.servicios)   document.getElementById('cfgServicios').value    = cfg.servicios;
+  if(cfg.workerUrl)   document.getElementById('cfgWorkerUrl').value    = cfg.workerUrl;
+  if(cfg.apiKey)      document.getElementById('cfgApiKey').value       = cfg.apiKey;
 }
 
 // ════════════════════════ MENSAJES ════════════════════════
@@ -841,6 +1068,165 @@ function showToast(msg){
   t.classList.add('show');
   setTimeout(function(){t.classList.remove('show');},2500);
 }
+
+// ════════════════════════ STATS EN VIVO ════════════════════════
+function getWorkerConfig() {
+  var cfg = JSON.parse(localStorage.getItem('rcai_config') || '{}');
+  return { url: cfg.workerUrl || '', key: cfg.apiKey || '' };
+}
+
+async function fetchStats() {
+  var wc = getWorkerConfig();
+  var dot  = document.getElementById('statusDot');
+  var text = document.getElementById('statusText');
+  var sub  = document.getElementById('statusSub');
+
+  if (!wc.url) {
+    text.textContent = '⚙️ Configura la URL del Worker para ver stats en vivo';
+    document.getElementById('statMensajes').textContent = '—';
+    document.getElementById('statConversaciones').textContent = '—';
+    document.getElementById('statTotal').textContent = '—';
+    document.getElementById('statTasa').textContent = '—';
+    return;
+  }
+
+  try {
+    var res = await fetch(wc.url + '/api/stats', {
+      headers: { 'Authorization': 'Bearer ' + wc.key }
+    });
+
+    if (!res.ok) throw new Error('Error ' + res.status);
+    var data = await res.json();
+
+    // Stats cards
+    document.getElementById('statMensajes').textContent        = data.hoy || 0;
+    document.getElementById('statConversaciones').textContent  = data.conversaciones || 0;
+    document.getElementById('statTotal').textContent           = data.total || 0;
+    document.getElementById('statTasa').textContent            = data.ayer || 0;
+
+    // Tendencia
+    var tendEl = document.getElementById('statTendencia');
+    if (tendEl) {
+      var diff = (data.hoy || 0) - (data.ayer || 0);
+      tendEl.textContent = diff >= 0 ? '↑ +' + diff + ' vs ayer' : '↓ ' + diff + ' vs ayer';
+      tendEl.style.color = diff >= 0 ? 'var(--neon)' : 'var(--danger)';
+    }
+
+    // Status bar — verde = bot activo
+    dot.style.background  = 'var(--neon)';
+    dot.style.boxShadow   = '0 0 8px var(--neon)';
+    dot.style.animation   = 'pulse 2s infinite';
+    text.textContent      = 'Bot activo — respondiendo mensajes 24/7';
+    var now = new Date();
+    sub.innerHTML = '<span>Actualizado: ' + now.toLocaleTimeString('es') + '</span>'
+      + ' <button onclick="fetchStats()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;margin-left:8px">↻</button>';
+
+  } catch(e) {
+    dot.style.background  = 'var(--danger)';
+    dot.style.boxShadow   = 'none';
+    dot.style.animation   = 'none';
+    text.textContent      = '⚠️ No se pudo conectar con el bot';
+    sub.innerHTML = '<span style="color:var(--danger);font-size:11px">Verifica que el bot esté desplegado y la URL sea correcta</span>'
+      + ' <button onclick="fetchStats()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;margin-left:8px">↻ Reintentar</button>';
+  }
+}
+
+async function fetchHistorial(mostrarEnSeccion) {
+  var wc = getWorkerConfig();
+  if (!wc.url) return;
+
+  try {
+    var res = await fetch(wc.url + '/api/historial', {
+      headers: { 'Authorization': 'Bearer ' + wc.key }
+    });
+    if (!res.ok) throw new Error();
+    var convos = await res.json();
+
+    renderConvos(convos, mostrarEnSeccion);
+  } catch {
+    if (mostrarEnSeccion) {
+      document.getElementById('historialList').innerHTML =
+        '<div style="color:var(--danger);font-size:13px;padding:20px;text-align:center">❌ No se pudo cargar el historial. Verifica la URL y clave del Worker.</div>';
+    }
+  }
+}
+
+function renderConvos(convos, enSeccion) {
+  // Mini-lista en dashboard
+  var dashEl = document.getElementById('convListDash');
+  var placeholder = document.getElementById('convPlaceholder');
+  if (placeholder) placeholder.style.display = 'none';
+
+  if (!convos || !convos.length) {
+    if (dashEl) dashEl.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:20px;text-align:center">📭 Aún no hay conversaciones. El bot responderá en cuanto llegue el primer mensaje.</div>';
+    return;
+  }
+
+  var countEl = document.getElementById('convCount');
+  if (countEl) countEl.textContent = convos.length + ' conversación' + (convos.length !== 1 ? 'es' : '');
+
+  function tiempoRelativo(isoStr) {
+    var diff = Math.floor((Date.now() - new Date(isoStr)) / 1000);
+    if (diff < 60)   return 'hace ' + diff + 's';
+    if (diff < 3600) return 'hace ' + Math.floor(diff/60) + 'min';
+    if (diff < 86400)return 'hace ' + Math.floor(diff/3600) + 'h';
+    return 'hace ' + Math.floor(diff/86400) + 'd';
+  }
+
+  var html = convos.slice(0, enSeccion ? 25 : 5).map(function(c) {
+    var initials = '+' + String(c.numero || '??').slice(-4);
+    return '<div class="conv-item">'
+      + '<div class="conv-avatar">' + initials + '</div>'
+      + '<div style="flex:1;min-width:0">'
+      +   '<div class="conv-name">+' + (c.numero || '—') + '</div>'
+      +   '<div class="conv-preview" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">👤 ' + (c.ultimoMensaje || '') + '</div>'
+      +   '<div class="conv-preview" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--neon)">🤖 ' + (c.ultimaRespuesta || '') + '</div>'
+      + '</div>'
+      + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">'
+      +   '<span class="conv-time">' + tiempoRelativo(c.hora) + '</span>'
+      +   '<span class="conv-badge">' + (c.mensajes || 1) + ' msgs</span>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  if (dashEl) dashEl.innerHTML = html;
+
+  if (enSeccion) {
+    var histEl = document.getElementById('historialList');
+    if (histEl) histEl.innerHTML = html;
+  }
+}
+
+async function probarConexion() {
+  var url = document.getElementById('cfgWorkerUrl').value.replace(/\/$/,'');
+  var key = document.getElementById('cfgApiKey').value;
+  var st  = document.getElementById('connStatus');
+  st.style.display = 'inline';
+  st.style.color   = 'var(--muted)';
+  st.textContent   = '⏳ Probando...';
+  try {
+    var res = await fetch(url + '/api/stats', { headers: { 'Authorization': 'Bearer ' + key } });
+    if (res.ok) {
+      st.style.color = 'var(--neon)';
+      st.textContent = '✅ Conectado correctamente';
+    } else {
+      st.style.color = 'var(--danger)';
+      st.textContent = '❌ Error ' + res.status + ' — Verifica la clave API';
+    }
+  } catch {
+    st.style.color = 'var(--danger)';
+    st.textContent = '❌ No responde — Verifica la URL';
+  }
+}
+
+// Auto-refresh cada 60 segundos cuando el panel está abierto
+setInterval(function() {
+  var wc = getWorkerConfig();
+  if (wc.url && document.getElementById('app').style.display !== 'none') {
+    fetchStats();
+    fetchHistorial(false);
+  }
+}, 60000);
 
 // ════════════════════════ AUTO-LOGIN ════════════════════════
 (function(){
