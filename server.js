@@ -10,7 +10,7 @@ const NOTION_TOKEN  = process.env.NOTION_TOKEN;
 const NOTION_DB_ID  = process.env.NOTION_DB_ID;
 const NOTION_CRM_ID = process.env.NOTION_CRM_ID;
 const RESEND_KEY    = process.env.RESEND_API_KEY;
-const FROM_EMAIL    = 'ceo@a2kdigitalstudio.online';
+const FROM_EMAIL    = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
 // ══════════════════════════════════════════════════
 //  PLANTILLAS DE EMAIL — PROFESIONALES
