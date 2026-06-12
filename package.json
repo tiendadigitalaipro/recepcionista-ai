@@ -4,6 +4,6 @@
   "description": "Sofia — Restaurante Pro (EN+ES) | A2K Digital Studio",
   "main": "server.js",
   "scripts": { "start": "node server.js", "create-agent": "node create-agent.js" },
-  "dependencies": { "dotenv": "^16.4.5", "express": "^4.19.2" },
+  "dependencies": { "dotenv": "^16.4.5", "express": "^4.19.2", "nodemailer": "^6.9.13" },
   "engines": { "node": ">=18.0.0" }
 }
