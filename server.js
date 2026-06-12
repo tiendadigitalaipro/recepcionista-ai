@@ -10,8 +10,8 @@ const PORT           = process.env.PORT || 3000;
 const NOTION_TOKEN   = process.env.NOTION_TOKEN;
 const NOTION_DB_ID   = process.env.NOTION_DB_ID;
 const NOTION_CRM_ID  = process.env.NOTION_CRM_ID;
-const GMAIL_USER     = process.env.GMAIL_USER;
-const GMAIL_PASS     = process.env.GMAIL_PASS;
+const GMAIL_USER     = process.env.EMAIL_USER || process.env.GMAIL_USER;
+const GMAIL_PASS     = process.env.EMAIL_PASS || process.env.GMAIL_PASS;
 
 // ══════════════════════════════════════════════════
 //  PLANTILLAS DE EMAIL — PROFESIONALES
@@ -371,7 +371,9 @@ async function obtenerProspectos(filtro) {
 // ══════════════════════════════════════════════════
 function crearTransporter() {
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.zoho.com',
+    port: 587,
+    secure: false,
     auth: { user: GMAIL_USER, pass: GMAIL_PASS }
   });
 }
