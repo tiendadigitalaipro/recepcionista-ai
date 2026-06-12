@@ -1,17 +1,16 @@
 require('dotenv').config();
 const express = require('express');
 const https   = require('https');
-const nodemailer = require('nodemailer');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT           = process.env.PORT || 3000;
-const NOTION_TOKEN   = process.env.NOTION_TOKEN;
-const NOTION_DB_ID   = process.env.NOTION_DB_ID;
-const NOTION_CRM_ID  = process.env.NOTION_CRM_ID;
-const GMAIL_USER     = process.env.EMAIL_USER || process.env.GMAIL_USER;
-const GMAIL_PASS     = process.env.EMAIL_PASS || process.env.GMAIL_PASS;
+const PORT          = process.env.PORT || 3000;
+const NOTION_TOKEN  = process.env.NOTION_TOKEN;
+const NOTION_DB_ID  = process.env.NOTION_DB_ID;
+const NOTION_CRM_ID = process.env.NOTION_CRM_ID;
+const RESEND_KEY    = process.env.RESEND_API_KEY;
+const FROM_EMAIL    = 'ceo@a2kdigitalstudio.online';
 
 // ══════════════════════════════════════════════════
 //  PLANTILLAS DE EMAIL — PROFESIONALES
@@ -512,22 +511,38 @@ async function obtenerProspectos(filtro) {
 }
 
 // ══════════════════════════════════════════════════
-//  EMAIL SENDER
+//  EMAIL SENDER — Resend API
 // ══════════════════════════════════════════════════
-function crearTransporter() {
-  return nodemailer.createTransport({
-    host: 'smtp.zoho.com',
-    port: 587,
-    secure: false,
-    auth: { user: GMAIL_USER, pass: GMAIL_PASS }
-  });
-}
-
-async function enviarEmail(to, subject, html, fromName) {
-  const t = crearTransporter();
-  return t.sendMail({
-    from: `"${fromName || 'A2K Digital Studio'}" <${GMAIL_USER}>`,
-    to, subject, html
+function enviarEmail(to, subject, html, fromName) {
+  return new Promise((resolve, reject) => {
+    if (!RESEND_KEY) return reject(new Error('RESEND_API_KEY no configurada'));
+    const body = JSON.stringify({
+      from: `${fromName || 'A2K Digital Studio'} <${FROM_EMAIL}>`,
+      to: [to],
+      subject,
+      html
+    });
+    const req = https.request({
+      hostname: 'api.resend.com',
+      path: '/emails',
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_KEY}`,
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body)
+      }
+    }, res => {
+      let d = '';
+      res.on('data', c => d += c);
+      res.on('end', () => {
+        const json = JSON.parse(d || '{}');
+        if (res.statusCode >= 200 && res.statusCode < 300) resolve(json);
+        else reject(new Error(json.message || `Error ${res.statusCode}`));
+      });
+    });
+    req.on('error', reject);
+    req.write(body);
+    req.end();
   });
 }
 
