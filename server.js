@@ -567,10 +567,12 @@ function extraerDatos(body, nombreAgente) {
 // ══════════════════════════════════════════════════
 app.get('/health', (_, res) => res.json({ status: 'ok', version: '2.0', agentes: ['sofia','ana','lucia','mary'] }));
 
-app.post('/sofia/webhook', (req, res) => { registrarLlamada(extraerDatos(req.body, '🍽️ Sofia — Restaurante')); res.json({ ok: true }); });
-app.post('/ana/webhook',   (req, res) => { registrarLlamada(extraerDatos(req.body, '🏥 Ana — Clinica'));       res.json({ ok: true }); });
-app.post('/lucia/webhook', (req, res) => { registrarLlamada(extraerDatos(req.body, '🏨 Lucia — Hotel'));       res.json({ ok: true }); });
-app.post('/mary/webhook',  (req, res) => { registrarLlamada(extraerDatos(req.body, '💅 Mary — Nail Studio')); res.json({ ok: true }); });
+app.post('/sofia/webhook',  (req, res) => { registrarLlamada(extraerDatos(req.body, '🍽️ Sofia — Restaurante'));  res.json({ ok: true }); });
+app.post('/ana/webhook',    (req, res) => { registrarLlamada(extraerDatos(req.body, '🏥 Ana — Clinica'));        res.json({ ok: true }); });
+app.post('/lucia/webhook',  (req, res) => { registrarLlamada(extraerDatos(req.body, '🏨 Lucia — Hotel'));        res.json({ ok: true }); });
+app.post('/mary/webhook',   (req, res) => { registrarLlamada(extraerDatos(req.body, '💅 Mary — Nail Studio'));  res.json({ ok: true }); });
+app.post('/marcos/webhook', (req, res) => { registrarLlamada(extraerDatos(req.body, '⚖️ Marcos — Abogados'));   res.json({ ok: true }); });
+app.post('/elena/webhook',  (req, res) => { registrarLlamada(extraerDatos(req.body, '🏠 Elena — Inmobiliaria')); res.json({ ok: true }); });
 
 // ══════════════════════════════════════════════════
 //  RUTAS — CRM EMAIL
