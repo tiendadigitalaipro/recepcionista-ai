@@ -306,6 +306,151 @@ const templates = {
         </div>
       </div>`
     }
+  },
+
+  // ── LATINOAMÉRICA — México, Colombia, Panamá, Venezuela ──
+  LATAM: {
+    nail: {
+      subject: "Tu salón pierde clientes por teléfono cada día — la IA lo resuelve",
+      html: (name, pais) => `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
+        <div style="background:#FF1493;padding:24px;text-align:center;border-radius:8px 8px 0 0">
+          <h1 style="color:#fff;margin:0;font-size:22px">💅 A2K Digital Studio</h1>
+          <p style="color:rgba(255,255,255,0.85);margin:6px 0 0;font-size:14px">Recepcionista de IA para Salones de Belleza</p>
+        </div>
+        <div style="padding:32px;background:#fff;border:1px solid #eee">
+          <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
+          <p>Cada llamada que no contestas en tu salón es una cita que se va a la competencia. Y eso pasa más de lo que crees.</p>
+          <p>Creamos a <strong>Mary</strong> — una recepcionista de inteligencia artificial que contesta todas tus llamadas, agenda citas y nunca deja a un cliente esperando. Las 24 horas, los 7 días.</p>
+          <div style="background:#FFF0F6;border-left:4px solid #FF1493;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#FF1493">Mary hace todo esto por tu salón:</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333">
+              <li>Contesta al instante — sin llamadas perdidas, sin clientes frustrados</li>
+              <li>Agenda citas y confirma por WhatsApp automáticamente</li>
+              <li>Trabaja noches, fines de semana y días festivos</li>
+              <li>Habla español perfectamente — sin acento, sin errores</li>
+            </ul>
+          </div>
+          <p><strong>Lo configuramos todo en 24 horas.</strong> Tú solo atiende a tus clientes.</p>
+          <div style="text-align:center;margin:32px 0">
+            <a href="https://wa.me/584164117331?text=Hola%2C%20quiero%20una%20demo%20gratuita%20para%20mi%20sal%C3%B3n"
+               style="background:#FF1493;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
+              🎙️ Quiero mi Demo Gratis
+            </a>
+          </div>
+          <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> — menos de lo que cuesta una empleada por semana. Sin contratos, cancela cuando quieras.</p>
+        </div>
+        <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
+          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#FF1493">Ver todos nuestros agentes</a>
+          <br>Responde BAJA para no recibir más mensajes
+        </div>
+      </div>`
+    },
+    restaurant: {
+      subject: "¿Tu restaurante pierde reservas por no contestar? Hay solución",
+      html: (name, pais) => `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
+        <div style="background:linear-gradient(135deg,#F97316,#FBBF24);padding:24px;text-align:center;border-radius:8px 8px 0 0">
+          <h1 style="color:#fff;margin:0;font-size:22px">🍽️ A2K Digital Studio</h1>
+          <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:14px">Recepcionista de IA para Restaurantes</p>
+        </div>
+        <div style="padding:32px;background:#fff;border:1px solid #eee">
+          <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
+          <p>Tu equipo está ocupado atendiendo mesas. ¿Quién está contestando el teléfono?</p>
+          <p>Creamos a <strong>Sofia</strong> — una hostess virtual que gestiona todas tus llamadas, toma reservas, responde preguntas del menú y nunca pone a nadie en espera.</p>
+          <div style="background:#FFF7ED;border-left:4px solid #F97316;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#F97316">Sofia trabaja para ti todos los días:</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333">
+              <li>Reservas para cualquier número de comensales</li>
+              <li>Menú del día, precios y opciones especiales</li>
+              <li>Eventos privados, cumpleaños y celebraciones</li>
+              <li>Disponible a cualquier hora — incluso cuando el restaurante está lleno</li>
+            </ul>
+          </div>
+          <p>Sin llamadas perdidas. Sin reservas que se van a otro lado. <strong>Configuración en 24 horas.</strong></p>
+          <div style="text-align:center;margin:32px 0">
+            <a href="https://wa.me/584164117331?text=Hola%2C%20quiero%20una%20demo%20para%20mi%20restaurante"
+               style="background:#F97316;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
+              🎙️ Quiero mi Demo Gratis
+            </a>
+          </div>
+          <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> · Sin contratos · Activación en 24 horas</p>
+        </div>
+        <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
+          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
+        </div>
+      </div>`
+    },
+    clinic: {
+      subject: "Tu clínica pierde pacientes por llamadas sin contestar — esto lo arregla",
+      html: (name, pais) => `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
+        <div style="background:linear-gradient(135deg,#06B6D4,#6366F1);padding:24px;text-align:center;border-radius:8px 8px 0 0">
+          <h1 style="color:#fff;margin:0;font-size:22px">🏥 A2K Digital Studio</h1>
+          <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:14px">Recepcionista de IA para Clínicas y Consultas Médicas</p>
+        </div>
+        <div style="padding:32px;background:#fff;border:1px solid #eee">
+          <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
+          <p>Cada paciente que no logra comunicarse con tu clínica llama a otra. Y muchos no vuelven a intentarlo.</p>
+          <p>Creamos a <strong>Ana</strong> — una recepcionista de IA tranquila y profesional, entrenada específicamente para el área médica.</p>
+          <div style="background:#F0F9FF;border-left:4px solid #06B6D4;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#06B6D4">Ana atiende tu consulta las 24 horas:</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333">
+              <li>Agenda citas por especialidad sin errores</li>
+              <li>Recoge los datos del paciente antes de la consulta</li>
+              <li>Detecta emergencias → orienta a llamar al número de emergencias</li>
+              <li>Preguntas sobre precios y seguros respondidas al instante</li>
+            </ul>
+          </div>
+          <p><strong>Más pacientes atendidos, menos llamadas perdidas.</strong> Todo listo en 24 horas.</p>
+          <div style="text-align:center;margin:32px 0">
+            <a href="https://wa.me/584164117331?text=Hola%2C%20quiero%20una%20demo%20para%20mi%20clinica"
+               style="background:#06B6D4;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
+              🎙️ Quiero mi Demo Gratis
+            </a>
+          </div>
+          <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> · Sin contratos · Activación en 24 horas</p>
+        </div>
+        <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
+          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#06B6D4">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
+        </div>
+      </div>`
+    },
+    hotel: {
+      subject: "Tus huéspedes no pueden esperar — un agente IA atiende al instante",
+      html: (name, pais) => `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
+        <div style="background:linear-gradient(135deg,#8B5CF6,#EC4899);padding:24px;text-align:center;border-radius:8px 8px 0 0">
+          <h1 style="color:#fff;margin:0;font-size:22px">🏨 A2K Digital Studio</h1>
+          <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:14px">Conserje IA para Hoteles y Hospedajes</p>
+        </div>
+        <div style="padding:32px;background:#fff;border:1px solid #eee">
+          <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
+          <p>Los viajeros de hoy buscan y reservan de noche o los fines de semana. Si no contestas, reservan en otro hotel.</p>
+          <p>Creamos a <strong>Lucia</strong> — una conserje virtual elegante que atiende reservas, preguntas de habitaciones, paquetes y servicios con la calidad que tus huéspedes merecen.</p>
+          <div style="background:#FAF5FF;border-left:4px solid #8B5CF6;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#8B5CF6">Lucia trabaja para tu hotel sin parar:</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333">
+              <li>Reservas con tarifas y disponibilidad al instante</li>
+              <li>Check-in, check-out y políticas del hotel</li>
+              <li>Piscina, restaurante, spa y amenidades</li>
+              <li>Paquetes especiales y temporadas altas</li>
+            </ul>
+          </div>
+          <p><strong>Más reservas directas, menos intermediarios.</strong> Lista en 24 horas.</p>
+          <div style="text-align:center;margin:32px 0">
+            <a href="https://wa.me/584164117331?text=Hola%2C%20quiero%20una%20demo%20para%20mi%20hotel"
+               style="background:#8B5CF6;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
+              🎙️ Quiero mi Demo Gratis
+            </a>
+          </div>
+          <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> · Sin contratos · Activación en 24 horas</p>
+        </div>
+        <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
+          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#8B5CF6">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
+        </div>
+      </div>`
+    }
   }
 };
 
@@ -421,15 +566,16 @@ app.post('/crm/send', async (req, res) => {
   const { email, nombre, industria, pais, pageId } = req.body;
   if (!email || !industria || !pais) return res.status(400).json({ error: 'Faltan campos: email, industria, pais' });
 
-  const lang = pais === 'ES' ? 'ES' : 'EN';
+  const latamPaises = ['MX','CO','PA','VE','AR','PE','CL','EC'];
+  const lang = pais === 'ES' ? 'ES' : latamPaises.includes(pais) ? 'LATAM' : 'EN';
   const ind  = industria.toLowerCase().includes('nail') || industria.includes('uña') ? 'nail'
              : industria.toLowerCase().includes('rest') ? 'restaurant'
              : industria.toLowerCase().includes('clin') || industria.toLowerCase().includes('medic') ? 'clinic'
              : 'hotel';
 
-  const tpl = templates[lang]?.[ind] || templates['EN']['nail'];
+  const tpl = templates[lang]?.[ind] || templates['ES']['nail'];
   try {
-    await enviarEmail(email, tpl.subject, tpl.html(nombre), 'A2K Digital Studio');
+    await enviarEmail(email, tpl.subject, typeof tpl.html === 'function' ? tpl.html(nombre, pais) : tpl.html, 'A2K Digital Studio');
     if (pageId && NOTION_CRM_ID) await actualizarProspecto(pageId, '✉️ Enviado', `Email enviado: ${tpl.subject}`);
     res.json({ ok: true, subject: tpl.subject, to: email });
   } catch(e) {
@@ -452,7 +598,10 @@ app.post('/crm/campaign', async (req, res) => {
         const props = p.properties;
         const email  = props['Email']?.email;
         const nombre = props['Contacto']?.rich_text?.[0]?.text?.content || '';
-        const pais   = props['Pais']?.select?.name?.includes('España') ? 'ES' : 'EN';
+        const paisNombre = props['Pais']?.select?.name || '';
+        const latamCodes = ['MX','CO','PA','VE','AR','PE','CL','EC','Mexico','Colombia','Panama','Venezuela'];
+        const paisLang = paisNombre.includes('España') ? 'ES'
+                       : latamCodes.some(c => paisNombre.includes(c)) ? 'LATAM' : 'EN';
         const ind    = props['Industria']?.select?.name?.toLowerCase() || 'nail';
         if (!email) continue;
 
@@ -460,8 +609,8 @@ app.post('/crm/campaign', async (req, res) => {
                      : ind.includes('rest') ? 'restaurant'
                      : ind.includes('clin') || ind.includes('medic') ? 'clinic'
                      : 'hotel';
-        const tpl = templates[pais]?.[indKey] || templates['EN']['nail'];
-        await enviarEmail(email, tpl.subject, tpl.html(nombre));
+        const tpl = templates[paisLang]?.[indKey] || templates['ES']['nail'];
+        await enviarEmail(email, tpl.subject, typeof tpl.html === 'function' ? tpl.html(nombre, paisNombre) : tpl.html);
         await actualizarProspecto(p.id, '✉️ Enviado', `Campaña: ${new Date().toLocaleDateString()}`);
         enviados++;
         await new Promise(r => setTimeout(r, 2000)); // 2 segundos entre emails
