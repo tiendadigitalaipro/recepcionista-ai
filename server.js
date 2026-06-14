@@ -12,6 +12,34 @@ const NOTION_CRM_ID = process.env.NOTION_CRM_ID;
 const RESEND_KEY    = process.env.RESEND_API_KEY;
 const FROM_EMAIL    = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
+// URLs TikTok demos publicados
+const TIKTOK_MARY  = 'https://www.tiktok.com/@zyncelectronics2026/video/7650993599638785287';
+const TIKTOK_SOFIA = 'https://www.tiktok.com/@zyncelectronics2026/video/7650986004299468040';
+const TIKTOK_ANA   = 'https://www.tiktok.com/@zyncelectronics2026/video/7651006531256798481';
+const SHOWCASE_URL = 'https://tiendadigitalaipro.github.io/recepcionista-ai-showcase';
+
+const demoBlockES = (url, agent) =>
+  `<div style="margin:20px 0;text-align:center">` +
+  `<p style="font-size:13px;color:#444;margin:0 0 8px;font-weight:600">👇 Mira cómo funciona en 90 segundos:</p>` +
+  `<a href="${url}" style="display:block;background:#111827;border-radius:10px;padding:20px 16px;text-decoration:none">` +
+  `<span style="color:#fff;font-size:28px;line-height:1">▶</span>` +
+  `<p style="color:#fff;font-weight:bold;margin:6px 0 2px;font-size:14px">Ver a ${agent} en acción — Demo en vivo</p>` +
+  `<p style="color:rgba(255,255,255,0.5);font-size:11px;margin:0">TikTok · @zyncelectronics2026</p>` +
+  `</a></div>` +
+  `<p style="font-size:13px;color:#777;border-top:1px solid #f0f0f0;padding-top:14px;margin-top:4px">` +
+  `<strong>P.D.:</strong> La demo dura 90 segundos. Después de verla dime si te la imaginas contestando en tu negocio. 😊</p>`;
+
+const demoBlockEN = (url, agent) =>
+  `<div style="margin:20px 0;text-align:center">` +
+  `<p style="font-size:13px;color:#444;margin:0 0 8px;font-weight:600">👇 Watch how it works in 90 seconds:</p>` +
+  `<a href="${url}" style="display:block;background:#111827;border-radius:10px;padding:20px 16px;text-decoration:none">` +
+  `<span style="color:#fff;font-size:28px;line-height:1">▶</span>` +
+  `<p style="color:#fff;font-weight:bold;margin:6px 0 2px;font-size:14px">Watch ${agent} in action — Live Demo</p>` +
+  `<p style="color:rgba(255,255,255,0.5);font-size:11px;margin:0">TikTok · @zyncelectronics2026</p>` +
+  `</a></div>` +
+  `<p style="font-size:13px;color:#777;border-top:1px solid #f0f0f0;padding-top:14px;margin-top:4px">` +
+  `<strong>P.S.:</strong> The demo is 90 seconds. Watch it and tell me if you can picture this answering for your business. 😊</p>`;
+
 // ══════════════════════════════════════════════════
 //  PLANTILLAS DE EMAIL — PROFESIONALES
 // ══════════════════════════════════════════════════
@@ -49,6 +77,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Starting at <strong>$97/month</strong> — less than one missed appointment per month. No contracts, cancel anytime.</p>
+          ${demoBlockEN(TIKTOK_MARY, 'Mary')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · Venezuela 🇻🇪 · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#FF1493">See all our agents</a>
@@ -85,6 +114,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Starting at <strong>$97/month</strong> · Setup in 24 hours · No contracts</p>
+          ${demoBlockEN(TIKTOK_SOFIA, 'Sofia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">See all our agents</a> · Reply STOP to unsubscribe
@@ -120,6 +150,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Starting at <strong>$97/month</strong> · HIPAA-conscious design · Setup in 24 hours</p>
+          ${demoBlockEN(TIKTOK_ANA, 'Ana')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#06B6D4">See all our agents</a> · Reply STOP to unsubscribe
@@ -155,6 +186,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Starting at <strong>$97/month</strong> · Setup in 24 hours · No long-term contracts</p>
+          ${demoBlockEN(SHOWCASE_URL, 'Lucia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#8B5CF6">See all our agents</a> · Reply STOP to unsubscribe
@@ -194,6 +226,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>97€/mes</strong> — menos que una cita perdida al mes. Sin permanencia, cancela cuando quieras.</p>
+          ${demoBlockES(TIKTOK_MARY, 'Mary')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#FF1493">Ver todos nuestros agentes</a>
@@ -229,6 +262,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>97€/mes</strong> · Configuración en 24h · Sin permanencia</p>
+          ${demoBlockES(TIKTOK_SOFIA, 'Sofia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
@@ -264,6 +298,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>97€/mes</strong> · Configuración en 24h · Sin permanencia</p>
+          ${demoBlockES(TIKTOK_ANA, 'Ana')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#06B6D4">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
@@ -299,6 +334,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>97€/mes</strong> · Configuración en 24h · Sin permanencia</p>
+          ${demoBlockES(SHOWCASE_URL, 'Lucia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#8B5CF6">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
@@ -338,6 +374,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> — menos de lo que cuesta una empleada por semana. Sin contratos, cancela cuando quieras.</p>
+          ${demoBlockES(TIKTOK_MARY, 'Mary')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#FF1493">Ver todos nuestros agentes</a>
@@ -374,6 +411,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> · Sin contratos · Activación en 24 horas</p>
+          ${demoBlockES(TIKTOK_SOFIA, 'Sofia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
@@ -409,6 +447,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> · Sin contratos · Activación en 24 horas</p>
+          ${demoBlockES(TIKTOK_ANA, 'Ana')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#06B6D4">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
@@ -444,6 +483,7 @@ const templates = {
             </a>
           </div>
           <p style="color:#666;font-size:14px">Desde <strong>$97 USD/mes</strong> · Sin contratos · Activación en 24 horas</p>
+          ${demoBlockES(SHOWCASE_URL, 'Lucia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#8B5CF6">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
