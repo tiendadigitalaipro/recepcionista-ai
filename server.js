@@ -681,6 +681,75 @@ app.post('/crm/campaign', async (req, res) => {
   })();
 });
 
+// ── Seguimiento a prospecto interesado ───────────────
+app.post('/crm/seguimiento', async (req, res) => {
+  const { email, pageId, nombre, industria, pais } = req.body;
+  if (!email) return res.status(400).json({ error: 'Falta email' });
+
+  // Detectar agente y demo según industria
+  const ind = (industria || '').toLowerCase();
+  let agente = 'Mary', tiktok = TIKTOK_MARY, precio = '$97/mes', emoji = '💅';
+  if (ind.includes('rest') || ind.includes('comid') || ind.includes('gastro')) {
+    agente = 'Sofia'; tiktok = TIKTOK_SOFIA; precio = '$97/mes'; emoji = '🍽️';
+  } else if (ind.includes('clin') || ind.includes('medic') || ind.includes('dental') || ind.includes('salud')) {
+    agente = 'Ana'; tiktok = TIKTOK_ANA; precio = '$97/mes'; emoji = '🏥';
+  } else if (ind.includes('hotel') || ind.includes('boutique') || ind.includes('hosped')) {
+    agente = 'Lucia'; tiktok = TIKTOK_MARY; precio = '$97/mes'; emoji = '🏨';
+  } else if (ind.includes('taller') || ind.includes('mecani') || ind.includes('auto')) {
+    agente = 'Carlos'; tiktok = TIKTOK_SOFIA; precio = '$97/mes'; emoji = '🚗';
+  } else if (ind.includes('evento') || ind.includes('catering') || ind.includes('boda')) {
+    agente = 'Valentina'; tiktok = TIKTOK_MARY; precio = '$97/mes'; emoji = '🎉';
+  } else if (ind.includes('viaje') || ind.includes('turis') || ind.includes('agencia')) {
+    agente = 'Camila'; tiktok = TIKTOK_MARY; precio = '$97/mes'; emoji = '✈️';
+  } else if (ind.includes('barber') || ind.includes('peluc') || ind.includes('salon')) {
+    agente = 'Mary'; tiktok = TIKTOK_MARY; precio = '$97/mes'; emoji = '💈';
+  }
+
+  const nombreMostrar = nombre || 'por ahí';
+  const html = `
+  <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
+    <div style="background:#111827;padding:24px;text-align:center;border-radius:8px 8px 0 0">
+      <h1 style="color:#fff;margin:0;font-size:22px">${emoji} A2K Digital Studio</h1>
+      <p style="color:rgba(255,255,255,0.7);margin:6px 0 0;font-size:13px">Recepcionistas IA para tu negocio</p>
+    </div>
+    <div style="padding:32px;background:#fff;border:1px solid #eee;border-top:none">
+      <p style="font-size:16px">Hola${nombre ? ' ' + nombre : ''},</p>
+      <p>Vi que te llegó nuestro correo. Quería escribirte personalmente para preguntarte: <strong>¿tuviste oportunidad de ver cómo funciona ${agente}?</strong></p>
+      <p>Muchos dueños de negocios como tú me dicen lo mismo: <em>"Pierdo clientes porque no puedo contestar siempre."</em> ${agente} resuelve exactamente eso — atiende cada llamada, agenda citas y da información <strong>24/7 sin que tú hagas nada.</strong></p>
+      <div style="background:#F0FDF4;border-left:4px solid #22C55E;padding:16px;margin:24px 0;border-radius:4px">
+        <p style="margin:0;font-weight:bold;color:#15803D">¿Qué incluye tu suscripción?</p>
+        <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+          <li>Agente de voz IA personalizado para tu negocio</li>
+          <li>Responde llamadas en español e inglés</li>
+          <li>Agenda citas y envía confirmaciones por WhatsApp</li>
+          <li>Configurado en 24 horas — sin contratos, cancelas cuando quieras</li>
+          <li>Soporte directo conmigo (Abigail, A2K Digital Studio)</li>
+        </ul>
+      </div>
+      <p style="font-size:15px;font-weight:bold;color:#111">Precio: ${precio} — sin sorpresas, sin letra pequeña.</p>
+      ${demoBlockES(tiktok, agente)}
+      <div style="text-align:center;margin:28px 0">
+        <a href="https://wa.me/584164117331?text=Hola%20Abigail%2C%20me%20interesa%20el%20agente%20${agente}%20para%20mi%20negocio"
+           style="background:#25D366;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
+          💬 Quiero empezar — WhatsApp
+        </a>
+      </div>
+      <p style="color:#888;font-size:13px;text-align:center">O responde este correo y con gusto te hago una demo gratis en vivo.</p>
+    </div>
+    <div style="background:#F9FAFB;padding:16px;text-align:center;border-radius:0 0 8px 8px;border:1px solid #eee;border-top:none">
+      <p style="margin:0;font-size:12px;color:#999">A2K Digital Studio · Venezuela · <a href="${SHOWCASE_URL}" style="color:#6366F1">Ver todos los agentes</a></p>
+    </div>
+  </div>`;
+
+  try {
+    await enviarEmail(email, `${agente} está lista para tu negocio — demo gratis disponible`, html, 'Abigail — A2K Digital Studio');
+    if (pageId) await actualizarProspecto(pageId, '🔥 Interesado', `Seguimiento enviado: ${new Date().toLocaleDateString()}`);
+    res.json({ ok: true, agente, to: email });
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Ver prospectos pendientes
 app.get('/crm/pendientes', async (req, res) => {
   const data = await obtenerProspectos();
