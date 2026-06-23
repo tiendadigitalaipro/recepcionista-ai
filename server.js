@@ -340,6 +340,51 @@ const templates = {
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#8B5CF6">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
         </div>
       </div>`
+    },
+    barber: {
+      subject: "Tu barbería pierde turnos cada día — esto lo resuelve en 24h",
+      html: (name, pais) => `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
+        <div style="background:linear-gradient(135deg,#111827,#374151);padding:24px;text-align:center;border-radius:8px 8px 0 0">
+          <h1 style="color:#fff;margin:0;font-size:22px">💈 A2K Digital Studio</h1>
+          <p style="color:rgba(255,255,255,0.75);margin:6px 0 0;font-size:14px">Tecnología profesional para barberías modernas</p>
+        </div>
+        <div style="padding:32px;background:#fff;border:1px solid #eee">
+          <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
+          <p>Cada cliente que llama y no contesta nadie se va a la barbería de al lado. Y no siempre vuelve.</p>
+          <p>Tenemos dos herramientas diseñadas específicamente para barberías como la tuya:</p>
+          <div style="background:#F0FDF4;border-left:4px solid #22C55E;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#15803D">💬 Recepcionista IA — 97€/mes</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Contesta llamadas y agenda turnos automáticamente</li>
+              <li>Disponible 24/7 — incluso cuando estás con las manos ocupadas</li>
+              <li>Habla con tus clientes de forma natural, en español</li>
+              <li>Confirmaciones automáticas por WhatsApp</li>
+            </ul>
+          </div>
+          <div style="background:#FFF7ED;border-left:4px solid #F59E0B;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#B45309">🖥️ Barbería Pro — Pago único 25€</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Software completo de gestión para tu barbería</li>
+              <li>Control de clientes, citas, caja y reportes del día</li>
+              <li>Sin mensualidades — tuyo para siempre</li>
+              <li>Funciona sin internet, desde cualquier dispositivo</li>
+            </ul>
+          </div>
+          <p style="font-size:15px"><strong>Configúrate en 24 horas.</strong> Sin contratos, sin sorpresas.</p>
+          <div style="text-align:center;margin:32px 0">
+            <a href="https://wa.me/584164117331?text=Hola%20Abigail%2C%20me%20interesa%20la%20tecnologia%20para%20mi%20barberia"
+               style="background:#111827;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
+              💬 Quiero saber más — WhatsApp
+            </a>
+          </div>
+          <p style="color:#888;font-size:13px;text-align:center">O responde este correo y te hago una demo gratis en vivo.</p>
+          ${demoBlockES(TIKTOK_MARY, 'Mary')}
+        </div>
+        <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
+          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#374151">Ver todos nuestros servicios</a> · Responde BAJA para cancelar
+        </div>
+      </div>`
     }
   },
 
@@ -489,8 +534,54 @@ const templates = {
           A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#8B5CF6">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
         </div>
       </div>`
+    },
+    barber: {
+      subject: "Tu barbería pierde turnos cada día — esto lo resuelve en 24h",
+      html: (name, pais) => `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
+        <div style="background:linear-gradient(135deg,#111827,#374151);padding:24px;text-align:center;border-radius:8px 8px 0 0">
+          <h1 style="color:#fff;margin:0;font-size:22px">💈 A2K Digital Studio</h1>
+          <p style="color:rgba(255,255,255,0.75);margin:6px 0 0;font-size:14px">Tecnología profesional para barberías modernas</p>
+        </div>
+        <div style="padding:32px;background:#fff;border:1px solid #eee">
+          <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
+          <p>Cada cliente que llama y no contesta nadie se va a la barbería de al lado. Y no siempre vuelve.</p>
+          <p>Tenemos dos herramientas diseñadas específicamente para barberías como la tuya:</p>
+          <div style="background:#F0FDF4;border-left:4px solid #22C55E;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#15803D">💬 Recepcionista IA — $97 USD/mes</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Contesta llamadas y agenda turnos automáticamente</li>
+              <li>Disponible 24/7 — incluso cuando estás con las manos ocupadas</li>
+              <li>Habla con tus clientes de forma natural, en español</li>
+              <li>Confirmaciones automáticas por WhatsApp</li>
+            </ul>
+          </div>
+          <div style="background:#FFF7ED;border-left:4px solid #F59E0B;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#B45309">🖥️ Barbería Pro — Pago único $25</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Software completo de gestión para tu barbería</li>
+              <li>Control de clientes, citas, caja y reportes del día</li>
+              <li>Sin mensualidades — tuyo para siempre</li>
+              <li>Funciona sin internet, desde cualquier dispositivo</li>
+            </ul>
+          </div>
+          <p style="font-size:15px">Muchas barberías usan las dos juntas: el software maneja el día a día y la IA atiende las llamadas. <strong>Configúrate en 24 horas.</strong></p>
+          <div style="text-align:center;margin:32px 0">
+            <a href="https://wa.me/584164117331?text=Hola%20Abigail%2C%20me%20interesa%20la%20tecnologia%20para%20mi%20barberia"
+               style="background:#111827;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
+              💬 Quiero saber más — WhatsApp
+            </a>
+          </div>
+          <p style="color:#888;font-size:13px;text-align:center">O responde este correo y te hago una demo gratis en vivo.</p>
+          ${demoBlockES(TIKTOK_MARY, 'Mary')}
+        </div>
+        <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
+          A2K Digital Studio · Venezuela · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#374151">Ver todos nuestros servicios</a> · Responde BAJA para cancelar
+        </div>
+      </div>`
     }
-  }
+  },
+
 };
 
 // ══════════════════════════════════════════════════
@@ -632,6 +723,7 @@ app.post('/crm/send', async (req, res) => {
   const ind  = industria.toLowerCase().includes('nail') || industria.includes('uña') ? 'nail'
              : industria.toLowerCase().includes('rest') ? 'restaurant'
              : industria.toLowerCase().includes('clin') || industria.toLowerCase().includes('medic') ? 'clinic'
+             : industria.toLowerCase().includes('barber') || industria.toLowerCase().includes('peluc') || industria.toLowerCase().includes('salon') ? 'barber'
              : 'hotel';
 
   const tpl = templates[lang]?.[ind] || templates['ES']['nail'];
@@ -669,6 +761,7 @@ app.post('/crm/campaign', async (req, res) => {
         const indKey = ind.includes('nail') || ind.includes('uña') ? 'nail'
                      : ind.includes('rest') ? 'restaurant'
                      : ind.includes('clin') || ind.includes('medic') ? 'clinic'
+                     : ind.includes('barber') || ind.includes('peluc') || ind.includes('salon') ? 'barber'
                      : 'hotel';
         const tpl = templates[paisLang]?.[indKey] || templates['ES']['nail'];
         await enviarEmail(email, tpl.subject, typeof tpl.html === 'function' ? tpl.html(nombre, paisNombre) : tpl.html);
