@@ -86,42 +86,52 @@ const templates = {
       </div>`
     },
     restaurant: {
-      subject: "Restaurants using AI answer 3x more calls — here's how",
+      subject: "Dos herramientas de IA que tu restaurante necesita ahora mismo",
       html: (name) => `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
         <div style="background:linear-gradient(135deg,#F97316,#FBBF24);padding:24px;text-align:center;border-radius:8px 8px 0 0">
           <h1 style="color:#fff;margin:0;font-size:22px">🍽️ A2K Digital Studio</h1>
-          <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:14px">AI Voice Receptionists for Restaurants</p>
+          <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:14px">Tecnología inteligente para restaurantes modernos</p>
         </div>
         <div style="padding:32px;background:#fff;border:1px solid #eee">
-          <p style="font-size:16px">Hi${name ? ' ' + name : ''},</p>
-          <p>Your staff is busy serving tables. Who's answering the phone?</p>
-          <p>We built <strong>Sofia</strong> — an AI hostess that handles every call, takes reservations, answers menu questions, and never puts anyone on hold.</p>
+          <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
+          <p>Tu equipo está ocupado sirviendo mesas. Mientras tanto, el teléfono suena, las comandas se acumulan y las reservas se pierden.</p>
+          <p>Tenemos dos herramientas creadas específicamente para restaurantes como el tuyo:</p>
           <div style="background:#FFF7ED;border-left:4px solid #F97316;padding:16px;margin:24px 0;border-radius:4px">
-            <p style="margin:0;font-weight:bold;color:#F97316">Sofia handles all of this automatically:</p>
-            <ul style="margin:8px 0 0;padding-left:20px;color:#333">
-              <li>Reservations for any party size</li>
-              <li>Daily specials & menu questions</li>
-              <li>Private event inquiries</li>
-              <li>English & Spanish — automatically detected</li>
+            <p style="margin:0;font-weight:bold;color:#C2410C">🎙️ Sofia — Recepcionista IA · 97€/mes</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Contesta llamadas y toma reservas automáticamente</li>
+              <li>Responde preguntas del menú, horarios y precios</li>
+              <li>Disponible 24/7 — incluso cuando el restaurante está lleno</li>
+              <li>Inglés y español — detección automática</li>
             </ul>
           </div>
-          <p>No more missed reservations. No more unanswered calls during the dinner rush.</p>
+          <div style="background:#F0FDF4;border-left:4px solid #22C55E;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#15803D">🖥️ A2K Comandas — Sistema POS · 97€/mes</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Mesas en tiempo real con comandas digitales para cocina</li>
+              <li>Menú visual con fotos, precios y categorías</li>
+              <li>Dashboard de ventas del día, historial y reportes</li>
+              <li>Sin papeles, sin errores — desde cualquier tablet o celular</li>
+            </ul>
+          </div>
+          <p style="font-size:15px">Muchos restaurantes usan las dos juntas: el POS maneja la operación del día y la IA contesta el teléfono. <strong>Ambas listas en 24 horas.</strong></p>
           <div style="text-align:center;margin:32px 0">
-            <a href="https://wa.me/584164117331?text=Hi%2C%20I%20want%20a%20free%20demo%20for%20my%20restaurant"
+            <a href="https://wa.me/584164117331?text=Hola%20Abigail%2C%20me%20interesan%20las%20herramientas%20para%20mi%20restaurante"
                style="background:#F97316;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
-              🎙️ Get My Free Demo
+              💬 Quiero saber más — WhatsApp
             </a>
           </div>
-          <p style="color:#666;font-size:14px">Starting at <strong>$97/month</strong> · Setup in 24 hours · No contracts</p>
-          ${demoBlockEN(TIKTOK_SOFIA, 'Sofia')}
+          <p style="color:#888;font-size:13px;text-align:center">O responde este correo y te hacemos una demo gratis en vivo.</p>
+          ${demoBlockES(TIKTOK_SOFIA, 'Sofia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
-          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">See all our agents</a> · Reply STOP to unsubscribe
+          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">Ver todos nuestros servicios</a>
+          <br>Para darte de baja responde BAJA
         </div>
-      </div>`
+      </div>\`
     },
-    clinic: {
+        clinic: {
       subject: "Your clinic misses 30% of patient calls — AI ends that",
       html: (name) => `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
@@ -235,41 +245,51 @@ const templates = {
       </div>`
     },
     restaurant: {
-      subject: "Tu restaurante pierde reservas por no contestar el teléfono",
-      html: (name) => `
+      subject: "Dos herramientas de IA que tu restaurante necesita ahora mismo",
+      html: (name, pais) => `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
         <div style="background:linear-gradient(135deg,#F97316,#FBBF24);padding:24px;text-align:center;border-radius:8px 8px 0 0">
           <h1 style="color:#fff;margin:0;font-size:22px">🍽️ A2K Digital Studio</h1>
-          <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:14px">Recepcionistas de IA para Restaurantes</p>
+          <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:14px">Tecnología inteligente para restaurantes modernos</p>
         </div>
         <div style="padding:32px;background:#fff;border:1px solid #eee">
           <p style="font-size:16px">Hola${name ? ' ' + name : ''},</p>
-          <p>Tu equipo está sirviendo mesas. ¿Quién contesta el teléfono?</p>
-          <p>Hemos creado a <strong>Sofia</strong> — una hostess de IA que gestiona todas las llamadas, toma reservas, responde preguntas del menú y nunca deja a nadie en espera.</p>
+          <p>Tu equipo está ocupado sirviendo mesas. Mientras tanto, el teléfono suena, las comandas se acumulan y las reservas se pierden.</p>
+          <p>Tenemos dos herramientas creadas específicamente para restaurantes como el tuyo:</p>
           <div style="background:#FFF7ED;border-left:4px solid #F97316;padding:16px;margin:24px 0;border-radius:4px">
-            <p style="margin:0;font-weight:bold;color:#F97316">Sofia gestiona todo esto automáticamente:</p>
-            <ul style="margin:8px 0 0;padding-left:20px;color:#333">
-              <li>Reservas para cualquier número de comensales</li>
-              <li>Menú del día y preguntas sobre la carta</li>
-              <li>Eventos privados y celebraciones</li>
+            <p style="margin:0;font-weight:bold;color:#C2410C">🎙️ Sofia — Recepcionista IA · $97 USD/mes</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Contesta llamadas y toma reservas automáticamente</li>
+              <li>Responde preguntas del menú, horarios y precios</li>
+              <li>Disponible 24/7 — incluso cuando el restaurante está lleno</li>
               <li>Inglés y español — detección automática</li>
             </ul>
           </div>
+          <div style="background:#F0FDF4;border-left:4px solid #22C55E;padding:16px;margin:24px 0;border-radius:4px">
+            <p style="margin:0;font-weight:bold;color:#15803D">🖥️ A2K Comandas — Sistema POS · $29 USD/mes</p>
+            <ul style="margin:8px 0 0;padding-left:20px;color:#333;font-size:14px">
+              <li>Mesas en tiempo real con comandas digitales para cocina</li>
+              <li>Menú visual con fotos, precios y categorías</li>
+              <li>Dashboard de ventas del día, historial y reportes</li>
+              <li>Sin papeles, sin errores — desde cualquier tablet o celular</li>
+            </ul>
+          </div>
+          <p style="font-size:15px">Muchos restaurantes usan las dos juntas: el POS maneja la operación del día y la IA contesta el teléfono. <strong>Ambas listas en 24 horas.</strong></p>
           <div style="text-align:center;margin:32px 0">
-            <a href="https://wa.me/584164117331?text=Hola%2C%20quiero%20una%20demo%20gratuita%20para%20mi%20restaurante"
+            <a href="https://wa.me/584164117331?text=Hola%20Abigail%2C%20me%20interesan%20las%20herramientas%20para%20mi%20restaurante"
                style="background:#F97316;color:#fff;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
-              🎙️ Quiero mi Demo Gratis
+              💬 Quiero saber más — WhatsApp
             </a>
           </div>
-          <p style="color:#666;font-size:14px">Desde <strong>97€/mes</strong> · Configuración en 24h · Sin permanencia</p>
+          <p style="color:#888;font-size:13px;text-align:center">O responde este correo y te hacemos una demo gratis en vivo.</p>
           ${demoBlockES(TIKTOK_SOFIA, 'Sofia')}
         </div>
         <div style="background:#f5f5f5;padding:16px;text-align:center;border-radius:0 0 8px 8px;font-size:12px;color:#999">
-          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">Ver todos nuestros agentes</a> · Responde BAJA para cancelar
+          A2K Digital Studio · <a href="https://tiendadigitalaipro.github.io/recepcionista-ai-showcase" style="color:#F97316">Ver todos nuestros servicios</a> · Responde BAJA para cancelar
         </div>
-      </div>`
+      </div>\`
     },
-    clinic: {
+        clinic: {
       subject: "El 30% de las llamadas a tu clínica se pierden — la IA lo resuelve",
       html: (name) => `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a">
